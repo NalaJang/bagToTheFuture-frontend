@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 import 'package:rest_api_ex/config/gaps.dart';
 
 import '../../config/social_sign_in.dart';
-import '../../data/source/rest_client.dart';
 import 'sign_in_email.dart';
 
 class MainSignInPage extends StatelessWidget {
@@ -20,10 +18,10 @@ class MainSignInPage extends StatelessWidget {
             signInTitle(),
 
             // 카카오톡 로그인 버튼
-            kakaoSignInButton(),
+            kakaoSignInButton(context),
 
             // 네이버 로그인 버튼
-            naverSignInButton(),
+            naverSignInButton(context),
 
             // 이메일 로그인 버튼
             emailSignInButton(context),
@@ -52,20 +50,20 @@ class MainSignInPage extends StatelessWidget {
   }
 
   // 카카오톡 로그인
-  Widget kakaoSignInButton() {
+  Widget kakaoSignInButton(BuildContext context) {
     return ElevatedButton(
       onPressed: () async {
-        await SocialSignIn().kakaoTalkSignInProcess();
+        await SocialSignIn(context).kakaoTalkSignInProcess();
       },
       child: Text('카카오톡 로그인'),
     );
   }
 
   // 네이버 로그인
-  Widget naverSignInButton() {
+  Widget naverSignInButton(BuildContext context) {
     return ElevatedButton(
       onPressed: () async {
-        await SocialSignIn().naverSignInProcess();
+        await SocialSignIn(context).naverSignInProcess();
       },
       child: Text('네이버 로그인'),
     );

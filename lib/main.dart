@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:rest_api_ex/data/di.dart';
-import 'package:rest_api_ex/ui/home_pages.dart';
+
+import 'ui/bottom_nav_controller.dart';
+import 'ui/my_bottom_navigation.dart';
+import 'ui/sign_in/user_provider.dart';
 
 void main() async {
   await initModule();
@@ -12,9 +16,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: HomePages(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<BottomNavController>(
+            create: (_) => BottomNavController()),
+        ChangeNotifierProvider<UserProvider>(create: (_) => UserProvider()),
+      ],
+      child: const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: MyBottomNavigation(),
+      ),
     );
   }
 }

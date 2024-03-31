@@ -38,11 +38,11 @@ dependencies:
   # sdk: '>=2.19.6 <3.0.0' 사이에서 사용하는 http 버전
   http: ^1.2.1
   provider: ^6.1.1
-  dio: ^5.4.1
+  dio: 5.4.1
   json_annotation: ^4.8.1
   build_runner: ^2.3.3
   retrofit: ^4.1.0
-  flutter_secure_storage: ^9.0.0
+  flutter_secure_storage: ^4.2.1
   modal_progress_hud_nsn: ^0.5.1
   get_it:
   image_picker: ^1.0.7

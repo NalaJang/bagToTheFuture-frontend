@@ -77,7 +77,11 @@ class _RestClient implements RestClient {
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{
+      r'Content-Type': 'application/json',
+      r'accessToken': 'true',
+    };
+    _headers.removeWhere((k, v) => v == null);
     final _data = {
       'email': email,
       'password': password,
@@ -87,6 +91,7 @@ class _RestClient implements RestClient {
       method: 'POST',
       headers: _headers,
       extra: _extra,
+      contentType: 'application/json',
     )
             .compose(
               _dio.options,

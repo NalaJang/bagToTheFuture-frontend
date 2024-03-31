@@ -1,4 +1,4 @@
-import 'package:dio/dio.dart';
+import 'package:dio/dio.dart' hide Headers;
 import 'package:rest_api_ex/data/model/sign_in_response.dart';
 import 'package:retrofit/http.dart';
 
@@ -18,6 +18,10 @@ abstract class RestClient {
   Future<void> oauthLogin(@Body() Map<String, dynamic> body);
 
   @POST('/member/login')
+  @Headers({
+    'Content-Type': 'application/json',
+    'accessToken': 'true', // accessToken 요청 헤더 추가
+  })
   Future<SignInResponse> emailLogin(
     @Field('email') String email,
     @Field('password') String password,

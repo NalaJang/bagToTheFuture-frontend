@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
+import 'package:rest_api_ex/data/custom_interceptor.dart';
 import 'package:rest_api_ex/data/source/rest_client.dart';
 
 final instance = GetIt.instance;
@@ -9,6 +10,8 @@ final instance = GetIt.instance;
 Future<void> initModule() async {
 
   final dio = Dio();
+
+  dio.interceptors.add(CustomInterceptor());
 
   instance.registerLazySingleton(() => RestClient(dio));
 

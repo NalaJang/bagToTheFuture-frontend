@@ -8,6 +8,7 @@ import '../../config/navigate_to.dart';
 import '../../config/palette.dart';
 import '../../config/user_info_text_form_field.dart';
 import '../../config/validationCheck.dart';
+import '../../data/token_repository.dart';
 import '../../data/source/error_handler.dart';
 import '../my_bottom_navigation.dart';
 import '../sign_up/email_auth_request.dart';
@@ -109,15 +110,16 @@ class _EmailSignInState extends State<EmailSignIn> {
         ValidationCheck().allUserInputValidation(formKey);
 
         try {
-          String email = 'test1@email.com';
-          String password = '123456';
+          // String email = 'test1@email.com';
+          // String password = '123456';
           // String email = userEmailController.text;
           // String password = userPasswordController.text;
 
-          await restClient.emailLogin(email, password);
+          // await restClient.emailLogin(email, password);
+          await TokenRepository().signIn('test1@email.com', '');
 
           if (context.mounted) {
-            navigatePushAndRemoveUtilTo(context, const MyBottomNavigation());
+            navigateTo(context, const MyBottomNavigation());
           }
         } catch (error) {
           final errorMessage = ErrorHandler.handle(error).failure;

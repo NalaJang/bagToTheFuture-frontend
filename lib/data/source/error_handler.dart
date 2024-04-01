@@ -15,8 +15,14 @@ class ErrorHandler implements Exception {
         // 서버 오류인 경우
         else if (error.response!.statusCode! >= 500 &&
             error.response!.statusCode! < 600) {
-          // 추가적인 조치 수행
-          // ...
+          if (error.response != null && error.response?.statusCode != null &&
+              error.response?.statusMessage != null) {
+            final responseData = error.response!.data;
+            final errorCode = responseData['errorCode'];
+            final errorMessage = responseData['errorMessage'];
+
+            failure = '[$errorCode] $errorMessage';
+          }
         }
       } else {
         failure = '그 외 에러 : $error';

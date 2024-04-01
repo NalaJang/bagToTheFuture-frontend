@@ -12,7 +12,9 @@ import '../../data/source/error_handler.dart';
 import '../../data/source/rest_client.dart';
 
 class SignUp extends StatefulWidget {
-  const SignUp({super.key});
+  const SignUp({required String userEmail, super.key}) : _userEmail = userEmail;
+
+  final String _userEmail;
 
   @override
   State<SignUp> createState() => _SignUpState();
@@ -55,8 +57,8 @@ class _SignUpState extends State<SignUp> {
               children: [
                 SignUpForm(
                   formKey: formKey,
+                  userEmail: widget._userEmail,
                   userNickNameController: userNickNameController,
-                  userEmailController: userEmailController,
                   userPasswordController: userPasswordController,
                   userPasswordConfirmController: userPasswordConfirmController,
                 ),

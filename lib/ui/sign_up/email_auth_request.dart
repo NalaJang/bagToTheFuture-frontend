@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:rest_api_ex/config/gaps.dart';
 import 'package:rest_api_ex/config/validationCheck.dart';
 import 'package:rest_api_ex/config/user_info_text_form_field.dart';
+import 'package:rest_api_ex/data/source/error_handler.dart';
+import 'package:rest_api_ex/data/source/rest_client.dart';
 
 import '../../config/navigate_to.dart';
 import '../../config/palette.dart';
@@ -85,7 +88,7 @@ class _EmailAuthRequestState extends State<EmailAuthRequest> {
                   ),
 
                   // 이메일 인증 요청 버튼
-                  emailAuthRequestButton(context, _isButtonEnabled)
+                  emailAuthRequestButton(context, _isButtonEnabled, _userEmailController.text),
                 ],
               ),
             ),
@@ -118,7 +121,9 @@ class _EmailAuthRequestState extends State<EmailAuthRequest> {
   }
 
   // 이메일 인증 요청 버튼
-  Widget emailAuthRequestButton(BuildContext context, bool buttonEnabled) {
+  Widget emailAuthRequestButton(BuildContext context, bool buttonEnabled, String email) {
+    final RestClient restClient = GetIt.instance<RestClient>();
+
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor:
@@ -128,10 +133,29 @@ class _EmailAuthRequestState extends State<EmailAuthRequest> {
         ),
       ),
 
-      onPressed: () {
+      onPressed: () async {
         ValidationCheck().allUserInputValidation(formKey);
 
-        navigateTo(context, const EmailAuthCheck());
+        setState(() {
+          showSpinner = true;
+        });
+
+        try {
+
+          await restClient.emailAuth(email);
+
+          if (context.mounted) {
+            navigateTo(context, EmailAuthCheck(userEmail: email),);
+          }
+        } catch(e) {
+          final errorMessage = ErrorHandler.handle(e).failure;
+          print(errorMessage);
+        }
+
+        setState(() {
+          showSpinner = false;
+        });
+
       },
 
       child: const Text(

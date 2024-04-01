@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:rest_api_ex/config/validationCheck.dart';
 import 'package:rest_api_ex/config/navigate_to.dart';
 import 'package:rest_api_ex/config/user_info_text_form_field.dart';
+import 'package:rest_api_ex/data/source/error_handler.dart';
+import 'package:rest_api_ex/data/source/rest_client.dart';
 
 import '../../config/palette.dart';
 import 'sign_up_page.dart';
 
 class EmailAuthCheck extends StatefulWidget {
-  const EmailAuthCheck({super.key});
+  const EmailAuthCheck({required String userEmail, super.key}) : _userEmail = userEmail;
+
+  final String _userEmail;
 
   @override
   State<EmailAuthCheck> createState() => _EmailAuthCheckState();
@@ -68,7 +73,7 @@ class _EmailAuthCheckState extends State<EmailAuthCheck> {
                 children: [
 
                   // 설명 문구,
-                  description(),
+                  description(widget._userEmail),
 
                   // 인증 코드 입력
                   UserInfoTextFormField(
@@ -81,7 +86,7 @@ class _EmailAuthCheckState extends State<EmailAuthCheck> {
                   ),
 
                   // 이메일 인증하기 버튼
-                  emailAuthRequestButton(context, _isButtonEnabled),
+                  emailAuthRequestButton(context, _isButtonEnabled, widget._userEmail),
 
                   // 코드 재전송
                   resendCode(),
@@ -95,11 +100,11 @@ class _EmailAuthCheckState extends State<EmailAuthCheck> {
   }
 
   // 설명 문구
-  Widget description() {
-    return const Column(
+  Widget description(String userEmail) {
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
+        const Text(
           '이메일 인증하기',
           style: TextStyle(
             fontSize: 20.0,
@@ -109,10 +114,10 @@ class _EmailAuthCheckState extends State<EmailAuthCheck> {
 
         // 사용자가 입력한 이메일 주소
         Text(
-          'test@email.com',
-          style: TextStyle(fontSize: 17.0, color: Palette.primaryColor),
+          userEmail,
+          style: const TextStyle(fontSize: 17.0, color: Palette.primaryColor),
         ),
-        Text(
+        const Text(
           '위 메일로 보내드린 인증 코드를 입력해 주세요.',
           style: TextStyle(
             fontSize: 17.0,
@@ -123,7 +128,9 @@ class _EmailAuthCheckState extends State<EmailAuthCheck> {
   }
 
   // 이메일 인증하기 버튼
-  Widget emailAuthRequestButton(BuildContext context, bool buttonEnabled) {
+  Widget emailAuthRequestButton(BuildContext context, bool buttonEnabled, String email) {
+    final RestClient restClient = GetIt.instance<RestClient>();
+
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor:
@@ -132,10 +139,32 @@ class _EmailAuthCheckState extends State<EmailAuthCheck> {
           borderRadius: BorderRadius.circular(4.0),
         ),
       ),
-      onPressed: () {
+      onPressed: () async {
         ValidationCheck().allUserInputValidation(formKey);
 
-        navigateTo(context, const SignUp());
+        try {
+          final status = await restClient.emailAuthStatus(email: email);
+          final bool result = status.data['is_certificated'];
+
+          if (context.mounted) {
+
+            if( !result ) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('이메일 인증이 실패하였습니다.'),
+                ),
+              );
+              return;
+            }
+
+            navigateTo(context, SignUp(userEmail: email,));
+          }
+        } catch(e) {
+          final errorMessage = ErrorHandler.handle(e).failure;
+          print(errorMessage);
+        }
+
+
       },
       child: const Text(
         '이메일 인증하기',

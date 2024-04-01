@@ -10,16 +10,15 @@ import 'term_of_use.dart';
 class SignUpForm extends StatelessWidget {
   const SignUpForm({
     required this.formKey,
+    required this.userEmail,
     required this.userNickNameController,
-    required this.userEmailController,
     required this.userPasswordController,
     required this.userPasswordConfirmController,
     super.key});
 
   final GlobalKey<FormState> formKey;
-
+  final String userEmail;
   final TextEditingController userNickNameController;
-  final TextEditingController userEmailController;
   final TextEditingController userPasswordController;
   final TextEditingController userPasswordConfirmController;
 
@@ -41,8 +40,8 @@ class SignUpForm extends StatelessWidget {
                   const Text('이메일'),
                   Gaps.gapH5,
                   TextFormField(
-                    decoration: const InputDecoration(
-                      labelText: 'test@email.com',
+                    decoration: InputDecoration(
+                      labelText: userEmail,
                       labelStyle: TextStyle(
                         color: Colors.black54,
                       ),

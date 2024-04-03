@@ -110,13 +110,12 @@ class _EmailSignInState extends State<EmailSignIn> {
         ValidationCheck().allUserInputValidation(formKey);
 
         try {
-          // String email = 'test1@email.com';
-          // String password = '123456';
+          String email = 'test1@email.com';
+          String password = '123456';
           // String email = userEmailController.text;
           // String password = userPasswordController.text;
 
-          // await restClient.emailLogin(email, password);
-          await TokenRepository().signIn('test1@email.com', '');
+          await TokenRepository().signIn(email, password);
 
           if (context.mounted) {
             navigateTo(context, const MyBottomNavigation());

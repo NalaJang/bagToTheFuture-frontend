@@ -17,4 +17,12 @@ class TokenRepository {
       storage.saveRefreshToken(refreshToken),
     ]);
   }
+
+  Future<void> signOut() async {
+    // final refreshToken = await storage.readRefreshToken();
+    // dio.options.headers["authorization"] = "Bearer $refreshToken";
+    // await dio.post('http://10.0.2.2:8080/v1/logout');
+    await storage.signOut();
+  }
+
 }

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:rest_api_ex/data/model/user_model.dart';
 import 'package:rest_api_ex/data/secure_storage.dart';
 
 class CustomInterceptor extends Interceptor {
@@ -13,11 +14,9 @@ class CustomInterceptor extends Interceptor {
 
     print('${options.headers}');
     if (options.headers['accessToken'] == 'true') {
-      print('true');
-
       options.headers.remove('accessToken');
       final token = await storage.readAccessToken();
-      print(token);
+      print('token : $token');
 
       options.headers.addAll({'authorization': 'Bearer $token'});
 
@@ -42,9 +41,15 @@ class CustomInterceptor extends Interceptor {
   @override
   void onError(DioException error, ErrorInterceptorHandler handler) async {
     super.onError(error, handler);
-
     print(
         'ERROR[${error.response?.statusCode}] => PATH: ${error.requestOptions.path}');
+
+    final UserModel? userInfo = await storage.readUserInfo();
+
+    if (userInfo == null) {
+      storage.signOut();
+      return handler.reject(error);
+    }
 
     final refreshToken = await storage.readRefreshToken();
 
@@ -61,26 +66,37 @@ class CustomInterceptor extends Interceptor {
 
       // accessToken 재발급
       try {
-        final resp = await dio.post(
-          'http://10.0.2.2:8080/token',
-          options: Options(
-            headers: {'authorization': 'Bearer $refreshToken'},
-          )
-        );
+        final resp = await dio.post('http://10.0.2.2:8080/token',
+            options: Options(
+              headers: {'authorization': 'Bearer $refreshToken'},
+            ));
 
         // 재발급 받은 accessToken 등록
         final accessToken = resp.data['accessToken'];
 
         final options = error.requestOptions;
 
-        options.headers.addAll({'authorization' : 'Bearer $accessToken'});
+        // 토큰 변경하기
+        options.headers.addAll({'authorization': 'Bearer $accessToken'});
 
         await storage.saveAccessToken(accessToken);
 
+        // 요청 재전송
         final response = await dio.fetch(options);
 
         return handler.resolve(response);
       } catch (e) {
+        // 리프레시 토큰 에러
+        try {
+          final userInfo = await storage.readUserInfo();
+          final resp = await dio.post(
+            'http://10.0.2.2:8080/login',
+            data: userInfo!.toJson(),
+          );
+
+          final String accessToken = resp.headers.value('authorization').toString();
+
+        } catch (e) {}
         return handler.reject(error);
       }
     }

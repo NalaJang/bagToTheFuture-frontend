@@ -24,5 +24,5 @@ Future<void> initModule() async {
     nativeAppKey: '81744e25b42accb8e343708484a15cda',
   );
 
-  await dotenv.load(fileName: 'assets/config/.env');
+  await dotenv.load(fileName: '.env');
 }

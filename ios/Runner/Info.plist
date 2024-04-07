@@ -29,7 +29,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>kakao81744e25b42accb8e343708484a15cda</string>
+				<string>kakao${NATIVE_APP_KEY}</string>
 				<string>backToTheFuture</string>
 			</array>
 		</dict>
@@ -43,11 +43,11 @@
     <key>naverServiceAppUrlScheme</key>
     <string>backToTheFuture</string>
     <key>naverConsumerKey</key>
-    <string>rX3iQpQTYSGHh78IXmKU</string>
+    <string>${CLIENT_ID}</string>
     <key>naverConsumerSecret</key>
-    <string>eNOnm_jXPj</string>
+    <string>${CLIENT_SECRET}</string>
     <key>naverServiceAppName</key>
-    <string>backToTheFuture</string>
+    <string>${APP_NAME}</string>
 
     <!-- http allows configurations -->
     <key>NSAppTransportSecurity</key>

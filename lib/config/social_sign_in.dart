@@ -55,7 +55,7 @@ class SocialSignIn {
 
         // todo: 회원정보 가져오기
       } catch (error) {
-        ErrorHandler.handle(error).failure;
+        print('[KakaoTalk is not installed] If you want KakaoTalk Login, please install KakaoTalk');
       }
     }
   }

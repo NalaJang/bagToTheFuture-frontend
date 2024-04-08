@@ -1,4 +1,6 @@
-### g.dart
+# .env
+**/*.env
+# g.dart
 *.g.dart
 
 # Miscellaneous

@@ -15,7 +15,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>back_to_the_future</string>
+	<string>bag_to_the_future</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -29,8 +29,8 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>kakao81744e25b42accb8e343708484a15cda</string>
-				<string>backToTheFuture</string>
+				<string>kakao${NATIVE_APP_KEY}</string>
+				<string>bagToTheFuture</string>
 			</array>
 		</dict>
 	</array>
@@ -41,13 +41,13 @@
         <string>naversearchthirdlogin</string>
     </array>
     <key>naverServiceAppUrlScheme</key>
-    <string>backToTheFuture</string>
+    <string>${APP_NAME}</string>
     <key>naverConsumerKey</key>
-    <string>rX3iQpQTYSGHh78IXmKU</string>
+    <string>${CLIENT_ID}</string>
     <key>naverConsumerSecret</key>
-    <string>eNOnm_jXPj</string>
+    <string>${CLIENT_SECRET}</string>
     <key>naverServiceAppName</key>
-    <string>backToTheFuture</string>
+    <string>${APP_NAME}</string>
 
     <!-- http allows configurations -->
     <key>NSAppTransportSecurity</key>

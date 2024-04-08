@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rest_api_ex/data/di.dart';
+import 'package:rest_api_ex/config/di.dart';
+import 'package:rest_api_ex/screen/my_bottom_navigation.dart';
+import 'package:rest_api_ex/screen/sign_in/user_provider.dart';
 
-import 'ui/bottom_nav_controller.dart';
-import 'ui/my_bottom_navigation.dart';
-import 'ui/sign_in/user_provider.dart';
 
 void main() async {
   await initModule();
@@ -18,8 +17,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<BottomNavController>(
-            create: (_) => BottomNavController()),
         ChangeNotifierProvider<UserProvider>(create: (_) => UserProvider()),
       ],
       child: const MaterialApp(

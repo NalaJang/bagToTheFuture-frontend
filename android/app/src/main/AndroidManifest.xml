@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.back_to_the_future">
+    package="com.example.bag_to_the_future">
    <application
-        android:label="back_to_the_future"
+        android:label="bag_to_the_future"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

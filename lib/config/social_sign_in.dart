@@ -6,9 +6,9 @@ import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:provider/provider.dart';
 import 'package:rest_api_ex/data/model/oauth_model.dart';
 import 'package:rest_api_ex/data/source/rest_client.dart';
-import 'package:rest_api_ex/ui/sign_in/user_provider.dart';
+import 'package:rest_api_ex/screen/sign_in/user_provider.dart';
 
-import '../data/source/error_handler.dart';
+import '../data/network/error_handler.dart';
 
 enum SignInPlatform {
   kakao,
@@ -55,7 +55,7 @@ class SocialSignIn {
 
         // todo: 회원정보 가져오기
       } catch (error) {
-        ErrorHandler.handle(error).failure;
+        print('[KakaoTalk is not installed] If you want KakaoTalk Login, please install KakaoTalk');
       }
     }
   }

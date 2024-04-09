@@ -93,6 +93,9 @@ flutter:
     - family: PretendardBold
       fonts:
         - asset: assets/fonts/pretendard_bold.ttf
+    - family: PretendardMedium
+      fonts:
+        - asset: assets/fonts/pretendard_medium.ttf
 
 
   #   - images/a_dot_burr.jpeg

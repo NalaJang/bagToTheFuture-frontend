@@ -15,7 +15,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>bag_to_the_future</string>
+	<string>back_to_the_future</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -30,7 +30,7 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>kakao${NATIVE_APP_KEY}</string>
-				<string>bagToTheFuture</string>
+				<string>backToTheFuture</string>
 			</array>
 		</dict>
 	</array>

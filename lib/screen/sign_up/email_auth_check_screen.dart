@@ -6,6 +6,7 @@ import 'package:rest_api_ex/config/navigate_to.dart';
 import 'package:rest_api_ex/config/user_info_text_form_field.dart';
 import 'package:rest_api_ex/data/network/error_handler.dart';
 import 'package:rest_api_ex/data/source/rest_client.dart';
+import 'package:rest_api_ex/design/color_styles.dart';
 
 import '../../config/palette.dart';
 import 'sign_up_screen.dart';
@@ -86,7 +87,7 @@ class _EmailAuthCheckScreenState extends State<EmailAuthCheckScreen> {
                   ),
 
                   // 이메일 인증하기 버튼
-                  emailAuthRequestButton(context, _isButtonEnabled, widget._userEmail),
+                  emailResendButton(context, _isButtonEnabled, widget._userEmail),
 
                   // 코드 재전송
                   resendCode(),
@@ -115,61 +116,46 @@ class _EmailAuthCheckScreenState extends State<EmailAuthCheckScreen> {
         // 사용자가 입력한 이메일 주소
         Text(
           userEmail,
-          style: const TextStyle(fontSize: 17.0, color: Palette.primaryColor),
+          style: const TextStyle(fontSize: 17.0, color: AppColors.main,),
         ),
         const Text(
-          '위 메일로 보내드린 인증 코드를 입력해 주세요.',
+          '위 메일로 인증 메일을 보내드렸어요.',
           style: TextStyle(
             fontSize: 17.0,
+            color: AppColors.gray5,
           ),
-        )
+        ),
+        const Text(
+          '메일에서 인증 링크를 클릭해 주세요.',
+          style: TextStyle(
+            fontSize: 17.0,
+            color: AppColors.gray5,
+          ),
+        ),
       ],
     );
   }
 
-  // 이메일 인증하기 버튼
-  Widget emailAuthRequestButton(BuildContext context, bool buttonEnabled, String email) {
+  // 이메일 재전송 버튼
+  Widget emailResendButton(BuildContext context, bool buttonEnabled, String email) {
     final RestClient restClient = GetIt.instance<RestClient>();
 
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor:
-        _isButtonEnabled ? Palette.primaryColor : Palette.disabledColor,
+        AppColors.main,
+        side: BorderSide(color: AppColors.main),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(4.0),
         ),
       ),
       onPressed: () async {
-        ValidationCheck().allUserInputValidation(formKey);
-
-        try {
-          final status = await restClient.emailAuthStatus(email: email);
-          final bool result = status.data['is_certificated'];
-
-          if (context.mounted) {
-
-            if( !result ) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('이메일 인증이 실패하였습니다.'),
-                ),
-              );
-              return;
-            }
-
-            navigateTo(context, SignUpScreen(userEmail: email,));
-          }
-        } catch(e) {
-          final errorMessage = ErrorHandler.handle(e).failure;
-          print(errorMessage);
-        }
-
-
+        await restClient.emailAuth(email);
       },
       child: const Text(
-        '이메일 인증하기',
+        '이메일 재전송',
         style: TextStyle(
-          color: Palette.whiteTextColor,
+          color: AppColors.white,
         ),
       ),
     );

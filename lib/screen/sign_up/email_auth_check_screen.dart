@@ -87,7 +87,9 @@ class _EmailAuthCheckScreenState extends State<EmailAuthCheckScreen> {
 
         Text(
           Constants.emailAuthDescription2,
-          style: FontStyles.Body2.copyWith(color: AppColors.gray5,),
+          style: FontStyles.Body2.copyWith(
+            color: AppColors.gray5,
+          ),
         ),
       ],
     );
@@ -108,6 +110,13 @@ class _EmailAuthCheckScreenState extends State<EmailAuthCheckScreen> {
       ),
       onPressed: () async {
         await restClient.emailAuth(email);
+
+        // 아직 디자인 안 나온 부분. 추후 수정 예정
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('이메일이 재전송되었습니다.'),
+          ),
+        );
       },
       child: Text(
         Constants.resendEmail,

@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:rest_api_ex/config/constants.dart';
 import 'package:rest_api_ex/config/validation_check.dart';
 import 'package:rest_api_ex/config/navigate_to.dart';
 import 'package:rest_api_ex/config/user_info_text_form_field.dart';
 import 'package:rest_api_ex/data/network/error_handler.dart';
 import 'package:rest_api_ex/data/source/rest_client.dart';
 import 'package:rest_api_ex/design/color_styles.dart';
+import 'package:rest_api_ex/design/font_styles.dart';
+import 'package:rest_api_ex/screen/sign_up/email_request_screen.dart';
 
 import '../../config/palette.dart';
 import 'sign_up_screen.dart';
@@ -58,7 +61,10 @@ class _EmailAuthCheckScreenState extends State<EmailAuthCheckScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('회원가입'),
+        title: const Text(
+          Constants.signUp,
+          style: FontStyles.Title3,
+        ),
       ),
       body: ModalProgressHUD(
         inAsyncCall: showSpinner,
@@ -76,21 +82,14 @@ class _EmailAuthCheckScreenState extends State<EmailAuthCheckScreen> {
                   // 설명 문구,
                   description(widget._userEmail),
 
-                  // 인증 코드 입력
-                  UserInfoTextFormField(
-                    autoFocus: true,
-                    isButtonEnabled: _isButtonEnabled == true ? true : false,
-                    textInputType: TextInputType.number,
-                    controller: _authCodeController,
-                    validator: validateAuthCode,
-                    decorationLabelText: '코드 6자리 입력',
-                  ),
-
-                  // 이메일 인증하기 버튼
+                  // 이메일 재전송 버튼
                   emailResendButton(context, _isButtonEnabled, widget._userEmail),
 
+                  // 이메일 변경하기
+                  changeEmailButton(context),
+
                   // 코드 재전송
-                  resendCode(),
+                  requestResendEmailDescription(),
                 ],
               ),
             ),
@@ -106,11 +105,8 @@ class _EmailAuthCheckScreenState extends State<EmailAuthCheckScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          '이메일 인증하기',
-          style: TextStyle(
-            fontSize: 20.0,
-            fontWeight: FontWeight.bold,
-          ),
+          Constants.emailAuth,
+          style: FontStyles.Title2,
         ),
 
         // 사용자가 입력한 이메일 주소
@@ -119,14 +115,14 @@ class _EmailAuthCheckScreenState extends State<EmailAuthCheckScreen> {
           style: const TextStyle(fontSize: 17.0, color: AppColors.main,),
         ),
         const Text(
-          '위 메일로 인증 메일을 보내드렸어요.',
+          Constants.emailAuthDescription1,
           style: TextStyle(
             fontSize: 17.0,
             color: AppColors.gray5,
           ),
         ),
         const Text(
-          '메일에서 인증 링크를 클릭해 주세요.',
+          Constants.emailAuthDescription2,
           style: TextStyle(
             fontSize: 17.0,
             color: AppColors.gray5,
@@ -142,10 +138,10 @@ class _EmailAuthCheckScreenState extends State<EmailAuthCheckScreen> {
 
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        backgroundColor:
-        AppColors.main,
-        side: BorderSide(color: AppColors.main),
+        elevation: 0,
+        backgroundColor: AppColors.main,
         shape: RoundedRectangleBorder(
+          side: const BorderSide(color: AppColors.main),
           borderRadius: BorderRadius.circular(4.0),
         ),
       ),
@@ -153,7 +149,7 @@ class _EmailAuthCheckScreenState extends State<EmailAuthCheckScreen> {
         await restClient.emailAuth(email);
       },
       child: const Text(
-        '이메일 재전송',
+        Constants.resendEmail,
         style: TextStyle(
           color: AppColors.white,
         ),
@@ -161,13 +157,36 @@ class _EmailAuthCheckScreenState extends State<EmailAuthCheckScreen> {
     );
   }
 
-  // 인증 코드 재전송
-  Widget resendCode() {
-    return Column(
+  // 이메일 변경하기
+  Widget changeEmailButton(BuildContext context) {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        elevation: 0,
+        backgroundColor: AppColors.background,
+        shape: RoundedRectangleBorder(
+          side: BorderSide(color: AppColors.main),
+          borderRadius: BorderRadius.circular(4.0),
+        ),
+      ),
+      onPressed: () async {
+        navigatePushAndRemoveUtilTo(context, const EmailRequestScreen());
+      },
+      child: const Text(
+        Constants.changeEmail,
+        style: TextStyle(
+          color: AppColors.main,
+        ),
+      ),
+    );
+  }
+
+
+  Widget requestResendEmailDescription() {
+    return const Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          '메일이 오지 않았다면 스팸 메일함을 확인하거나',
+        Text(
+          Constants.requestResendEmail1,
           style: TextStyle(
             color: Palette.disabledColor,
           ),
@@ -175,20 +194,10 @@ class _EmailAuthCheckScreenState extends State<EmailAuthCheckScreen> {
 
         Row(
           children: [
-            const Text(
-              '코드 재전송을 요청하세요.',
+            Text(
+              Constants.requestResendEmail2,
               style: TextStyle(
                 color: Palette.disabledColor,
-              ),
-            ),
-
-            GestureDetector(
-              onTap: (){},
-              child: const Text(
-                '인증 코드 재전송',
-                style: TextStyle(
-                    decoration: TextDecoration.underline
-                ),
               ),
             ),
           ],

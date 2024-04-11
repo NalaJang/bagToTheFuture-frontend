@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:rest_api_ex/config/common/sized_box_values.dart';
+import 'package:rest_api_ex/config/custom_app_bar.dart';
 import 'package:rest_api_ex/config/validation_check.dart';
 import 'package:rest_api_ex/config/user_info_text_form_field.dart';
 import 'package:rest_api_ex/data/network/error_handler.dart';
@@ -12,7 +13,9 @@ import '../../config/palette.dart';
 import 'email_auth_check_screen.dart';
 
 class EmailRequestScreen extends StatefulWidget {
-  const EmailRequestScreen({super.key});
+  final String appBarTitle;
+
+  const EmailRequestScreen({super.key, required this.appBarTitle,});
 
   @override
   State<EmailRequestScreen> createState() => _EmailRequestScreenState();
@@ -58,10 +61,7 @@ class _EmailRequestScreenState extends State<EmailRequestScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('회원가입'),
-      ),
-
+      appBar: CustomAppBar(title: widget.appBarTitle,),
       body: ModalProgressHUD(
         inAsyncCall: showSpinner,
         child: SizedBox(
@@ -145,7 +145,10 @@ class _EmailRequestScreenState extends State<EmailRequestScreen> {
           await restClient.emailAuth(email);
 
           if (context.mounted) {
-            navigateTo(context, EmailAuthCheckScreen(userEmail: email),);
+            navigateTo(context, EmailAuthCheckScreen(
+              appBarTitle: widget.appBarTitle,
+              userEmail: email),
+            );
           }
         } catch(e) {
           final errorMessage = ErrorHandler.handle(e).failure;

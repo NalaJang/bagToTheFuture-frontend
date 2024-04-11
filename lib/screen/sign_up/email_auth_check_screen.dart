@@ -2,15 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:rest_api_ex/config/constants.dart';
+import 'package:rest_api_ex/config/custom_app_bar.dart';
 import 'package:rest_api_ex/data/source/rest_client.dart';
 import 'package:rest_api_ex/design/color_styles.dart';
 import 'package:rest_api_ex/design/font_styles.dart';
 
 class EmailAuthCheckScreen extends StatefulWidget {
+  final String appBarTitle;
   final String _userEmail;
 
   const EmailAuthCheckScreen({
     super.key,
+    required this.appBarTitle,
     required String userEmail,
   }) : _userEmail = userEmail;
 
@@ -21,21 +24,15 @@ class EmailAuthCheckScreen extends StatefulWidget {
 class _EmailAuthCheckScreenState extends State<EmailAuthCheckScreen> {
   bool showSpinner = false;
   final formKey = GlobalKey<FormState>();
-  final int authCodeLength = 6;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          Constants.signUp,
-          style: FontStyles.Title3,
-        ),
-      ),
+      appBar: CustomAppBar(title: widget.appBarTitle),
       body: ModalProgressHUD(
         inAsyncCall: showSpinner,
         child: SizedBox(
-          height: MediaQuery.of(context).size.height * 0.5,
+          height: MediaQuery.of(context).size.height * 0.4,
           child: Form(
             key: formKey,
             child: Padding(
@@ -51,9 +48,10 @@ class _EmailAuthCheckScreenState extends State<EmailAuthCheckScreen> {
                   emailResendButton(context, widget._userEmail),
 
                   // 이메일 변경하기
-                  changeEmailButton(context),
+                  if (widget.appBarTitle == Constants.signUp)
+                    changeEmailButton(context),
 
-                  // 코드 재전송
+                  // 설명 문구
                   requestResendEmailDescription(),
                 ],
               ),
@@ -69,10 +67,11 @@ class _EmailAuthCheckScreenState extends State<EmailAuthCheckScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          Constants.emailAuth,
-          style: FontStyles.Title2.copyWith(color: AppColors.black),
-        ),
+        if (widget.appBarTitle == Constants.signUp)
+          Text(
+            Constants.emailAuth,
+            style: FontStyles.Title2.copyWith(color: AppColors.black),
+          ),
 
         // 사용자가 입력한 이메일 주소
         Text(
@@ -81,7 +80,9 @@ class _EmailAuthCheckScreenState extends State<EmailAuthCheckScreen> {
         ),
 
         Text(
-          Constants.emailAuthDescription1,
+          widget.appBarTitle == Constants.signUp
+              ? Constants.emailAuthDescription1
+              : Constants.resetPwAuthDescription,
           style: FontStyles.Body2.copyWith(color: AppColors.gray5),
         ),
 
@@ -109,14 +110,26 @@ class _EmailAuthCheckScreenState extends State<EmailAuthCheckScreen> {
         ),
       ),
       onPressed: () async {
-        await restClient.emailAuth(email);
+        setState(() {
+          showSpinner = true;
+        });
+        try {
+          await restClient.emailAuth(email);
 
-        // 아직 디자인 안 나온 부분. 추후 수정 예정
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('이메일이 재전송되었습니다.'),
-          ),
-        );
+          // 아직 디자인 안 나온 부분. 추후 수정 예정
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('이메일이 재전송되었습니다.'),
+            ),
+          );
+        } catch (error) {
+
+        }
+
+        setState(() {
+          showSpinner = false;
+        });
+
       },
       child: Text(
         Constants.resendEmail,
@@ -146,19 +159,20 @@ class _EmailAuthCheckScreenState extends State<EmailAuthCheckScreen> {
     );
   }
 
+  // 설명 문구
   Widget requestResendEmailDescription() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           Constants.requestResendEmail1,
-          style: FontStyles.Caption3.copyWith(color: AppColors.gray4),
+          style: FontStyles.Body8.copyWith(color: AppColors.gray4),
         ),
         Row(
           children: [
             Text(
               Constants.requestResendEmail2,
-              style: FontStyles.Caption3.copyWith(color: AppColors.gray4),
+              style: FontStyles.Body8.copyWith(color: AppColors.gray4),
             ),
           ],
         ),

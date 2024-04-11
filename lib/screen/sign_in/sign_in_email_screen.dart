@@ -1,8 +1,13 @@
+import 'dart:ui';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:rest_api_ex/config/common/sized_box_values.dart';
-import 'package:rest_api_ex/data/source/rest_client.dart';
+import 'package:rest_api_ex/config/constants.dart';
+import 'package:rest_api_ex/config/custom_app_bar.dart';
+import 'package:rest_api_ex/design/color_styles.dart';
+import 'package:rest_api_ex/design/font_styles.dart';
 import 'package:rest_api_ex/screen/sign_up/email_request_screen.dart';
 
 import '../../config/navigate_to.dart';
@@ -36,9 +41,7 @@ class _EmailSignInState extends State<EmailSignIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('이메일 로그인'),
-      ),
+      appBar: const CustomAppBar(title: Constants.emailSignIn),
       body: ModalProgressHUD(
         inAsyncCall: showSpinner,
         child: SingleChildScrollView(
@@ -56,7 +59,7 @@ class _EmailSignInState extends State<EmailSignIn> {
                       UserInfoTextFormField(
                         controller: userEmailController,
                         validator: validateEmail,
-                        decorationLabelText: '이메일을 입력해 주세요',
+                        decorationLabelText: Constants.emailInputPrompt,
                       ),
 
                       SizedBoxValues.gapH20,
@@ -65,7 +68,7 @@ class _EmailSignInState extends State<EmailSignIn> {
                       UserInfoTextFormField(
                         controller: userPasswordController,
                         validator: validatePassword,
-                        decorationLabelText: '비밀번호를 입력해 주세요',
+                        decorationLabelText: Constants.pwInputPrompt,
                       ),
 
                       SizedBoxValues.gapH20,
@@ -80,9 +83,9 @@ class _EmailSignInState extends State<EmailSignIn> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('비밀번호 찾기'),
-                  SizedBoxValues.gapW15,
-                  Text(' | '),
+                  // 비밀번호 재설정
+                  _resetPwButton(context),
+                  // SizedBoxValues.gapW15,
                   SizedBoxValues.gapW15,
                   // 회원가입 버튼
                   _signUpButton(context),
@@ -97,8 +100,6 @@ class _EmailSignInState extends State<EmailSignIn> {
 
   // 로그인 버튼
   Widget _signInButton(BuildContext context) {
-    final RestClient restClient = GetIt.instance<RestClient>();
-
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor: Palette.primaryColor,
@@ -139,15 +140,37 @@ class _EmailSignInState extends State<EmailSignIn> {
     );
   }
 
+  // 비밀번호 재설정
+  Widget _resetPwButton(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        navigateTo(
+          context,
+          const EmailRequestScreen(appBarTitle: Constants.resetPw),
+        );
+      },
+      child: Text(
+        Constants.resetPw,
+        style: FontStyles.Caption1.copyWith(color: AppColors.gray4),
+      ),
+    );
+  }
+
   // 회원가입 버튼
   Widget _signUpButton(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        navigateTo(context, const EmailRequestScreen());
+        navigateTo(
+          context,
+          const EmailRequestScreen(appBarTitle: Constants.signUp),
+        );
       },
-      child: const Text(
-        '회원가입',
-        style: TextStyle(decoration: TextDecoration.underline),
+      child: Text(
+        Constants.signUp,
+        style: FontStyles.Caption1.copyWith(
+          color: AppColors.gray4,
+          decoration: TextDecoration.underline,
+        ),
       ),
     );
   }

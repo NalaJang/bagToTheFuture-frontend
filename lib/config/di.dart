@@ -19,6 +19,5 @@ Future<void> initModule() async {
 
   await dotenv.load(fileName: '.env');
 
-  // KakaoSdk.init(nativeAppKey: '81744e25b42accb8e343708484a15cda');
   KakaoSdk.init(nativeAppKey: dotenv.env['KAKAO_NATIVE_APP_KEY']);
 }

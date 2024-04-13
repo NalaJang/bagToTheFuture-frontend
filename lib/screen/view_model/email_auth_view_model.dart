@@ -8,7 +8,7 @@ import 'package:rest_api_ex/screen/sign_up/email_auth_check_screen.dart';
 
 import '../../config/navigate_to.dart';
 
-class SignInViewModel with ChangeNotifier {
+class EmailAuthViewModel with ChangeNotifier {
   final RestClient restClient = GetIt.instance<RestClient>();
   final _userEmailController = TextEditingController();
   bool _showSpinner = false;
@@ -20,7 +20,7 @@ class SignInViewModel with ChangeNotifier {
 
   bool get isButtonEnabled => _isButtonEnabled;
 
-  SignInViewModel() {
+  EmailAuthViewModel() {
     _userEmailController.addListener(_updateButtonState);
   }
 

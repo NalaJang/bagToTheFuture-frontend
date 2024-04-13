@@ -23,9 +23,9 @@ class EmailRequestScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (BuildContext context) => SignInViewModel(),
+      create: (BuildContext context) => EmailAuthViewModel(),
       builder: (context, child) {
-        final viewModel = context.watch<SignInViewModel>();
+        final viewModel = context.watch<EmailAuthViewModel>();
         return Scaffold(
           appBar: CustomAppBar(
             title: appBarTitle,
@@ -92,7 +92,7 @@ class EmailRequestScreen extends StatelessWidget {
 
   // 이메일 인증 요청 버튼
   Widget emailAuthRequestButton(
-      BuildContext context, SignInViewModel viewModel, String email) {
+      BuildContext context, EmailAuthViewModel viewModel, String email) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor: viewModel.isButtonEnabled

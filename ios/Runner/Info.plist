@@ -29,53 +29,42 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>kakao${NATIVE_APP_KEY}</string>
-				<string>backToTheFuture</string>
+				<string>kakao81744e25b42accb8e343708484a15cda</string>
 			</array>
 		</dict>
 	</array>
-
-	<key>LSApplicationQueriesSchemes</key>
-    <array>
-        <string>naversearchapp</string>
-        <string>naversearchthirdlogin</string>
-    </array>
-    <key>naverServiceAppUrlScheme</key>
-    <string>${APP_NAME}</string>
-    <key>naverConsumerKey</key>
-    <string>${CLIENT_ID}</string>
-    <key>naverConsumerSecret</key>
-    <string>${CLIENT_SECRET}</string>
-    <key>naverServiceAppName</key>
-    <string>${APP_NAME}</string>
-
-    <!-- http allows configurations -->
-    <key>NSAppTransportSecurity</key>
-    <dict>
-       <key>NSAllowsArbitraryLoads</key>
-       <true/>
-       <key>NSExceptionDomains</key>
-       <dict>
-          <key>naver.com</key>
-          <dict>
-             <key>NSExceptionRequiresForwardSecrecy</key>
-             <false/>
-             <key>NSIncludesSubdomains</key>
-             <true/>
-          </dict>
-          <key>naver.net</key>
-          <dict>
-             <key>NSExceptionRequiresForwardSecrecy</key>
-             <false/>
-             <key>NSIncludesSubdomains</key>
-             <true/>
-          </dict>
-       </dict>
-    </dict>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>kakaokompassauth</string>
+		<string>naversearchapp</string>
+		<string>naversearchthirdlogin</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>naver.com</key>
+			<dict>
+				<key>NSExceptionRequiresForwardSecrecy</key>
+				<false/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
+			<key>naver.net</key>
+			<dict>
+				<key>NSExceptionRequiresForwardSecrecy</key>
+				<false/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
+		</dict>
+	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>카메라 사용에 필요합니다.</string>
 	<key>NSMicrophoneUsageDescription</key>
@@ -103,5 +92,13 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>naverConsumerKey</key>
+	<string>rX3iQpQTYSGHh78IXmKU</string>
+	<key>naverConsumerSecret</key>
+	<string>eNOnm_jXPj</string>
+	<key>naverServiceAppName</key>
+	<string>BackToTheFuture_Test</string>
+	<key>naverServiceAppUrlScheme</key>
+	<string>backToTheFuture</string>
 </dict>
 </plist>

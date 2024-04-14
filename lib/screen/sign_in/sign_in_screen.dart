@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:rest_api_ex/config/common/sized_box_values.dart';
+import 'package:rest_api_ex/config/custom_snack_bar.dart';
+import 'package:rest_api_ex/screen/sign_in/sign_in_view_model.dart';
 
 import '../../config/social_sign_in.dart';
 import 'sign_in_email_screen.dart';
@@ -9,6 +12,8 @@ class SignInScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = context.watch<SignInViewModel>();
+
     return Scaffold(
       body: Center(
         child: Column(
@@ -18,7 +23,7 @@ class SignInScreen extends StatelessWidget {
             signInTitle(),
 
             // 카카오톡 로그인 버튼
-            kakaoSignInButton(context),
+            kakaoSignInButton(context, viewModel),
 
             // 네이버 로그인 버튼
             naverSignInButton(context),
@@ -50,10 +55,22 @@ class SignInScreen extends StatelessWidget {
   }
 
   // 카카오톡 로그인
-  Widget kakaoSignInButton(BuildContext context) {
+  Widget kakaoSignInButton(BuildContext context, SignInViewModel viewModel) {
     return ElevatedButton(
       onPressed: () async {
-        await SocialSignIn(context).kakaoTalkSignInProcess();
+
+        try {
+          await viewModel.kakaoSignIn();
+        } catch(error) {
+          debugPrint(error.toString());
+        }
+
+        if( viewModel.user == null ) {
+          CustomSnackBar().showSnackBar(context, '로그인 실패');
+        }
+        if( viewModel.user != null ) {
+          CustomSnackBar().showSnackBar(context, '로그인 성공');
+        }
       },
       child: Text('카카오톡 로그인'),
     );

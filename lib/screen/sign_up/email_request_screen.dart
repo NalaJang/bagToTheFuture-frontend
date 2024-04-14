@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 import 'package:rest_api_ex/config/common/sized_box_values.dart';
+import 'package:rest_api_ex/config/constants.dart';
 import 'package:rest_api_ex/config/custom_app_bar.dart';
 import 'package:rest_api_ex/config/validation_check.dart';
 import 'package:rest_api_ex/config/user_info_text_form_field.dart';
 import 'package:rest_api_ex/data/network/error_handler.dart';
+import 'package:rest_api_ex/design/color_styles.dart';
+import 'package:rest_api_ex/design/font_styles.dart';
 import 'package:rest_api_ex/screen/view_model/email_auth_view_model.dart';
-
-import '../../config/palette.dart';
 
 class EmailRequestScreen extends StatelessWidget {
   final String appBarTitle;
@@ -18,22 +19,19 @@ class EmailRequestScreen extends StatelessWidget {
     required this.appBarTitle,
   });
 
-  // final formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (BuildContext context) => EmailAuthViewModel(),
+      create: (BuildContext context) => EmailAuthViewModel(context),
       builder: (context, child) {
         final viewModel = context.watch<EmailAuthViewModel>();
+
         return Scaffold(
-          appBar: CustomAppBar(
-            title: appBarTitle,
-          ),
+          appBar: CustomAppBar(title: appBarTitle),
           body: ModalProgressHUD(
             inAsyncCall: viewModel.showSpinner,
             child: SizedBox(
-              height: MediaQuery.of(context).size.height * 0.4,
+              height: MediaQuery.of(context).size.height * 0.3,
               child: Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: Column(
@@ -69,22 +67,20 @@ class EmailRequestScreen extends StatelessWidget {
 
   // 설명 문구
   Widget description() {
-    return const Column(
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          '이메일을 입력해 주세요',
-          style: TextStyle(
-            fontSize: 20.0,
+          Constants.emailInputPrompt,
+          style: FontStyles.Title2.copyWith(
+            color: AppColors.black,
             fontWeight: FontWeight.bold,
           ),
         ),
         SizedBoxValues.gapH10,
         Text(
-          '인증 코드를 보내드려요',
-          style: TextStyle(
-            fontSize: 17.0,
-          ),
+          Constants.emailAuthDescription1,
+          style: FontStyles.Body2.copyWith(color: AppColors.gray5),
         )
       ],
     );
@@ -95,9 +91,12 @@ class EmailRequestScreen extends StatelessWidget {
       BuildContext context, EmailAuthViewModel viewModel, String email) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        backgroundColor: viewModel.isButtonEnabled
-            ? Palette.primaryColor
-            : Palette.disabledColor,
+        elevation: 0,
+        side: viewModel.isButtonEnabled
+            ? const BorderSide(color: AppColors.main)
+            : const BorderSide(color: AppColors.gray4),
+        backgroundColor:
+            viewModel.isButtonEnabled ? AppColors.main : AppColors.gray4,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(4.0),
         ),
@@ -108,17 +107,15 @@ class EmailRequestScreen extends StatelessWidget {
         }
 
         try {
-          viewModel.emailSubmit(context, appBarTitle, email);
+          viewModel.emailSubmit(appBarTitle, email);
         } catch (e) {
           final errorMessage = ErrorHandler.handle(e).failure;
           print('screen errorMessage: $errorMessage}');
         }
       },
-      child: const Text(
-        '이메일 인증 요청',
-        style: TextStyle(
-          color: Palette.whiteTextColor,
-        ),
+      child: Text(
+        Constants.emailAuthRequest,
+        style: FontStyles.Body2.copyWith(color: AppColors.white),
       ),
     );
   }

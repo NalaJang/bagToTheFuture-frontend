@@ -9,6 +9,7 @@ import 'package:rest_api_ex/screen/sign_up/email_auth_check_screen.dart';
 import '../../config/navigate_to.dart';
 
 class EmailAuthViewModel with ChangeNotifier {
+  final BuildContext context;
   final RestClient restClient = GetIt.instance<RestClient>();
   final _userEmailController = TextEditingController();
   final _emailAuthCodeController = TextEditingController();
@@ -23,7 +24,7 @@ class EmailAuthViewModel with ChangeNotifier {
 
   bool get isButtonEnabled => _isButtonEnabled;
 
-  EmailAuthViewModel() {
+  EmailAuthViewModel(this.context) {
     _userEmailController.addListener(_updateButtonState);
     _emailAuthCodeController.addListener(_updateAuthState);
   }
@@ -57,7 +58,30 @@ class EmailAuthViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  void emailSubmit(BuildContext context, String appTitle, String email) async {
+  void emailResend(String email ) async {
+    _showSpinner = true;
+    notifyListeners();
+
+    try {
+      await restClient.emailAuth(email);
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('이메일이 전송되었습니다.'),
+        ),
+      );
+
+    } catch (error) {
+      final errorMessage = ErrorHandler.handle(error).failure;
+      debugPrint(errorMessage);
+    }
+
+    _showSpinner = false;
+
+    notifyListeners();
+  }
+
+  void emailSubmit(String appTitle, String email) async {
     _showSpinner = true;
     notifyListeners();
 
@@ -70,6 +94,12 @@ class EmailAuthViewModel with ChangeNotifier {
           EmailAuthCheckScreen(
             appBarTitle: appTitle,
             userEmail: email,
+          ),
+        );
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('이메일이 전송되었습니다.'),
           ),
         );
       }
@@ -91,7 +121,7 @@ class EmailAuthViewModel with ChangeNotifier {
   }
 
   // 이메일 인증 코드 입력
-  void authCodeSubmit(BuildContext context, String email, Widget where) async {
+  void authCodeSubmit(String email, Widget where) async {
     _showSpinner = true;
     notifyListeners();
 

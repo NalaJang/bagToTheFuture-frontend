@@ -20,6 +20,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           Navigator.pop(context);
         },
       ),
+      centerTitle: true,
       title: Text(
         title,
         style: FontStyles.Title3.copyWith(color: AppColors.black),

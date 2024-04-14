@@ -5,6 +5,7 @@ import 'package:rest_api_ex/config/social_sign_in.dart';
 import 'package:rest_api_ex/screen/my_bottom_navigation.dart';
 import 'package:rest_api_ex/screen/sign_in/sign_in_view_model.dart';
 import 'package:rest_api_ex/screen/sign_in/user_provider.dart';
+import 'package:rest_api_ex/screen/view_model/user_info_view_model.dart';
 
 void main() async {
   await initModule();
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => UserProvider()),
+        ChangeNotifierProvider(create: (_) => UserInfoViewModel()),
         ChangeNotifierProvider(
             create: (context) =>
                 SignInViewModel(socialSignIn: SocialSignIn(context))),

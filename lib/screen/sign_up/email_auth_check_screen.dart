@@ -6,9 +6,12 @@ import 'package:rest_api_ex/config/constants.dart';
 import 'package:rest_api_ex/config/custom_app_bar.dart';
 import 'package:rest_api_ex/config/user_info_text_form_field.dart';
 import 'package:rest_api_ex/config/validation_check.dart';
+import 'package:rest_api_ex/data/network/error_handler.dart';
 import 'package:rest_api_ex/data/source/rest_client.dart';
 import 'package:rest_api_ex/design/color_styles.dart';
 import 'package:rest_api_ex/design/font_styles.dart';
+import 'package:rest_api_ex/screen/sign_up/reset_pw_screen.dart';
+import 'package:rest_api_ex/screen/sign_up/sign_up_screen.dart';
 import 'package:rest_api_ex/screen/view_model/email_auth_view_model.dart';
 
 class EmailAuthCheckScreen extends StatefulWidget {
@@ -65,7 +68,9 @@ class _EmailAuthCheckScreenState extends State<EmailAuthCheckScreen> {
 
                       // 이메일 인증하기 버튼
                       emailAuthRequestButton(
-                        context, viewModel,
+                        context,
+                        viewModel,
+                        widget._userEmail,
                       ),
 
                       // 이메일 재전송
@@ -115,7 +120,7 @@ class _EmailAuthCheckScreenState extends State<EmailAuthCheckScreen> {
 
   // 이메일 인증하기 버튼
   Widget emailAuthRequestButton(
-      BuildContext context, EmailAuthViewModel viewModel) {
+      BuildContext context, EmailAuthViewModel viewModel, String email) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor:
@@ -127,6 +132,18 @@ class _EmailAuthCheckScreenState extends State<EmailAuthCheckScreen> {
       onPressed: () {
         if (viewModel.isButtonEnabled == false) {
           return;
+        }
+
+        try {
+          if( widget.appBarTitle == Constants.signUp ) {
+            viewModel.authCodeSubmit(context, email, SignUpScreen(userEmail: email));
+          } else {
+            viewModel.authCodeSubmit(context, email, const ResetPwScreen());
+          }
+
+        } catch (e) {
+          final errorMessage = ErrorHandler.handle(e).failure;
+          debugPrint(errorMessage);
         }
       },
       child: const Text(

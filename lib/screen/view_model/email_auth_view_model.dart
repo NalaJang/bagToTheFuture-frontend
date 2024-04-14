@@ -16,6 +16,7 @@ class EmailAuthViewModel with ChangeNotifier {
   bool _isButtonEnabled = false;
 
   get userEmailController => _userEmailController;
+
   get emailAuthCodeController => _emailAuthCodeController;
 
   bool get showSpinner => _showSpinner;
@@ -45,6 +46,7 @@ class EmailAuthViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  // 이메일 인증하기 버튼 활성화
   void _updateAuthState() {
     if (validateAuthCode(_emailAuthCodeController.text) == null) {
       _isButtonEnabled = true;
@@ -68,6 +70,41 @@ class EmailAuthViewModel with ChangeNotifier {
           EmailAuthCheckScreen(
             appBarTitle: appTitle,
             userEmail: email,
+          ),
+        );
+      }
+    } catch (error) {
+      final errorMessage = ErrorHandler.handle(error).failure;
+      debugPrint(errorMessage);
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(errorMessage),
+          ),
+        );
+      }
+    }
+
+    _showSpinner = false;
+
+    notifyListeners();
+  }
+
+  // 이메일 인증 코드 입력
+  void authCodeSubmit(BuildContext context, String email, Widget where) async {
+    _showSpinner = true;
+    notifyListeners();
+
+    try {
+      final status = await restClient.emailAuthStatus(email: email);
+      final result = status.data['is_certificated'];
+
+      if (result) {
+        navigatePushAndRemoveUtilTo(context, where);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('인증 코드가 맞지 않습니다.'),
           ),
         );
       }

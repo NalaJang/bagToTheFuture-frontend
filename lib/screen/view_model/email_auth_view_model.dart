@@ -11,10 +11,12 @@ import '../../config/navigate_to.dart';
 class EmailAuthViewModel with ChangeNotifier {
   final RestClient restClient = GetIt.instance<RestClient>();
   final _userEmailController = TextEditingController();
+  final _emailAuthCodeController = TextEditingController();
   bool _showSpinner = false;
   bool _isButtonEnabled = false;
 
   get userEmailController => _userEmailController;
+  get emailAuthCodeController => _emailAuthCodeController;
 
   bool get showSpinner => _showSpinner;
 
@@ -22,17 +24,29 @@ class EmailAuthViewModel with ChangeNotifier {
 
   EmailAuthViewModel() {
     _userEmailController.addListener(_updateButtonState);
+    _emailAuthCodeController.addListener(_updateAuthState);
   }
 
   @override
   void dispose() {
     _userEmailController.dispose();
+    _emailAuthCodeController.dispose();
     super.dispose();
   }
 
   // 이메일 유효성 검사에 따라 버튼 색상 활성화를 하기 위한 콜백 함수
   void _updateButtonState() {
     if (validateEmail(_userEmailController.text) == null) {
+      _isButtonEnabled = true;
+    } else {
+      _isButtonEnabled = false;
+    }
+
+    notifyListeners();
+  }
+
+  void _updateAuthState() {
+    if (validateAuthCode(_emailAuthCodeController.text) == null) {
       _isButtonEnabled = true;
     } else {
       _isButtonEnabled = false;

@@ -130,7 +130,7 @@ class EmailAuthViewModel with ChangeNotifier {
       final result = status.data['is_certificated'];
 
       if (result) {
-        navigatePushAndRemoveUtilTo(context, where);
+        navigateTo(context, where);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(

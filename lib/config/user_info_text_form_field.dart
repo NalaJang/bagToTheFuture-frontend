@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rest_api_ex/config/palette.dart';
+import 'package:rest_api_ex/design/color_styles.dart';
+import 'package:rest_api_ex/design/font_styles.dart';
 
 class UserInfoTextFormField extends StatelessWidget {
   const UserInfoTextFormField({
@@ -34,9 +36,8 @@ class UserInfoTextFormField extends StatelessWidget {
   InputDecoration _setTextFormDecoration(String labelText) {
     return InputDecoration(
         labelText: labelText,
-        labelStyle: const TextStyle(
-          color: Colors.black54,
-        ),
+        labelStyle: FontStyles.Body2.copyWith(color: AppColors.gray4),
+        floatingLabelBehavior: FloatingLabelBehavior.never,
 
         // 이메일 인증 요청에서만 필요한 부분
         suffixIcon: isButtonEnabled != null && isButtonEnabled == true
@@ -45,13 +46,13 @@ class UserInfoTextFormField extends StatelessWidget {
 
         enabledBorder: const OutlineInputBorder(
           borderSide: BorderSide(
-            color: Palette.primaryColor,
+            color: AppColors.main,
           ),
         ),
 
         focusedBorder: const OutlineInputBorder(
           borderSide: BorderSide(
-            color: Palette.primaryColor,
+            color: AppColors.main,
           ),
         )
     );

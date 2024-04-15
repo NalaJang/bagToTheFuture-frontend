@@ -3,8 +3,10 @@ import 'package:provider/provider.dart';
 import 'package:rest_api_ex/screen/home/store_info_view_model.dart';
 import 'package:rest_api_ex/utils/number_util.dart';
 
-class PayButton extends StatelessWidget {
-  const PayButton({super.key});
+import '../../order_screen.dart';
+
+class OrderButtonWidget extends StatelessWidget {
+  const OrderButtonWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,13 +36,20 @@ class PayButton extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10))),
 
-            // 결제 페이지로 이동
+            // 예약 페이지로 이동
             onPressed: () {
-              print('결제하기');
+              if (totalPrice == null) {
+                return;
+              }
+
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (builder) => const OrderScreen()));
             },
             child: Padding(
               padding: const EdgeInsets.all(15.0),
-              child: Text('$totalPrice원 예약하기'),
+              child: totalPrice == null
+                  ? const Text('예약하기')
+                  : Text('$totalPrice원 예약하기'),
             )),
       ),
     );

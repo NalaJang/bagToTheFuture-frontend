@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:rest_api_ex/config/constants.dart';
+import 'package:rest_api_ex/config/custom_app_bar.dart';
 import 'package:rest_api_ex/data/model/qna_model.dart';
 import 'package:rest_api_ex/data/source/qna_data.dart';
 import 'package:rest_api_ex/design/color_styles.dart';
@@ -15,9 +17,7 @@ class CustomerServiceScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('고객센터'),
-      ),
+      appBar: const CustomAppBar(title: Constants.customerService,),
       body: Column(
         children: [
           Text(

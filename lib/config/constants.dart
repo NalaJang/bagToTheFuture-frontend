@@ -21,4 +21,7 @@ class Constants {
 
   static const String asterisk = '*';
   static const String pwValidationRule = '영문, 숫자 포함하여 8자 이상';
+
+  static const String termsAndPolicies = '약관 및 정책';
+  static const String customerService = '고객센터';
 }

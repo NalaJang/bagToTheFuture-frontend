@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rest_api_ex/config/constants.dart';
 import 'package:rest_api_ex/config/navigate_to.dart';
 import 'package:rest_api_ex/design/color_styles.dart';
 import 'package:rest_api_ex/design/font_styles.dart';
@@ -17,14 +18,14 @@ class MyPageMenuWidget extends StatelessWidget {
           context,
           const CustomerServiceScreen(),
           Icons.info_outline_rounded,
-          '약관 및 정책',
+          Constants.termsAndPolicies,
         ),
 
         _myPageMenu(
           context,
           const CustomerServiceScreen(),
           Icons.question_mark_outlined,
-          '고객센터',
+          Constants.customerService,
         ),
       ],
     );

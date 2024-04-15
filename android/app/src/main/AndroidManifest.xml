@@ -20,10 +20,6 @@
                 <!-- "kakao${YOUR_NATIVE_APP_KEY}://oauth" 형식의 앱 실행 스킴 설정 -->
                 <!-- 카카오 로그인 Redirect URI -->
                 <data android:scheme="kakao${KAKAO_NATIVE_APP_KEY}" android:host="oauth"/>
-
-                <!-- 카카오톡 채널 간편 추가하기 커스텀 URL 스킴 설정 -->
-                <!-- Redirect URI: "kakao${NATIVE_APP_KEY}://channel" -->
-                <data android:scheme="kakao${KAKAO_NATIVE_APP_KEY}" android:host="channel"/>
             </intent-filter>
         </activity>
 

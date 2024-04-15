@@ -37,6 +37,7 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
+        <string>https</string>
 		<string>kakaokompassauth</string>
 		<string>naversearchapp</string>
 		<string>naversearchthirdlogin</string>

@@ -9,7 +9,7 @@ part 'rest_client.g.dart';
 // @RestApi(baseUrl: 'http://127.0.0.1:8080/v1')
 // Android ip
 String baseUrl = 'http://10.0.2.2:8080/v1';
-const String emailAuthUrl = 'http://127.0.0.1:8084/v1';
+const String emailAuthUrl = 'http://10.0.2.2:8084/v1';
 
 @RestApi(baseUrl: emailAuthUrl)
 abstract class RestClient {

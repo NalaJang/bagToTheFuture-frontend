@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:rest_api_ex/config/common/sized_box_values.dart';
-import 'package:rest_api_ex/screen/home/store_info_view_model.dart';
+import 'package:rest_api_ex/design/color_styles.dart';
+import 'package:rest_api_ex/design/font_styles.dart';
+import 'package:rest_api_ex/screen/view_model/store_info_view_model.dart';
 
 class SurpriseBagWidget extends StatefulWidget {
   const SurpriseBagWidget({super.key});
@@ -71,7 +73,7 @@ class _SurpriseBagWidgetState extends State<SurpriseBagWidget> {
           // 상품명
           Text(
             '서프라이즈 백',
-            style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+            style: FontStyles.Body2,
           )
         ],
       ),
@@ -92,32 +94,33 @@ class _SurpriseBagWidgetState extends State<SurpriseBagWidget> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-            decoration: BoxDecoration(color: Colors.purple.shade100),
-            child: const Padding(
-              padding: EdgeInsets.fromLTRB(4, 2, 4, 2),
+            decoration: const BoxDecoration(color: AppColors.lightPurple),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(5, 2, 5, 2),
               child: Text(
                 '2개 남음',
-                style: TextStyle(fontSize: 10, color: Colors.purple),
+                style: FontStyles.Caption3.copyWith(color: AppColors.purple),
               ),
             )),
         const SizedBox(height: 10),
         Text(
           '주문 마감까지 2시간 13분',
-          style: TextStyle(color: Colors.green.shade700),
+          style: FontStyles.Caption3.copyWith(color: AppColors.green2),
         ),
         Row(children: [
           Text(
             '$salePercent%',
-            style: const TextStyle(
+            style: FontStyles.Price5.copyWith(
               color: Colors.red,
             ),
           ),
           SizedBoxValues.gapW5,
-          const Text(
+          Text(
             "14,900원",
-            style: TextStyle(
-              color: Colors.grey,
+            style: FontStyles.Price6.copyWith(
+              color: AppColors.gray5,
               decoration: TextDecoration.lineThrough,
+              decorationColor: AppColors.gray5,
             ),
           ),
         ]),
@@ -142,7 +145,7 @@ class _SurpriseBagWidgetState extends State<SurpriseBagWidget> {
     return Container(
       margin: const EdgeInsets.only(right: 80),
       decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey),
+          border: Border.all(color: AppColors.gray5),
           borderRadius: BorderRadius.circular(5)),
       child: Padding(
         padding: const EdgeInsets.all(5.0),
@@ -161,14 +164,14 @@ class _SurpriseBagWidgetState extends State<SurpriseBagWidget> {
                 },
                 child: Icon(
                   CupertinoIcons.minus,
-                  color: quantity == 0 ? Colors.grey : Colors.black,
+                  color: quantity == 0 ? AppColors.gray5 : AppColors.black,
                 )),
 
             // 현재 수량
             Text(
               '$quantity개',
               style: TextStyle(
-                color: quantity == 0 ? Colors.grey : Colors.black,
+                color: quantity == 0 ? AppColors.gray5 : AppColors.black,
               ),
             ),
 
@@ -184,7 +187,7 @@ class _SurpriseBagWidgetState extends State<SurpriseBagWidget> {
                 },
                 child: Icon(
                   CupertinoIcons.plus,
-                  color: quantity == 0 ? Colors.grey : Colors.black,
+                  color: quantity == 0 ? AppColors.gray5 : AppColors.black,
                 )),
           ],
         ),

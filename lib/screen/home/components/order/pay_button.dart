@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rest_api_ex/screen/home/store_info_view_model.dart';
+import 'package:rest_api_ex/screen/view_model/store_info_view_model.dart';
 import 'package:rest_api_ex/utils/number_util.dart';
 
 class PayButton extends StatelessWidget {
@@ -40,7 +40,7 @@ class PayButton extends StatelessWidget {
             },
             child: Padding(
               padding: const EdgeInsets.all(15.0),
-              child: Text('$totalPrice원 예약하기'),
+              child: Text('$totalPrice원 결제하기'),
             )),
       ),
     );

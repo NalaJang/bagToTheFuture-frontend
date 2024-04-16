@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:rest_api_ex/design/color_styles.dart';
+import 'package:rest_api_ex/design/font_styles.dart';
 
 import '../../../../config/common/sized_box_values.dart';
 
@@ -15,7 +17,7 @@ class StoreInfoWidget extends StatelessWidget {
         // 가게 정보
         storeInfo(selectedStoreIndex),
 
-        const SizedBox(height: 20),
+        const SizedBox(height: 5),
 
         // 찜, 길찾기, 공유 버튼
         placeMenus(),
@@ -73,15 +75,17 @@ class StoreInfoWidget extends StatelessWidget {
             children: [
               Icon(
                 CupertinoIcons.clock,
-                size: 20,
+                size: 16,
                 color: Colors.grey.shade400,
               ),
               SizedBoxValues.gapW5,
               const Text('픽업 가능',
-                  style: TextStyle(
-                      color: Colors.red, fontWeight: FontWeight.bold)),
+                  style: TextStyle(color: Colors.red, fontSize: 13)),
               SizedBoxValues.gapW5,
-              const Text('오후 8:00 ~ 오후 8:30')
+              const Text(
+                '오후 8:00~오후 8:30',
+                style: TextStyle(color: AppColors.gray6, fontSize: 13),
+              )
             ],
           ),
 
@@ -95,7 +99,10 @@ class StoreInfoWidget extends StatelessWidget {
                 color: Colors.green.shade200,
               ),
               SizedBoxValues.gapW5,
-              const Text('서울특별시 종로구 명륜3가\n성균관로 1길 6-6, 1층'),
+              Text(
+                '서울특별시 종로구 명륜3가\n성균관로 1길 6-6, 1층',
+                style: FontStyles.Caption2.copyWith(color: AppColors.gray6),
+              ),
             ],
           ),
         ],

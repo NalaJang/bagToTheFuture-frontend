@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:rest_api_ex/design/font_styles.dart';
 import 'package:rest_api_ex/screen/home/components/store_info/menu_widget.dart';
 
 import 'components/store_info/surprise_bag_widget.dart';
@@ -53,7 +54,7 @@ class StoreInfoScreen extends StatelessWidget {
           padding: EdgeInsets.fromLTRB(15, 20, 0, 0),
           child: Text(
             '개별 메뉴',
-            style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+            style: FontStyles.Body2,
           ),
         ),
       ],

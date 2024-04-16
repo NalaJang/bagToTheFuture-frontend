@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rest_api_ex/screen/home/store_info_view_model.dart';
+import 'package:rest_api_ex/screen/view_model/store_info_view_model.dart';
 import 'package:rest_api_ex/utils/number_util.dart';
 
 import '../../order_screen.dart';

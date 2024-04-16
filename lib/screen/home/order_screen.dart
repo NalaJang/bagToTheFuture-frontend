@@ -57,38 +57,58 @@ class OrderScreen extends StatelessWidget {
 
   // 예약 시 유의사항
   Widget reservationNotice() {
-    return const Padding(
-      padding: EdgeInsets.all(20.0),
+    return Padding(
+      padding: const EdgeInsets.all(25.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             '예약 시 유의사항',
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
           ),
-          Wrap(
-            direction: Axis.horizontal, // 나열 방향
-            alignment: WrapAlignment.start, // 정렬 방식
-            children: [
-              Text(
-                '1. 예약 접수 후 20분 내',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              Text('로 미입금 시 예약이 자동 취소됩니다.'),
-            ],
+          SizedBoxValues.gapH20,
+          RichText(
+            text: const TextSpan(
+              style: TextStyle(color: Colors.black, fontSize: 13),
+              children: <TextSpan>[
+                TextSpan(
+                    text: '1. 예약 접수 후 20분 내',
+                    style: TextStyle(fontWeight: FontWeight.bold)),
+                TextSpan(text: '로 미입금 시 예약이 자동 취소됩니다.'),
+              ],
+            ),
           ),
-          SizedBoxValues.gapH10,
-          Wrap(
-            direction: Axis.horizontal, // 나열 방향
-            children: [
-              Text('2. 당일 매장 재고상황에 따라 '),
-              Text(
-                '픽업 가능 시간 1시간 전까지 예약 확정',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ],
+          SizedBoxValues.gapH5,
+          RichText(
+            text: const TextSpan(
+              style: TextStyle(color: Colors.black, fontSize: 13, height: 1.5),
+              children: <TextSpan>[
+                TextSpan(
+                    text: '2. ', style: TextStyle(fontWeight: FontWeight.bold)),
+                TextSpan(text: '당일 매장 재고상황에 따라 '),
+                TextSpan(
+                    text: '픽업 가능 시간 1시간 전까지 예약 확정',
+                    style: TextStyle(fontWeight: FontWeight.bold)),
+                TextSpan(text: ' 여부가 결정됩니다. 또한 매장별'),
+                TextSpan(
+                    text: ' 픽업 가능 시간 1시간 전까지 예약 취소',
+                    style: TextStyle(fontWeight: FontWeight.bold)),
+                TextSpan(text: '가 가능합니다. (영업일 기준 1~2일 내로 환불)'),
+              ],
+            ),
           ),
-          Text('3. 예약 확정 후 픽업이 이뤄지지 않으면 환불 조치는 불가합니다.')
+          SizedBoxValues.gapH5,
+          RichText(
+            text: const TextSpan(
+              style: TextStyle(color: Colors.black, fontSize: 13, height: 1.5),
+              children: <TextSpan>[
+                TextSpan(
+                    text: '3. 픽업 희망 시간 5분 후까지 픽업',
+                    style: TextStyle(fontWeight: FontWeight.bold)),
+                TextSpan(text: '이 이뤄지지 않을 시 환불이 불가합니다.'),
+              ],
+            ),
+          ),
         ],
       ),
     );

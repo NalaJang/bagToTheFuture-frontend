@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rest_api_ex/config/common/sized_box_values.dart';
+import 'package:rest_api_ex/design/color_styles.dart';
+import 'package:rest_api_ex/design/font_styles.dart';
 
 class PickUpTimeInfo extends StatefulWidget {
   const PickUpTimeInfo({super.key});
@@ -35,16 +37,16 @@ class _PickUpTimeInfoState extends State<PickUpTimeInfo> {
       children: [
         Text(
           '픽업 희망 시간',
-          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
+          style: FontStyles.Title3,
         ),
         SizedBoxValues.gapH5,
         Row(
           children: [
             Text(
               '오후 8:00 ~ 오후 8:30',
-              style: TextStyle(color: Colors.deepPurpleAccent),
+              style: TextStyle(color: AppColors.purple),
             ),
-            Text(' 사이 시간을 입력해 주세요.')
+            Text(' 사이 시간을 입력해 주세요', style: TextStyle(color: AppColors.gray6))
           ],
         ),
       ],

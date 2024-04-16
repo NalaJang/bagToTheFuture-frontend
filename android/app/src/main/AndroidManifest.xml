@@ -52,8 +52,7 @@
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
 
-                <!-- 카카오 로그인 Redirect URI -->
-                <!--                <data android:scheme="kakao81744e25b42accb8e343708484a15cda" android:host="oauth"/>-->
+
             </intent-filter>
         </activity>
         <!-- Don't delete the meta-data below.

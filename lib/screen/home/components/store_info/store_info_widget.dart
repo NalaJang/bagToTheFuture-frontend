@@ -6,16 +6,14 @@ import 'package:rest_api_ex/design/font_styles.dart';
 import '../../../../config/common/sized_box_values.dart';
 
 class StoreInfoWidget extends StatelessWidget {
-  const StoreInfoWidget({required this.selectedStoreIndex, super.key});
-
-  final int selectedStoreIndex;
+  const StoreInfoWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         // 가게 정보
-        storeInfo(selectedStoreIndex),
+        storeInfo(),
 
         const SizedBox(height: 5),
 
@@ -38,7 +36,7 @@ class StoreInfoWidget extends StatelessWidget {
   }
 
   // 가게 정보
-  Widget storeInfo(int selectedStoreIndex) {
+  Widget storeInfo() {
     return Padding(
       padding: const EdgeInsets.all(15.0),
       child: Column(

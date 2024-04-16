@@ -23,4 +23,7 @@ class SvgIcon {
     return fromAsset('ic_arrow_left', width: width, height: height, color: color);
   }
 
+  static Widget headPhone( {double width = 23, double height = 23, Color? color}) {
+    return fromAsset('ic_headset_microphone', width: width, height: height, color: color);
+  }
 }

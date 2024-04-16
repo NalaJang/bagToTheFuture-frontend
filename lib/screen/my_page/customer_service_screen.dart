@@ -7,6 +7,7 @@ import 'package:rest_api_ex/data/model/qna_model.dart';
 import 'package:rest_api_ex/data/source/qna_data.dart';
 import 'package:rest_api_ex/design/color_styles.dart';
 import 'package:rest_api_ex/design/font_styles.dart';
+import 'package:rest_api_ex/design/svg_icon.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CustomerServiceScreen extends StatelessWidget {
@@ -17,35 +18,27 @@ class CustomerServiceScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(title: Constants.customerService,),
+      appBar: const CustomAppBar(
+        title: Constants.customerService,
+      ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            '자주 묻는 질문',
-            style: FontStyles.Body1.copyWith(
-              color: AppColors.black,
+          Padding(
+            padding: const EdgeInsets.only(left: 10.0),
+            child: Text(
+              '자주 묻는 질문',
+              style: FontStyles.Body1.copyWith(
+                color: AppColors.black,
+              ),
             ),
           ),
+          Divider(),
           _qnaList(),
-          ListTile(
-            title: Text('기타 문의사항이 있으신가요?'),
-            subtitle: Text('백투더퓨처 상담 채널 연결'),
-            trailing: IconButton(
-              icon: Icon(CupertinoIcons.forward),
-              onPressed: _toKakaoChannel,
-            ),
-          )
+          _qnaChannel(),
         ],
       ),
     );
-  }
-
-  Future<void> _toKakaoChannel() async {
-    final Uri url = Uri.parse(dotenv.env['KAKAO_CHANNEL_URL']!);
-
-    if (!await launchUrl(url)) {
-      debugPrint('Could not launch $url');
-    }
   }
 
   Widget _qnaList() {
@@ -91,7 +84,8 @@ class CustomerServiceScreen extends StatelessWidget {
                         qna.answer,
                         // overflow: TextOverflow.clip,
                         // maxLines: 3,
-                        style: FontStyles.Body7.copyWith(color: AppColors.black),
+                        style:
+                            FontStyles.Body7.copyWith(color: AppColors.black),
                       ),
                     ),
                   ],
@@ -102,4 +96,27 @@ class CustomerServiceScreen extends StatelessWidget {
           .toList(),
     );
   }
+
+  Widget _qnaChannel() {
+    return ListTile(
+      leading: SvgIcon.headPhone(color: AppColors.black),
+      title: Text('기타 문의사항이 있으신가요?', style: FontStyles.Caption2,),
+      subtitle: Text('백투더퓨처 상담 채널 연결', style: FontStyles.Body1,),
+      trailing: IconButton(
+        icon: const Icon(CupertinoIcons.forward, color: AppColors.gray4,),
+        onPressed: _toKakaoChannel,
+      ),
+      contentPadding: EdgeInsets.only(left: 8.0, right: 8.0),
+
+    );
+  }
+
+  Future<void> _toKakaoChannel() async {
+    final Uri url = Uri.parse(dotenv.env['KAKAO_CHANNEL_URL']!);
+
+    if (!await launchUrl(url)) {
+      debugPrint('Could not launch $url');
+    }
+  }
+
 }

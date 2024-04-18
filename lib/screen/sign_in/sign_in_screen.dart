@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rest_api_ex/config/common/sized_box_values.dart';
 import 'package:rest_api_ex/config/custom_snack_bar.dart';
+import 'package:rest_api_ex/design/svg_icon.dart';
 import 'package:rest_api_ex/screen/sign_in/sign_in_view_model.dart';
 
 import '../../config/social_sign_in.dart';
@@ -40,7 +41,7 @@ class SignInScreen extends StatelessWidget {
   Widget signInTitle() {
     return Column(
       children: [
-        Image.asset('assets/images/btf_logo.png'),
+        SvgIcon.logo(width: 50, height: 50),
         SizedBoxValues.gapH20,
         const Text(
           '마감 세일 상품을 \n서프라이즈 백으로 만나보세요',
@@ -58,21 +59,20 @@ class SignInScreen extends StatelessWidget {
   Widget kakaoSignInButton(BuildContext context, SignInViewModel viewModel) {
     return ElevatedButton(
       onPressed: () async {
-
         try {
           await viewModel.kakaoSignIn();
-        } catch(error) {
+        } catch (error) {
           debugPrint(error.toString());
         }
 
-        if( viewModel.user == null ) {
+        if (viewModel.user == null) {
           CustomSnackBar().showSnackBar(context, '로그인 실패');
         }
-        if( viewModel.user != null ) {
+        if (viewModel.user != null) {
           CustomSnackBar().showSnackBar(context, '로그인 성공');
         }
       },
-      child: Text('카카오톡 로그인'),
+      child: const Text('카카오톡 로그인'),
     );
   }
 
@@ -82,7 +82,7 @@ class SignInScreen extends StatelessWidget {
       onPressed: () async {
         await SocialSignIn(context).naverSignInProcess();
       },
-      child: Text('네이버 로그인'),
+      child: const Text('네이버 로그인'),
     );
   }
 
@@ -96,7 +96,7 @@ class SignInScreen extends StatelessWidget {
           ),
         );
       },
-      child: Text('이메일 로그인'),
+      child: const Text('이메일 로그인'),
     );
   }
 }

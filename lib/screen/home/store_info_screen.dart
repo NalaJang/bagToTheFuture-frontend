@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:rest_api_ex/config/common/sized_box_values.dart';
 import 'package:rest_api_ex/design/color_styles.dart';
 import 'package:rest_api_ex/design/font_styles.dart';
+import 'package:rest_api_ex/design/svg_icon.dart';
 import 'package:rest_api_ex/screen/home/components/store_info/menu_widget.dart';
 import 'package:rest_api_ex/screen/view_model/store_info_view_model.dart';
 
@@ -118,10 +119,7 @@ class _StoreInfoScreenState extends State<StoreInfoScreen> {
                     ),
                   )
                 ]),
-                Image.asset(
-                  'assets/images/btf_logo.png',
-                  scale: 0.9,
-                ),
+                SvgIcon.logo(width: 80, height: 80),
                 SizedBoxValues.gapH10,
                 Text(
                   '에약이 접수되었어요!',

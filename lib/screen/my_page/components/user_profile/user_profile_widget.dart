@@ -6,8 +6,6 @@ import 'package:rest_api_ex/config/navigate_to.dart';
 
 import '../../user_profile_detail_screen.dart';
 
-
-
 class UserProfileWidget extends StatelessWidget {
   const UserProfileWidget({super.key});
 
@@ -43,7 +41,7 @@ class UserProfileWidget extends StatelessWidget {
         ClipRRect(
           borderRadius: BorderRadius.circular(125),
           child: Image.asset(
-            'assets/images/btf_logo.png',
+            'assets/images/sample.png',
             width: MediaQuery.of(context).size.width * 0.3,
           ),
         ),
@@ -52,7 +50,7 @@ class UserProfileWidget extends StatelessWidget {
 
         // 이름
         GestureDetector(
-          onTap: (){
+          onTap: () {
             navigateTo(context, const UserProfileDetailScreen());
           },
           child: const Row(
@@ -60,11 +58,8 @@ class UserProfileWidget extends StatelessWidget {
             children: [
               Text(
                 '김창영 님',
-                style: TextStyle(
-                  fontSize: 20.0
-                ),
+                style: TextStyle(fontSize: 20.0),
               ),
-          
               Icon(Icons.navigate_next)
             ],
           ),

@@ -32,7 +32,6 @@ class _UserProfileImageState extends State<UserProfileImage> {
                 image: setImage(_imageFile, imageSize),
               ),
             ),
-
             Positioned(
               right: MediaQuery.of(context).size.width * 0.3,
               bottom: 10,
@@ -43,7 +42,7 @@ class _UserProfileImageState extends State<UserProfileImage> {
                     builder: ((builder) => bottomSheet(context)),
                   );
                 },
-                child: Icon(Icons.camera_alt),
+                child: const Icon(Icons.camera_alt),
               ),
             )
           ],
@@ -52,15 +51,14 @@ class _UserProfileImageState extends State<UserProfileImage> {
     );
   }
 
-  DecorationImage setImage(XFile? _imageFile, double imageSize) {
-    if( _imageFile == null ) {
-     return const DecorationImage(
-       image: AssetImage('assets/images/btf_logo.png'),
-     );
-
+  DecorationImage setImage(XFile? imageFile, double imageSize) {
+    if (imageFile == null) {
+      return const DecorationImage(
+        image: AssetImage('assets/images/sample.png'),
+      );
     } else {
       return DecorationImage(
-        image: FileImage(File(_imageFile.path)),
+        image: FileImage(File(imageFile.path)),
       );
     }
   }
@@ -78,18 +76,17 @@ class _UserProfileImageState extends State<UserProfileImage> {
                 onPressed: () {
                   _pickedImage(ImageSource.gallery);
                 },
-                icon: Icon(Icons.photo_library),
+                icon: const Icon(Icons.photo_library),
               ),
 
               // 기본 이미지로 변경
               TextButton(
-                onPressed: (){
-                  setState(() {
-                    _imageFile = null;
-                  });
-                },
-                child: Text('기본 이미지로 변경')
-              )
+                  onPressed: () {
+                    setState(() {
+                      _imageFile = null;
+                    });
+                  },
+                  child: const Text('기본 이미지로 변경'))
             ],
           ),
         ],

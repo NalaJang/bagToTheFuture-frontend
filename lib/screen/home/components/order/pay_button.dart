@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rest_api_ex/screen/home/store_info_screen.dart';
 import 'package:rest_api_ex/screen/view_model/store_info_view_model.dart';
 import 'package:rest_api_ex/utils/number_util.dart';
 
@@ -36,7 +37,8 @@ class PayButton extends StatelessWidget {
 
             // 결제 페이지로 이동
             onPressed: () {
-              print('결제하기');
+              storeInfoViewModel.openDialog();
+              Navigator.pop(context, const StoreInfoScreen());
             },
             child: Padding(
               padding: const EdgeInsets.all(15.0),

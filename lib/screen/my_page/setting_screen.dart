@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rest_api_ex/config/custom_app_bar.dart';
-import 'package:rest_api_ex/config/navigate_to.dart';
 import 'package:rest_api_ex/design/color_styles.dart';
 import 'package:rest_api_ex/design/font_styles.dart';
-import 'package:rest_api_ex/screen/sign_in/sign_in_screen.dart';
 import 'package:rest_api_ex/screen/view_model/setting_view_model.dart';
 
 class SettingScreen extends StatefulWidget {
@@ -59,7 +57,7 @@ class _SettingScreenState extends State<SettingScreen>
             children: [
               _orderAlarmSetting(viewModel, context),
               _marketingAgreementSetting(viewModel),
-              _logout(context),
+              _logout(viewModel, context),
             ],
           ),
         ),
@@ -103,14 +101,10 @@ class _SettingScreenState extends State<SettingScreen>
     );
   }
 
-  Widget _logout(BuildContext context) {
-    // var viewModel = Provider.of<SignInViewModel>(context);
-
+  Widget _logout(SettingViewModel viewModel, BuildContext context) {
     return GestureDetector(
       onTap: () async {
-        navigateTo(context, const SignInScreen());
-
-        // await SocialSignIn(context).signOut(viewModel.signInPlatform);
+        viewModel.logout(context);
       },
       child: Text(
         '로그아웃',

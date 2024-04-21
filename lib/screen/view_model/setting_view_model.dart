@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:provider/provider.dart';
+import 'package:rest_api_ex/config/navigate_to.dart';
+import 'package:rest_api_ex/config/social_sign_in.dart';
 import 'package:rest_api_ex/design/svg_icon.dart';
+import 'package:rest_api_ex/screen/sign_in/sign_in_screen.dart';
+import 'package:rest_api_ex/screen/sign_in/sign_in_view_model.dart';
 
 class SettingViewModel with ChangeNotifier {
   bool _isEnabledOrderAlarm = true;
@@ -34,7 +39,7 @@ class SettingViewModel with ChangeNotifier {
     _isEnabledOrderAlarm = !_isEnabledOrderAlarm;
     notifyListeners();
 
-    var result = await showConfirmDialog(context);
+    var result = await _showConfirmDialog(context);
 
     try {
       if (result) {
@@ -55,7 +60,15 @@ class SettingViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<bool> showConfirmDialog(BuildContext context) async {
+  void logout(BuildContext context) async {
+    navigateTo(context, const SignInScreen());
+
+    final viewModel = Provider.of<SignInViewModel>(context, listen: false);
+    print(viewModel.signInPlatform);
+    await SocialSignIn(context).signOut(viewModel.signInPlatform);
+  }
+
+  Future<bool> _showConfirmDialog(BuildContext context) async {
     bool result = await showDialog(
         context: context,
         builder: (BuildContext context) {

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'package:provider/provider.dart';
 import 'package:rest_api_ex/config/custom_app_bar.dart';
 import 'package:rest_api_ex/config/navigate_to.dart';
 import 'package:rest_api_ex/design/color_styles.dart';
 import 'package:rest_api_ex/design/font_styles.dart';
-import 'package:rest_api_ex/design/svg_icon.dart';
 import 'package:rest_api_ex/screen/sign_in/sign_in_screen.dart';
+import 'package:rest_api_ex/screen/view_model/setting_view_model.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({super.key});
@@ -16,15 +16,14 @@ class SettingScreen extends StatefulWidget {
 
 class _SettingScreenState extends State<SettingScreen>
     with WidgetsBindingObserver {
-  bool _isEnabledOrderAlarm = true;
-  bool _isEnabledMarketingAgreement = true;
-  Widget _orderAlarmStatus = SvgIcon.enabledToggle();
-  Widget _marketingAgreementStatus = SvgIcon.enabledToggle();
-
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+
+    Future.microtask(
+      () => context.read<SettingViewModel>().checkNotificationStatus(),
+    );
   }
 
   @override
@@ -32,22 +31,7 @@ class _SettingScreenState extends State<SettingScreen>
     super.didChangeAppLifecycleState(state);
 
     if (state == AppLifecycleState.resumed) {
-      var status = await Permission.notification.status;
-
-      if (status.isGranted) {
-        debugPrint('isGranted');
-        _isEnabledOrderAlarm = true;
-        _orderAlarmStatus = SvgIcon.enabledToggle();
-      } else {
-        debugPrint('status.isDenied');
-        debugPrint('status.isGranted');
-        _isEnabledOrderAlarm = false;
-        _orderAlarmStatus = SvgIcon.disabledToggle();
-      }
-
-      setState(() {
-
-      });
+      context.read<SettingViewModel>().checkNotificationStatus();
     }
   }
 
@@ -59,6 +43,8 @@ class _SettingScreenState extends State<SettingScreen>
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = context.watch<SettingViewModel>();
+
     return Scaffold(
       appBar: const CustomAppBar(
         title: '설정',
@@ -71,9 +57,9 @@ class _SettingScreenState extends State<SettingScreen>
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _orderAlarmSetting(),
-              _marketingAgreementSetting(),
-              _logout(),
+              _orderAlarmSetting(viewModel, context),
+              _marketingAgreementSetting(viewModel),
+              _logout(context),
             ],
           ),
         ),
@@ -81,7 +67,7 @@ class _SettingScreenState extends State<SettingScreen>
     );
   }
 
-  Widget _orderAlarmSetting() {
+  Widget _orderAlarmSetting(SettingViewModel viewModel, BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -91,21 +77,15 @@ class _SettingScreenState extends State<SettingScreen>
         ),
         GestureDetector(
           onTap: () async {
-            _isEnabledOrderAlarm = !_isEnabledOrderAlarm;
-
-            setState(() {
-              _orderAlarmStatus = _isEnabledOrderAlarm
-                  ? SvgIcon.enabledToggle()
-                  : SvgIcon.disabledToggle();
-            });
+            viewModel.notificationPermissionChange(context);
           },
-          child: _orderAlarmStatus,
+          child: viewModel.orderAlarmStatus,
         ),
       ],
     );
   }
 
-  Widget _marketingAgreementSetting() {
+  Widget _marketingAgreementSetting(SettingViewModel viewModel) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -115,21 +95,15 @@ class _SettingScreenState extends State<SettingScreen>
         ),
         GestureDetector(
           onTap: () {
-            _isEnabledMarketingAgreement = !_isEnabledMarketingAgreement;
-
-            setState(() {
-              _marketingAgreementStatus = _isEnabledMarketingAgreement
-                  ? SvgIcon.enabledToggle()
-                  : SvgIcon.disabledToggle();
-            });
+            viewModel.marketingPermissionChange();
           },
-          child: _marketingAgreementStatus,
+          child: viewModel.marketingAgreementStatus,
         ),
       ],
     );
   }
 
-  Widget _logout() {
+  Widget _logout(BuildContext context) {
     // var viewModel = Provider.of<SignInViewModel>(context);
 
     return GestureDetector(

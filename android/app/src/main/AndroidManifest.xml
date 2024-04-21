@@ -3,6 +3,9 @@
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
+    <!-- Permissions options for the `access notification policy` group -->
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY"/>
+
     <application
         android:label="back_to_the_future"
         android:name="${applicationName}"

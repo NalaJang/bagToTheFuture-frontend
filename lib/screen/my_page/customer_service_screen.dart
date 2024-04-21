@@ -35,12 +35,12 @@ class _CustomerServiceScreenState extends State<CustomerServiceScreen> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
+          padding: const EdgeInsets.symmetric(vertical: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.only(bottom: 16.0, left: 18.0),
+                padding: const EdgeInsets.fromLTRB(18, 0, 0, 16),
                 child: Text(
                   '자주 묻는 질문',
                   style: FontStyles.Body1.copyWith(
@@ -74,7 +74,7 @@ class _CustomerServiceScreenState extends State<CustomerServiceScreen> {
               qnaList[index].isExpanded = expanded;
             });
           },
-          tilePadding: const EdgeInsets.only(left: 12.0, right: 16.0),
+          tilePadding: const EdgeInsets.fromLTRB(12, 0, 16, 0),
           title: Row(
             children: [
               Padding(
@@ -94,12 +94,7 @@ class _CustomerServiceScreenState extends State<CustomerServiceScreen> {
           ),
           children: [
             Padding(
-              padding: const EdgeInsets.only(
-                top: 21.0,
-                bottom: 18.0,
-                left: 12.0,
-                right: 16.0,
-              ),
+              padding: const EdgeInsets.fromLTRB(12, 21, 16, 18),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -136,7 +131,7 @@ class _CustomerServiceScreenState extends State<CustomerServiceScreen> {
       onTap: () => _toKakaoChannel(),
 
       child: ListTile(
-        contentPadding: const EdgeInsets.only(top: 21.0, left: 19.0, right: 18.0),
+        contentPadding: const EdgeInsets.fromLTRB(19, 21, 18, 0),
         leading: SvgIcon.headPhone(color: AppColors.black),
         title: const Text(
           '기타 문의사항이 있으신가요?',
@@ -156,7 +151,7 @@ class _CustomerServiceScreenState extends State<CustomerServiceScreen> {
       onTap: () => _toKakaoChannel(),
 
       child: ListTile(
-        contentPadding: const EdgeInsets.only(top: 12.0, left: 19.0, right: 18.0),
+        contentPadding: const EdgeInsets.fromLTRB(19, 12, 18, 0),
         leading: SvgIcon.serviceFeedback(color: AppColors.black),
         title: const Text(
           '백투퓨처의 개선점을 보내주세요!',

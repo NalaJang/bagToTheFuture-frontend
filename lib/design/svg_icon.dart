@@ -52,4 +52,25 @@ class SvgIcon {
   static Widget logo({double width = 23, double height = 23, Color? color}) {
     return fromAsset('logo', width: width, height: height, color: color);
   }
+
+  static Widget order({double width = 23, double height = 23, Color? color}) {
+    return fromAsset('order', width: width, height: height, color: color);
+  }
+
+  static Widget comment({double width = 23, double height = 23, Color? color}) {
+    return fromAsset('comment', width: width, height: height, color: color);
+  }
+
+  static Widget setting({double width = 23, double height = 23, Color? color}) {
+    return fromAsset('setting', width: width, height: height, color: color);
+  }
+
+  static Widget question(
+      {double width = 23, double height = 23, Color? color}) {
+    return fromAsset('question', width: width, height: height, color: color);
+  }
+
+  static Widget info({double width = 23, double height = 23, Color? color}) {
+    return fromAsset('info', width: width, height: height, color: color);
+  }
 }

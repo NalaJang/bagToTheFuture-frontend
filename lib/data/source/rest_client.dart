@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart' hide Headers;
-import 'package:rest_api_ex/data/model/email_auth_response.dart';
+import 'package:rest_api_ex/data/model/get_response.dart';
 import 'package:rest_api_ex/data/model/sign_in_response.dart';
 import 'package:retrofit/http.dart';
 
@@ -32,12 +32,12 @@ abstract class RestClient {
   );
 
   @POST('/certificate/email')
-  Future<void> emailAuth(
+  Future<GetResponse> emailAuth(
     @Field('email') String email,
   );
 
   @GET('/certificate/email/{email}/status')
-  Future<EmailAuthResponse> emailAuthStatus({
+  Future<GetResponse> emailAuthStatus({
     @Path() required String email,
   });
 }

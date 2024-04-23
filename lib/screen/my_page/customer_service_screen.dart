@@ -39,15 +39,7 @@ class _CustomerServiceScreenState extends State<CustomerServiceScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(18, 0, 0, 16),
-                child: Text(
-                  '자주 묻는 질문',
-                  style: FontStyles.Body1.copyWith(
-                    color: AppColors.black,
-                  ),
-                ),
-              ),
+              _qnaTitle(),
               const Divider(height: 0,),
               _qnaList(),
               const Divider(height: 0,),
@@ -55,6 +47,18 @@ class _CustomerServiceScreenState extends State<CustomerServiceScreen> {
               _serviceFeedback(),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _qnaTitle() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(18, 0, 0, 16),
+      child: Text(
+        '자주 묻는 질문',
+        style: FontStyles.Body1.copyWith(
+          color: AppColors.black,
         ),
       ),
     );

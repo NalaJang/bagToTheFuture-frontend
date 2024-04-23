@@ -36,8 +36,9 @@ abstract class RestClient {
     @Field('email') String email,
   );
 
-  @GET('/certificate/email/{email}/status')
-  Future<GetResponse> emailAuthStatus({
-    @Path() required String email,
-  });
+  @GET('/certificate/email')
+  Future<GetResponse> emailAuthStatus(
+    @Query('email') String email,
+    @Query('certificationNumber') String certificationNumber,
+  );
 }

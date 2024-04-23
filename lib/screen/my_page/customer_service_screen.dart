@@ -21,7 +21,7 @@ class _CustomerServiceScreenState extends State<CustomerServiceScreen> {
 
   @override
   void dispose() {
-    for(int i = 0; i < qnaList.length; i++) {
+    for (int i = 0; i < qnaList.length; i++) {
       qnaList[i].isExpanded = false;
     }
     super.dispose();
@@ -48,8 +48,9 @@ class _CustomerServiceScreenState extends State<CustomerServiceScreen> {
                   ),
                 ),
               ),
-              const Divider(),
+              const Divider(height: 0,),
               _qnaList(),
+              const Divider(height: 0,),
               _qnaChannel(),
               _serviceFeedback(),
             ],
@@ -60,83 +61,105 @@ class _CustomerServiceScreenState extends State<CustomerServiceScreen> {
   }
 
   Widget _qnaList() {
-    return ListView.builder(
+    return ListView.separated(
       primary: false,
       shrinkWrap: true,
       itemCount: qnaList.length,
       itemBuilder: (context, index) {
-        return ExpansionTile(
-          trailing: qnaList[index].isExpanded
-              ? SvgIcon.arrowUp(color: AppColors.main)
-              : SvgIcon.arrowDown(color: AppColors.main),
-          onExpansionChanged: (bool expanded) {
-            setState(() {
-              qnaList[index].isExpanded = expanded;
-            });
-          },
-          tilePadding: const EdgeInsets.fromLTRB(12, 0, 16, 0),
-          title: Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(right: 9.0),
-                child: Text(
-                  'Q',
-                  style: FontStyles.Body1.copyWith(
-                    color: AppColors.main,
+        return Theme(
+          data: ThemeData(
+            dividerColor: Colors.transparent,
+          ),
+          child: ExpansionTile(
+            trailing: qnaList[index].isExpanded
+                ? SvgIcon.arrowUp(color: AppColors.main)
+                : SvgIcon.arrowDown(color: AppColors.main),
+            onExpansionChanged: (bool expanded) {
+              setState(() {
+                qnaList[index].isExpanded = expanded;
+              });
+            },
+            tilePadding: const EdgeInsets.fromLTRB(12, 0, 16, 0),
+            title: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 9.0),
+                  child: Text(
+                    'Q',
+                    style: FontStyles.Body1.copyWith(
+                      color: AppColors.main,
+                    ),
                   ),
                 ),
-              ),
-              Text(
-                qnaList[index].question,
-                style: FontStyles.Body7.copyWith(color: AppColors.black),
-              ),
+                Text(
+                  qnaList[index].question,
+                  style: FontStyles.Body7.copyWith(color: AppColors.black),
+                ),
+              ],
+            ),
+            children: [
+              Container(
+                decoration: const BoxDecoration(
+                    color: AppColors.gray0,
+                    border: Border(
+                        top: BorderSide(
+                          width: 2,
+                          color: AppColors.gray3,
+                        ),
+                        bottom: BorderSide(
+                          width: 1,
+                          color: AppColors.gray3,
+                        ),),),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(12, 21, 16, 18),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(right: 9.0),
+                            child: Text(
+                              'A',
+                              style: FontStyles.Body1.copyWith(
+                                color: AppColors.gray5,
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Text(
+                              qnaList[index].answer,
+                              // overflow: TextOverflow.clip,
+                              // maxLines: 3,
+                              style: FontStyles.Body7.copyWith(
+                                color: AppColors.black,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              )
             ],
           ),
-          children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(12, 21, 16, 18),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 9.0),
-                    child: Text(
-                      'A',
-                      style: FontStyles.Body1.copyWith(
-                        color: AppColors.gray5,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Text(
-                      qnaList[index].answer,
-                      // overflow: TextOverflow.clip,
-                      // maxLines: 3,
-                      style: FontStyles.Body7.copyWith(
-                        color: AppColors.black,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
         );
       },
+      separatorBuilder: (BuildContext context, int index) => const Divider(
+        height: 0,
+        color: AppColors.gray3,
+      ),
     );
   }
 
   Widget _qnaChannel() {
     return InkWell(
       onTap: () => _toKakaoChannel(),
-
       child: ListTile(
         contentPadding: const EdgeInsets.fromLTRB(19, 21, 18, 0),
         leading: SvgIcon.headPhone(color: AppColors.black),
-        title: const Text(
-          '기타 문의사항이 있으신가요?',
-          style: FontStyles.Caption2
-        ),
+        title: const Text('기타 문의사항이 있으신가요?', style: FontStyles.Caption2),
         subtitle: const Text(
           '백투더퓨처 상담 채널 연결',
           style: FontStyles.Body1,
@@ -149,7 +172,6 @@ class _CustomerServiceScreenState extends State<CustomerServiceScreen> {
   Widget _serviceFeedback() {
     return InkWell(
       onTap: () => _toKakaoChannel(),
-
       child: ListTile(
         contentPadding: const EdgeInsets.fromLTRB(19, 12, 18, 0),
         leading: SvgIcon.serviceFeedback(color: AppColors.black),

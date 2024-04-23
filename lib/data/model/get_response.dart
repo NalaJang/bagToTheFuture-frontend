@@ -10,6 +10,6 @@ class GetResponse {
     required this.data,
   });
 
-  factory GetResponse.fromJson(Map<String, dynamic> json) => _$EmailAuthResponseFromJson(json);
-  Map<String, dynamic> toJson() => _$EmailAuthResponseToJson(this);
+  factory GetResponse.fromJson(Map<String, dynamic> json) => _$GetResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$GetResponseToJson(this);
 }

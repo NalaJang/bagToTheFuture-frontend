@@ -9,6 +9,6 @@ class TokenDataModel {
 
   TokenDataModel({required this.accessToken, required this.refreshToken});
 
-  factory TokenDataModel.fromJson(Map<String, dynamic> json) => _$ResponseDataFromJson(json);
-  Map<String, dynamic> toJson() => _$ResponseDataToJson(this);
+  factory TokenDataModel.fromJson(Map<String, dynamic> json) => _$TokenDataModelFromJson(json);
+  Map<String, dynamic> toJson() => _$TokenDataModelToJson(this);
 }

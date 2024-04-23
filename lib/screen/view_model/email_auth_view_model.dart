@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:rest_api_ex/config/validation_check.dart';
@@ -15,6 +14,7 @@ class EmailAuthViewModel with ChangeNotifier {
   final _emailAuthCodeController = TextEditingController();
   bool _showSpinner = false;
   bool _isButtonEnabled = false;
+  String _certificationNumber = '';
 
   get userEmailController => _userEmailController;
 
@@ -58,7 +58,7 @@ class EmailAuthViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  void emailResend(String email ) async {
+  void emailResend(String email) async {
     _showSpinner = true;
     notifyListeners();
 
@@ -70,7 +70,6 @@ class EmailAuthViewModel with ChangeNotifier {
           content: Text('이메일이 전송되었습니다.'),
         ),
       );
-
     } catch (error) {
       final errorMessage = ErrorHandler.handle(error).failure;
       debugPrint(errorMessage);
@@ -86,7 +85,8 @@ class EmailAuthViewModel with ChangeNotifier {
     notifyListeners();
 
     try {
-      await restClient.emailAuth(email);
+      final result = await restClient.emailAuth(email);
+      _certificationNumber = result.data['certificationNumber'];
 
       if (context.mounted) {
         navigateTo(

@@ -14,7 +14,6 @@ class EmailAuthViewModel with ChangeNotifier {
   final _emailAuthCodeController = TextEditingController();
   bool _showSpinner = false;
   bool _isButtonEnabled = false;
-  String _certificationNumber = '';
 
   get userEmailController => _userEmailController;
 
@@ -85,8 +84,7 @@ class EmailAuthViewModel with ChangeNotifier {
     notifyListeners();
 
     try {
-      final result = await restClient.emailAuth(email);
-      _certificationNumber = result.data['certificationNumber'];
+      await restClient.emailAuth(email);
 
       if (context.mounted) {
         navigateTo(
@@ -126,8 +124,11 @@ class EmailAuthViewModel with ChangeNotifier {
     notifyListeners();
 
     try {
-      final status = await restClient.emailAuthStatus(email: email);
-      final result = status.data['is_certificated'];
+      final status = await restClient.emailAuthStatus(
+        email,
+        _emailAuthCodeController.text,
+      );
+      final result = status.data['isValid'];
 
       if (result) {
         navigateTo(context, where);

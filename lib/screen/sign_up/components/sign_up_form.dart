@@ -116,7 +116,7 @@ class _SignUpFormState extends State<SignUpForm> {
           isNecessary: false,
           userInfoTextFormField: UserInfoTextFormField(
             controller: widget.userBirthController,
-            validator: validateNickName,
+            validator: (value) => null,
             decorationLabelText: Constants.birthInputPrompt,
           ),
         ),

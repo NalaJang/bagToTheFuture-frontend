@@ -1,137 +1,142 @@
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:provider/provider.dart';
+import 'package:rest_api_ex/config/constants.dart';
+import 'package:rest_api_ex/config/custom_app_bar.dart';
 import 'package:rest_api_ex/config/validation_check.dart';
-import 'package:rest_api_ex/config/navigate_to.dart';
-import 'package:rest_api_ex/screen/my_bottom_navigation.dart';
+import 'package:rest_api_ex/design/color_styles.dart';
+import 'package:rest_api_ex/design/font_styles.dart';
+import 'package:rest_api_ex/screen/sign_up/components/terms_of_use.dart';
+import 'package:rest_api_ex/screen/view_model/sign_up_view_model.dart';
 
-import '../../config/palette.dart';
-import '../../data/model/user_model.dart';
-import '../../data/network/error_handler.dart';
-import '../../data/source/rest_client.dart';
 import 'components/sign_up_form.dart';
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({required String userEmail, super.key}) : _userEmail = userEmail;
+class SignUpScreen extends StatelessWidget {
+  final String userEmail;
 
-  final String _userEmail;
-
-  @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
-}
-
-class _SignUpScreenState extends State<SignUpScreen> {
-
-  bool showSpinner = false;
-  final formKey = GlobalKey<FormState>();
-
-  final userNickNameController = TextEditingController();
-  final userEmailController = TextEditingController();
-  final userPasswordController = TextEditingController();
-  final userPasswordConfirmController = TextEditingController();
-  final RestClient restClient = GetIt.instance<RestClient>();
-
-
-  @override
-  void dispose() {
-    super.dispose();
-
-    userNickNameController.dispose();
-    userEmailController.dispose();
-    userPasswordController.dispose();
-    userPasswordConfirmController.dispose();
-  }
-
+  const SignUpScreen({
+    super.key,
+    required this.userEmail,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('회원가입'),
-      ),
+    return ChangeNotifierProvider(
+      create: (_) => SignUpViewModel(),
+      builder: (context, child) {
+        final viewModel = context.watch<SignUpViewModel>();
 
-      body: ModalProgressHUD(
-          inAsyncCall: showSpinner,
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SignUpForm(
-                  formKey: formKey,
-                  userEmail: widget._userEmail,
-                  userNickNameController: userNickNameController,
-                  userPasswordController: userPasswordController,
-                  userPasswordConfirmController: userPasswordConfirmController,
+        return Scaffold(
+          appBar: const CustomAppBar(title: Constants.signUp),
+          body: GestureDetector(
+            onTap: () => FocusScope.of(context).unfocus(),
+            child: ModalProgressHUD(
+              inAsyncCall: viewModel.showSpinner,
+              child: SingleChildScrollView(
+                child: Form(
+                  key: viewModel.formKey,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 27),
+                    child: Column(
+                      children: [
+                        SignUpForm(
+                          formKey: viewModel.formKey,
+                          userEmail: userEmail,
+                          userPasswordController:
+                              viewModel.userPasswordController,
+                          userPasswordConfirmController:
+                              viewModel.userPasswordConfirmController,
+                          userNickNameController:
+                              viewModel.userNickNameController,
+                          userBirthController: viewModel.userBirthController,
+                          userBank: viewModel.userBank,
+                          accountHolderController:
+                              viewModel.accountHolderController,
+                          accountController: viewModel.accountController,
+                        ),
+
+                        // 이용약관 동의
+                        TermsOfUse(
+                          isCheckedAllTermsOfUse:
+                              viewModel.isCheckedAllTermsOfUse,
+                          isCheckedNecessaryTermsOfUse1:
+                              viewModel.isCheckedNecessaryTermsOfUse1,
+                          isCheckedNecessaryTermsOfUse2:
+                              viewModel.isCheckedNecessaryTermsOfUse2,
+                          isCheckedNecessaryTermsOfUse3:
+                              viewModel.isCheckedNecessaryTermsOfUse3,
+                          isCheckedNecessaryTermsOfUse4:
+                              viewModel.isCheckedNecessaryTermsOfUse4,
+                          isCheckedMarketing: viewModel.isCheckedMarketing,
+                          onAllTermsOfUsePressed: () =>
+                              viewModel.onAllTermsOfUsePressed(),
+                          onTermsOfUse1Pressed: () =>
+                              viewModel.onTermsOfUse1Pressed(),
+                          onTermsOfUse2Pressed: () =>
+                              viewModel.onTermsOfUse2Pressed(),
+                          onTermsOfUse3Pressed: () =>
+                              viewModel.onTermsOfUse3Pressed(),
+                          onTermsOfUse4Pressed: () =>
+                              viewModel.onTermsOfUse4Pressed(),
+                          onMarketingPressed: () =>
+                              viewModel.onMarketingPressed(),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-              ],
+              ),
             ),
-          )
-      ),
+          ),
+          bottomNavigationBar: _buildBottomNavigationBar(context, viewModel),
+        );
+      },
+    );
+  }
 
-      bottomNavigationBar: Container(
-        margin: const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 20),
+  Widget _buildBottomNavigationBar(
+      BuildContext context, SignUpViewModel viewModel) {
+    return Container(
+      decoration: const BoxDecoration(
+        color: AppColors.white,
+        border: Border(
+          top: BorderSide(
+            color: Color(0xffe8e8e8),
+          ),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Color(0xffe8e8e8),
+            spreadRadius: 1,
+            blurRadius: 1,
+            offset: Offset(3, 0),
+          ),
+        ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 27),
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            padding: const EdgeInsets.all(15.0),
-            backgroundColor: Palette.primaryColor,
+            backgroundColor:
+                viewModel.isButtonEnabled ? AppColors.main : AppColors.gray4,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(4.0),
             ),
           ),
+          onPressed: () {
+            if (!viewModel.isButtonEnabled) {
+              return;
+            }
+            ValidationCheck().allUserInputValidation(viewModel.formKey);
 
-          onPressed: () async {
-            await _handleSignUpPressed();
-            },
-
-          child: const Text(
-            '가입하기',
-            style: TextStyle(
-                color: Colors.white
-            ),
+            viewModel.signUpSubmit(context);
+          },
+          child: Text(
+            Constants.submitSignUp,
+            style: FontStyles.Body2.copyWith(color: AppColors.white),
           ),
         ),
       ),
     );
-  }
-
-
-
-
-
-  Future<void> _handleSignUpPressed() async {
-    ValidationCheck().allUserInputValidation(formKey);
-
-    setState(() {
-      showSpinner = true;
-    });
-
-    List<String> phoneNumber = ['010', '1616', '1616'];
-    var userModel = UserModel(
-        name: 'test16',
-        email: 'test16@email.com',
-        password: '123456',
-        passwordConfirm: '123456',
-        phoneNumber: phoneNumber);
-
-    try {
-      await restClient.createUser(userModel.toJson());
-
-      if( mounted ) {
-        navigatePushAndRemoveUtilTo(context, const MyBottomNavigation());
-      }
-
-    } catch (error) {
-      final errorMessage = ErrorHandler.handle(error).failure;
-
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(errorMessage),
-          ),
-        );
-      }
-    }
-    setState(() {
-      showSpinner = false;
-    });
   }
 }

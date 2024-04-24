@@ -42,3 +42,12 @@ String? validatePassword(String? value) =>
 
 String? validateConfirmPassword(String? value, String password) =>
     value == null || value.isEmpty || value != password ? '비밀번호가 일치하지 않습니다.' : null;
+
+String? validateConfirmBank(String? value) =>
+  value == '' ? '은행을 선택해 주세요.' : null;
+
+String? validateConfirmAccountHolder(String? value) =>
+  value == null || value.isEmpty? '예금주를 입력해 주세요.' : null;
+
+String? validateConfirmAccount(String? value) =>
+    value == null || value.isEmpty || value.length < 15 ? '올바른 계좌번호 형식이 아닙니다.' : null;

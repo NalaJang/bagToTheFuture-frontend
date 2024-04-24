@@ -19,14 +19,52 @@ class SvgIcon {
         width: width, height: height, color: color);
   }
 
+  static Widget arrowRight(
+      {double width = 18, double height = 18, Color? color}) {
+    return fromAsset('ic_right_arrow',
+        width: width, height: height, color: color);
+  }
+
+  static Widget arrowDown(
+      {double width = 16, double height = 16, Color? color}) {
+    return fromAsset('ic_down_arrow_1',
+        width: width, height: height, color: color);
+  }
+
+  static Widget arrowUp(
+      {double width = 16, double height = 16, Color? color}) {
+    return fromAsset('ic_up_arrow_1',
+        width: width, height: height, color: color);
+  }
+
   static Widget headPhone(
       {double width = 23, double height = 23, Color? color}) {
     return fromAsset('ic_headset_microphone',
         width: width, height: height, color: color);
   }
 
+  static Widget serviceFeedback(
+      {double width = 23, double height = 23, Color? color}) {
+    return fromAsset('service_feedback',
+        width: width, height: height, color: color);
+  }
+
   static Widget logo({double width = 23, double height = 23, Color? color}) {
     return fromAsset('logo', width: width, height: height, color: color);
+  }
+
+  static Widget downArrow(
+      {double width = 16, double height = 16, Color? color}) {
+    return fromAsset('ic_down_arrow_1',
+        width: width, height: height, color: color);
+  }
+
+  static Widget checked({double width = 20, double height = 20}) {
+    return fromAsset('ic_checked', width: width, height: height);
+  }
+
+  static Widget unchecked({double width = 20, double height = 20}) {
+    return fromAsset('ic_unchecked', width: width, height: height);
   }
 
   static Widget order({double width = 23, double height = 23, Color? color}) {

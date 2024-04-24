@@ -53,6 +53,20 @@ class SvgIcon {
     return fromAsset('logo', width: width, height: height, color: color);
   }
 
+  static Widget downArrow(
+      {double width = 16, double height = 16, Color? color}) {
+    return fromAsset('ic_down_arrow_1',
+        width: width, height: height, color: color);
+  }
+
+  static Widget checked({double width = 20, double height = 20}) {
+    return fromAsset('ic_checked', width: width, height: height);
+  }
+
+  static Widget unchecked({double width = 20, double height = 20}) {
+    return fromAsset('ic_unchecked', width: width, height: height);
+  }
+
   static Widget order({double width = 23, double height = 23, Color? color}) {
     return fromAsset('order', width: width, height: height, color: color);
   }

@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:rest_api_ex/config/common/sized_box_values.dart';
 import 'package:rest_api_ex/config/custom_snack_bar.dart';
 import 'package:rest_api_ex/design/svg_icon.dart';
-import 'package:rest_api_ex/screen/sign_in/sign_in_view_model.dart';
+import 'package:rest_api_ex/screen/view_model/sign_in_view_model.dart';
 
 import '../../config/social_sign_in.dart';
 import 'sign_in_email_screen.dart';

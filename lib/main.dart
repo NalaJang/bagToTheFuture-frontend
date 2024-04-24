@@ -4,7 +4,7 @@ import 'package:rest_api_ex/config/di.dart';
 import 'package:rest_api_ex/config/social_sign_in.dart';
 import 'package:rest_api_ex/screen/view_model/store_info_view_model.dart';
 import 'package:rest_api_ex/screen/my_bottom_navigation.dart';
-import 'package:rest_api_ex/screen/sign_in/sign_in_view_model.dart';
+import 'package:rest_api_ex/screen/view_model/sign_in_view_model.dart';
 import 'package:rest_api_ex/screen/sign_in/user_provider.dart';
 
 void main() async {

@@ -26,7 +26,7 @@ class SvgIcon {
   }
 
   static Widget arrowDown(
-      {double width = 16, double height = 16, Color? color}) {
+      {double width = 11, double height = 5, Color? color}) {
     return fromAsset('ic_down_arrow_1',
         width: width, height: height, color: color);
   }
@@ -87,4 +87,23 @@ class SvgIcon {
   static Widget info({double width = 23, double height = 23, Color? color}) {
     return fromAsset('info', width: width, height: height, color: color);
   }
+  static Widget search({required double width, required double height, required Color color}) {
+    return fromAsset('ic_search', width: width, height: height, color: color);
+  }
+  static Widget locationPin({required double width, required double height, required Color color}) {
+    return fromAsset('ic_location', width: width, height: height, color: color);
+  }
+  static Widget delete({required double width, required double height, required Color color}) {
+    return fromAsset('ic_delete', width: width, height: height, color: color);
+  }
+  static Widget tagHome({required double width, required double height, required Color color}) {
+    return fromAsset('ic_taghome', width: width, height: height, color: color);
+  }
+  static Widget tagStar({required double width, required double height, required Color color}) {
+    return fromAsset('ic_star', width: width, height: height, color: color);
+  }
+  static Widget arrowDown_1({required double width, required double height, required Color color}) {
+    return fromAsset('ic_arrowDown', width: width, height: height, color: color);
+  }
+
 }

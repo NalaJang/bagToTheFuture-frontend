@@ -9,11 +9,16 @@ import 'package:rest_api_ex/screen/view_model/store_info_view_model.dart';
 import 'package:rest_api_ex/screen/my_bottom_navigation.dart';
 import 'package:rest_api_ex/screen/view_model/sign_in_view_model.dart';
 import 'package:rest_api_ex/screen/sign_in/user_provider.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await NaverMapSdk.instance.initialize(clientId: 'rwvum8nblb');
   await initModule();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 

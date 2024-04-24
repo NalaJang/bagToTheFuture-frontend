@@ -4,8 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:rest_api_ex/config/navigate_to.dart';
 import 'package:rest_api_ex/config/social_sign_in.dart';
 import 'package:rest_api_ex/design/svg_icon.dart';
-import 'package:rest_api_ex/screen/sign_in/sign_in_screen.dart';
-import 'package:rest_api_ex/screen/sign_in/sign_in_view_model.dart';
+import 'package:rest_api_ex/screen/my_bottom_navigation.dart';
+import 'package:rest_api_ex/screen/view_model/sign_in_view_model.dart';
 
 class SettingViewModel with ChangeNotifier {
   bool _isEnabledOrderAlarm = true;
@@ -63,10 +63,10 @@ class SettingViewModel with ChangeNotifier {
   }
 
   void logout(BuildContext context) async {
-    navigateTo(context, const SignInScreen());
+    navigatePushAndRemoveUtilTo(context, const MyBottomNavigation());
 
     final viewModel = Provider.of<SignInViewModel>(context, listen: false);
-    print(viewModel.signInPlatform);
+
     await SocialSignIn(context).signOut(viewModel.signInPlatform);
   }
 

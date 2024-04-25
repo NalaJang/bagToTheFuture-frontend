@@ -31,8 +31,7 @@ class SvgIcon {
         width: width, height: height, color: color);
   }
 
-  static Widget arrowUp(
-      {double width = 16, double height = 16, Color? color}) {
+  static Widget arrowUp({double width = 16, double height = 16, Color? color}) {
     return fromAsset('ic_up_arrow_1',
         width: width, height: height, color: color);
   }
@@ -71,6 +70,11 @@ class SvgIcon {
     return fromAsset('order', width: width, height: height, color: color);
   }
 
+  static Widget orderLogo(
+      {double width = 23, double height = 23, Color? color}) {
+    return fromAsset('order_logo', width: width, height: height, color: color);
+  }
+
   static Widget comment({double width = 23, double height = 23, Color? color}) {
     return fromAsset('comment', width: width, height: height, color: color);
   }
@@ -88,11 +92,15 @@ class SvgIcon {
     return fromAsset('info', width: width, height: height, color: color);
   }
 
-  static Widget enabledToggle({double width = 51, double height = 31, Color? color}) {
-    return fromAsset('ic_enabled_toggle', width: width, height: height, color: color);
+  static Widget enabledToggle(
+      {double width = 51, double height = 31, Color? color}) {
+    return fromAsset('ic_enabled_toggle',
+        width: width, height: height, color: color);
   }
 
-  static Widget disabledToggle({double width = 51, double height = 31, Color? color}) {
-    return fromAsset('ic_disabled_toggle', width: width, height: height, color: color);
+  static Widget disabledToggle(
+      {double width = 51, double height = 31, Color? color}) {
+    return fromAsset('ic_disabled_toggle',
+        width: width, height: height, color: color);
   }
 }

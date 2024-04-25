@@ -95,53 +95,56 @@ class _StoreInfoScreenState extends State<StoreInfoScreen> {
     );
   }
 
+  // 예약 접수 모달
   Future<void> _dialogBuilder(BuildContext context) {
     return showDialog<void>(
       context: context,
       barrierDismissible: true,
       builder: (BuildContext context) {
         return AlertDialog(
-          contentPadding: const EdgeInsets.fromLTRB(15, 0, 15, 10),
+          contentPadding: const EdgeInsets.fromLTRB(17, 22, 18, 26),
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(10))),
           surfaceTintColor: Colors.white,
-          content: SizedBox(
-            height: 250,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                  IconButton(
-                    onPressed: () => Navigator.pop(context),
-                    icon: const Icon(
-                      Icons.close,
-                      color: AppColors.gray5,
-                    ),
-                  )
-                ]),
-                SvgIcon.logo(width: 80, height: 80),
-                SizedBoxValues.gapH10,
-                Text(
-                  '에약이 접수되었어요!',
-                  style: FontStyles.Title5.copyWith(color: AppColors.black),
-                ),
-                SizedBoxValues.gapH20,
-                Stack(children: [
-                  const Text('농협 302-0735-9778-61 (김창영)'),
-                  Positioned.fill(
-                    child: Container(
-                        decoration: const BoxDecoration(
-                            border: Border(bottom: BorderSide()))),
-                  )
-                ]),
-                SizedBoxValues.gapH5,
-                const Text(
-                  '으로 0시 0분까지 00000원을 입금해주세요.',
-                  style: TextStyle(color: AppColors.gray6),
-                ),
-              ],
+          content: Stack(children: [
+            Positioned(
+              right: 0,
+              top: -5,
+              child: GestureDetector(
+                onTap: () => Navigator.pop(context),
+                child: const Icon(Icons.close, color: AppColors.gray5),
+              ),
             ),
-          ),
+            FittedBox(
+              child: Column(
+                children: [
+                  SvgIcon.orderLogo(width: 64, height: 64),
+                  SizedBoxValues.gapH10,
+                  Text('에약이 접수되었어요!',
+                      style:
+                          FontStyles.Title5.copyWith(color: AppColors.black)),
+                  SizedBoxValues.gapH10,
+                  Row(
+                    children: [
+                      Stack(children: [
+                        const Text('농협 302-0735-9778-61 (김창영)'),
+                        Positioned.fill(
+                          child: Container(
+                              decoration: const BoxDecoration(
+                                  border: Border(bottom: BorderSide()))),
+                        )
+                      ]),
+                      const Text('으로',
+                          style: TextStyle(color: AppColors.gray6)),
+                    ],
+                  ),
+                  SizedBoxValues.gapH5,
+                  const Text('0시 0분까지 00000원을 입금해주세요.',
+                      style: TextStyle(color: AppColors.gray6)),
+                ],
+              ),
+            ),
+          ]),
         );
       },
     );

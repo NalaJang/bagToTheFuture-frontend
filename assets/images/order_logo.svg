@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="_레이어_2" data-name="레이어 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90.44 90.44">
+  <g id="_레이어_1-2" data-name="레이어 1">
+    <circle cx="45.22" cy="45.22" r="45.22" fill="#3eddac" stroke-width="0"/>
+    <path d="M30.25,61.38c0-6.44,3.55-9.9,7.68-9.9s7.28,5.54,7.28,11.98" fill="#ff726a" stroke="#222" stroke-miterlimit="10" stroke-width="5"/>
+    <g id="_18-tasty_delicious" data-name="18-tasty+delicious">
+      <path d="M66.85,54.9c-5.11,6.22-12.96,10.18-21.63,10.18s-16.52-3.97-21.63-10.18" fill="none" stroke="#222" stroke-linecap="round" stroke-linejoin="round" stroke-width="5"/>
+    </g>
+    <ellipse cx="35.01" cy="37.88" rx="5.32" ry="7.34" fill="#222" stroke-width="0"/>
+    <path d="M55.67,31.9l-6.97,12.08s0,.08.05.08h13.94s.07-.05.05-.08l-6.97-12.08s-.07-.04-.09,0Z" fill="#222" stroke-width="0"/>
+  </g>
+</svg>

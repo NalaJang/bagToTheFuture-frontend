@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import 'response_data.dart';
+import 'token_data_model.dart';
 
 part 'sign_in_response.g.dart';
 
@@ -8,7 +8,7 @@ part 'sign_in_response.g.dart';
 class SignInResponse {
   final int code;
   final String message;
-  final ResponseData data;
+  final TokenDataModel data;
 
   SignInResponse({required this.code, required this.message, required this.data});
 

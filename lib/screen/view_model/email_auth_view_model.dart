@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:rest_api_ex/config/validation_check.dart';
@@ -58,7 +57,7 @@ class EmailAuthViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  void emailResend(String email ) async {
+  void emailResend(String email) async {
     _showSpinner = true;
     notifyListeners();
 
@@ -70,7 +69,6 @@ class EmailAuthViewModel with ChangeNotifier {
           content: Text('이메일이 전송되었습니다.'),
         ),
       );
-
     } catch (error) {
       final errorMessage = ErrorHandler.handle(error).failure;
       debugPrint(errorMessage);
@@ -126,8 +124,11 @@ class EmailAuthViewModel with ChangeNotifier {
     notifyListeners();
 
     try {
-      final status = await restClient.emailAuthStatus(email: email);
-      final result = status.data['is_certificated'];
+      final status = await restClient.emailAuthStatus(
+        email,
+        _emailAuthCodeController.text,
+      );
+      final result = status.data['isValid'];
 
       if (result) {
         navigateTo(context, where);

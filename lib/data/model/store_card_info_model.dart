@@ -8,6 +8,9 @@ class StoreCardInfoModel {
   final String discount;
   final String originalPrice;
   final String salePrice;
+  final String image1;
+  final String image2;
+  final String image3;
 
   const StoreCardInfoModel({
     required this.name,
@@ -19,5 +22,8 @@ class StoreCardInfoModel {
     required this.discount,
     required this.originalPrice,
     required this.salePrice,
+    required this.image1,
+    required this.image2,
+    required this.image3,
   });
 }

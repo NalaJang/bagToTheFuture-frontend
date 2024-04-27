@@ -12,6 +12,9 @@ class StoreCardInfoData {
       discount: '61%',
       originalPrice: '9,900',
       salePrice: '3,900',
+      image1: 'assets/images/sample.png',
+      image2: 'assets/images/sample.png',
+      image3: 'assets/images/sample.png',
     ),
 
     StoreCardInfoModel(
@@ -24,6 +27,9 @@ class StoreCardInfoData {
       discount: '61%',
       originalPrice: '9,900',
       salePrice: '3,900',
+      image1: 'assets/images/sample.png',
+      image2: 'assets/images/sample.png',
+      image3: 'assets/images/sample.png',
     ),
 
     StoreCardInfoModel(
@@ -36,6 +42,9 @@ class StoreCardInfoData {
       discount: '61%',
       originalPrice: '9,900',
       salePrice: '3,900',
+      image1: 'assets/images/sample.png',
+      image2: 'assets/images/sample.png',
+      image3: 'assets/images/sample.png',
     ),
 
     StoreCardInfoModel(
@@ -48,6 +57,9 @@ class StoreCardInfoData {
       discount: '61%',
       originalPrice: '9,900',
       salePrice: '3,900',
+      image1: 'assets/images/sample.png',
+      image2: 'assets/images/sample.png',
+      image3: 'assets/images/sample.png',
     ),
   ];
 }

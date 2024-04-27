@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class WishListScreen extends StatelessWidget {
-  const WishListScreen({super.key});
+class FavoriteListScreen extends StatelessWidget {
+  const FavoriteListScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

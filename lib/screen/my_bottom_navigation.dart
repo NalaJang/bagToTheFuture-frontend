@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:rest_api_ex/screen/favorite_list/favorite_list_screen.dart';
 import 'package:rest_api_ex/screen/home/home_screen.dart';
 import 'package:rest_api_ex/screen/my_page/my_page_screen.dart';
-import 'package:rest_api_ex/screen/wish_list/wish_list_screen.dart';
 
 
 class MyBottomNavigation extends StatefulWidget {
@@ -16,7 +16,7 @@ class _MyBottomNavigationState extends State<MyBottomNavigation> {
   int currentPage = 0;
   static const pages = [
     HomeScreen(),
-    WishListScreen(),
+    FavoriteListScreen(),
     MyPageScreen(),
   ];
 

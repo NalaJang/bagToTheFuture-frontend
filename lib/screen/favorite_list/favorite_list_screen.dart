@@ -22,20 +22,22 @@ class FavoriteListScreen extends StatelessWidget {
           style: FontStyles.Title3,
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 29, 0, 21),
-              child: Text(
-                '총 ${cardInfoList.length}개',
-                style: FontStyles.Body2.copyWith(color: AppColors.black),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 29, 0, 21),
+                child: Text(
+                  '총 ${cardInfoList.length}개',
+                  style: FontStyles.Body2.copyWith(color: AppColors.black),
+                ),
               ),
-            ),
-            Expanded(
-              child: ListView.builder(
+              ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
                 itemCount: cardInfoList.length,
                 itemBuilder: (context, index) {
                   return Column(
@@ -77,8 +79,8 @@ class FavoriteListScreen extends StatelessWidget {
                   );
                 },
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

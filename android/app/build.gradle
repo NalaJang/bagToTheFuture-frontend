@@ -61,12 +61,8 @@ android {
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         manifestPlaceholders += [KAKAO_NATIVE_APP_KEY: localProperties['KAKAO_NATIVE_APP_KEY']]
-
-//        manifestPlaceholders = [
-//                CLIENT_ID: System.getenv("CLIENT_ID") ?: "",
-//                CLIENT_SECRET: System.getenv("CLIENT_SECRET") ?: "",
-//                APP_NAME: System.getenv("APP_NAME") ?: ""
-//        ]
+        manifestPlaceholders += [NAVER_CLIENT_ID: localProperties['NAVER_CLIENT_ID']]
+        manifestPlaceholders += [NAVER_CLIENT_SECRET: localProperties['NAVER_CLIENT_SECRET']]
     }
 
     buildTypes {

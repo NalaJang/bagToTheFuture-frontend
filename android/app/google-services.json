@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "130146230599",
+    "project_id": "bagtothefuture-7ea0d",
+    "storage_bucket": "bagtothefuture-7ea0d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:130146230599:android:1ee9f33296df4de9bf6c62",
+        "android_client_info": {
+          "package_name": "com.example.back_to_the_future"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDj_i0pDIykQLhSshctydIE8fR7NQ1jMXg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

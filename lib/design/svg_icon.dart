@@ -21,7 +21,6 @@ class SvgIcon {
 
   static Widget arrowRight(
       {double width = 18, double height = 18, Color? color}) {
-    print('width: $width');
     return fromAsset('ic_right_arrow',
         width: width, height: height, color: color);
   }

@@ -6,14 +6,9 @@ import 'package:rest_api_ex/design/color_styles.dart';
 import 'package:rest_api_ex/design/font_styles.dart';
 import 'package:rest_api_ex/design/svg_icon.dart';
 
-class ReviewListScreen extends StatefulWidget {
-  const ReviewListScreen({super.key});
+class MyReviewListScreen extends StatelessWidget {
+  const MyReviewListScreen({super.key});
 
-  @override
-  State<ReviewListScreen> createState() => _ReviewListScreenState();
-}
-
-class _ReviewListScreenState extends State<ReviewListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

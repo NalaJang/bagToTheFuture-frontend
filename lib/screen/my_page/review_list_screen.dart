@@ -51,8 +51,15 @@ class _ReviewListScreenState extends State<ReviewListScreen> {
                     _itemImage(),
                     const SizedBox(height: 18),
                     _userComment(),
-                    const SizedBox(height: 27),
-                    _managerComment()
+                    if (index % 2 == 1) ...[
+                      const SizedBox(height: 27),
+                    ] else ...[
+                      const SizedBox(height: 36),
+                    ],
+                    if (index % 2 == 1) ...[
+                      _managerComment(
+                          '단골손님! 오늘도 참바른빵을 믿고 주문주셔서 감사합니다.빵이 생각날 때는 저희 "참바른빵" 꼬옥 기억해주시구, 다음번에도 또 찾아주세요^^')
+                    ]
                   ],
                 ),
               ),
@@ -123,10 +130,12 @@ class _ReviewListScreenState extends State<ReviewListScreen> {
               margin: i % 2 == 0 ? const EdgeInsets.only(right: 1.75) : null,
               child: i % 2 == 1
                   ? SvgIcon.reviewLeftStar(
+                      width: 14,
                       height: 14,
                       color:
                           i <= rateScore ? AppColors.yellow : AppColors.gray4)
                   : SvgIcon.reviewRightStar(
+                      width: 14,
                       height: 14,
                       color:
                           i <= rateScore ? AppColors.yellow : AppColors.gray4),
@@ -142,7 +151,8 @@ class _ReviewListScreenState extends State<ReviewListScreen> {
     return Padding(
       padding: const EdgeInsets.only(left: 34, right: 21),
       child: Image.asset(
-        'assets/images/img.png',
+        'assets/images/sample2.png',
+        fit: BoxFit.fill,
       ),
     );
   }
@@ -156,8 +166,8 @@ class _ReviewListScreenState extends State<ReviewListScreen> {
     );
   }
 
-  // 사장님 답급
-  Widget _managerComment() {
+  // 사장님 답글
+  Widget _managerComment(String comment) {
     return Padding(
       padding: const EdgeInsets.only(left: 6, right: 1),
       child: Container(

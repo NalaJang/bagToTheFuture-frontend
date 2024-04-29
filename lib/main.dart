@@ -13,6 +13,7 @@ import 'package:rest_api_ex/screen/view_model/sign_in_view_model.dart';
 import 'package:rest_api_ex/screen/sign_in/user_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print('백그라운드 메시지 처리.. ${message.notification!.body}');
@@ -39,6 +40,7 @@ void initializeNotification() async {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: ".env");
   await NaverMapSdk.instance.initialize(clientId: 'rwvum8nblb');
   await initModule();
   await Firebase.initializeApp(

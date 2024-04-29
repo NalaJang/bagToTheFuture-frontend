@@ -168,8 +168,19 @@ class SvgIcon {
         width: width, height: height, color: color);
   }
 
-  static Widget purpleBag({double width = 10, double height = 10, Color? color}) {
-    return fromAsset(
-        'ic_purple_bag', width: width, height: height, color: color);
+  static Widget purpleBag(
+      {double width = 10, double height = 10, Color? color}) {
+    return fromAsset('ic_purple_bag',
+        width: width, height: height, color: color);
+  }
+
+  static Widget trash(
+      {required double width, required double height, required Color color}) {
+    return fromAsset('ic_trash', width: width, height: height, color: color);
+  }
+
+  static Widget edit(
+      {required double width, required double height, required Color color}) {
+    return fromAsset('ic_edit', width: width, height: height, color: color);
   }
 }

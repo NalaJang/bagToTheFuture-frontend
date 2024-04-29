@@ -94,38 +94,47 @@ class UserWidget extends StatelessWidget {
             onTap: () => navigateTo(context, const OrderListScreen()),
             child: SizedBox(
               width: 70,
-              child: Column(
-                children: [
-                  SvgIcon.order(width: 30, height: 30),
-                  SizedBoxValues.gapH10,
-                  const Text('주문 내역', style: FontStyles.Body2),
-                ],
+              child: Container(
+                decoration: const BoxDecoration(color: Colors.transparent),
+                child: Column(
+                  children: [
+                    SvgIcon.order(width: 30, height: 30),
+                    SizedBoxValues.gapH10,
+                    const Text('주문 내역', style: FontStyles.Body2),
+                  ],
+                ),
               ),
             ),
           ),
           GestureDetector(
             onTap: () => navigateTo(context, const ReviewListScreen()),
-            child: SizedBox(
-              width: 70,
-              child: Column(
-                children: [
-                  SvgIcon.comment(width: 30, height: 30),
-                  SizedBoxValues.gapH10,
-                  const Text('리뷰 관리', style: FontStyles.Body2),
-                ],
+            child: Container(
+              decoration: const BoxDecoration(color: Colors.transparent),
+              child: SizedBox(
+                width: 70,
+                child: Column(
+                  children: [
+                    SvgIcon.comment(width: 30, height: 30),
+                    SizedBoxValues.gapH10,
+                    const Text('리뷰 관리', style: FontStyles.Body2),
+                  ],
+                ),
               ),
             ),
           ),
           GestureDetector(
             onTap: () => navigateTo(context, const SettingScreen()),
-            child: SizedBox(
-              width: 70,
-              child: Column(
-                children: [
-                  SvgIcon.setting(width: 30, height: 30),
-                  SizedBoxValues.gapH10,
-                  const Text('설정', style: FontStyles.Body2),
-                ],
+            child: Container(
+              decoration: const BoxDecoration(color: Colors.transparent),
+              child: SizedBox(
+                width: 70,
+                child: Column(
+                  children: [
+                    SvgIcon.setting(width: 30, height: 30),
+                    SizedBoxValues.gapH10,
+                    const Text('설정', style: FontStyles.Body2),
+                  ],
+                ),
               ),
             ),
           ),

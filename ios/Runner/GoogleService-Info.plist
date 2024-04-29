@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyDK2gJd92fpkL4GLQdFNrvzKs7x0PngxNE</string>
+	<key>GCM_SENDER_ID</key>
+	<string>130146230599</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.backToTheFuture</string>
+	<key>PROJECT_ID</key>
+	<string>bagtothefuture-7ea0d</string>
+	<key>STORAGE_BUCKET</key>
+	<string>bagtothefuture-7ea0d.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:130146230599:ios:c3f4a92ac409bea3bf6c62</string>
+</dict>
+</plist>

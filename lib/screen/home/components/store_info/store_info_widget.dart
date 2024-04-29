@@ -49,15 +49,15 @@ class StoreInfoWidget extends StatelessWidget {
 
           const SizedBox(height: 5),
           // 리뷰
-          Row(
+          const Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(
                 CupertinoIcons.star_fill,
                 size: 20,
-                color: Colors.yellow.shade700,
+                color: AppColors.yellow,
               ),
-              const Text('4.8(21) 리뷰 16개 >'),
+              Text('4.8(21) 리뷰 16개 >'),
             ],
           ),
           const SizedBox(height: 5),

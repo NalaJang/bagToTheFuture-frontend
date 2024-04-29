@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'components/my_page/menu_widget.dart';
-import 'components/my_page/recent_order.dart';
+import 'components/my_page/in_progress_order.dart';
 import 'components/my_page/user_widget.dart';
 
 class MyPageScreen extends StatelessWidget {
@@ -14,7 +14,7 @@ class MyPageScreen extends StatelessWidget {
         child: Column(
           children: [
             UserWidget(),
-            RecentOrder(),
+            InProgressOrder(),
             MenuWidget(),
           ],
         ),

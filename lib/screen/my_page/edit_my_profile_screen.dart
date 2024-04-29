@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
+import 'package:rest_api_ex/config/navigate_to.dart';
 import 'package:rest_api_ex/config/validation_check.dart';
 import 'package:rest_api_ex/design/color_styles.dart';
 import 'package:rest_api_ex/design/font_styles.dart';
 import 'package:rest_api_ex/design/svg_icon.dart';
+import 'package:rest_api_ex/screen/my_page/refund_info_screen.dart';
 import 'package:rest_api_ex/screen/view_model/edit_my_profile_view_model.dart';
 
 class EditMyProfileScreen extends StatefulWidget {
@@ -110,21 +112,24 @@ class _EditMyProfileScreenState extends State<EditMyProfileScreen> {
             '환불 정보',
             style: FontStyles.Body2.copyWith(color: AppColors.black),
           ),
-          Row(
-            children: [
-              Text(
-                '3020735977861',
-                style: FontStyles.Body6.copyWith(
-                  color: AppColors.black,
+          GestureDetector(
+            onTap: () => navigateTo(context, const RefundInfoScreen()),
+            child: Row(
+              children: [
+                Text(
+                  '3020735977861',
+                  style: FontStyles.Body6.copyWith(
+                    color: AppColors.black,
+                  ),
                 ),
-              ),
-              const SizedBox(width: 7),
-              SvgIcon.arrowRight(
-                width: 16,
-                height: 16,
-                color: AppColors.gray4,
-              ),
-            ],
+                const SizedBox(width: 7),
+                SvgIcon.arrowRight(
+                  width: 16,
+                  height: 16,
+                  color: AppColors.gray4,
+                ),
+              ],
+            ),
           ),
         ],
       ),

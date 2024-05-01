@@ -168,8 +168,9 @@ class SvgIcon {
         width: width, height: height, color: color);
   }
 
-  static Widget purpleBag({double width = 10, double height = 10, Color? color}) {
-    return fromAsset(
-        'ic_purple_bag', width: width, height: height, color: color);
+  static Widget purpleBag(
+      {double width = 10, double height = 10, Color? color}) {
+    return fromAsset('ic_purple_bag',
+        width: width, height: height, color: color);
   }
 }

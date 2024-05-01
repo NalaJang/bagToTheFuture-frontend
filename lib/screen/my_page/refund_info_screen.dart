@@ -1,15 +1,26 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:rest_api_ex/config/common/sized_box_values.dart';
 import 'package:rest_api_ex/config/custom_app_bar.dart';
 import 'package:rest_api_ex/design/color_styles.dart';
 import 'package:rest_api_ex/design/font_styles.dart';
+import 'package:rest_api_ex/design/svg_icon.dart';
 
-class RefundInfoScreen extends StatelessWidget {
+class RefundInfoScreen extends StatefulWidget {
   const RefundInfoScreen({super.key});
 
   @override
+  State<RefundInfoScreen> createState() => _RefundInfoScreenState();
+}
+
+class _RefundInfoScreenState extends State<RefundInfoScreen> {
+  final List<String> items = ['한국은행', '산업은행', '기업은행', '국민은행', '하나은행'];
+  String? selectedItem;
+  String? bankName;
+
+  @override
   Widget build(BuildContext context) {
-    final bankName = TextEditingController(text: '신한은행');
+    // final bankName = TextEditingController(text: '신한은행');
     final accountHolder = TextEditingController(text: '남정광');
     final account = TextEditingController(text: '3020735977861');
 
@@ -20,7 +31,79 @@ class RefundInfoScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            _textField(formName: '은행명', controller: bankName),
+            SizedBoxValues.gapH18,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  '은행명',
+                  style: FontStyles.Body2.copyWith(color: AppColors.black),
+                ),
+                SizedBoxValues.gapH7,
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: AppColors.main),
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  child: DropdownButtonHideUnderline(
+                    child: DropdownButton2<String>(
+                      isExpanded: true,
+                      hint: Text(
+                        '은행명',
+                        style: FontStyles.Body2.copyWith(color: AppColors.gray4),
+                      ),
+                      items: items
+                          .map((String item) => DropdownMenuItem<String>(
+                        value: item,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                item,
+                                style: FontStyles.Body2.copyWith(color: AppColors.black),
+                              ),
+                              const Divider(color: AppColors.gray4,),
+                            ],
+                          ),
+                        ),
+                      ))
+                          .toList(),
+                      value: selectedItem,
+                      onChanged: (String? value) {
+                        setState(() {
+                          selectedItem = value;
+                          bankName = value;
+                        });
+                      },
+                      buttonStyleData: const ButtonStyleData(
+                        padding: EdgeInsets.only(right: 12),
+                      ),
+                      dropdownStyleData: const DropdownStyleData(
+                        padding: EdgeInsets.only(left: 0, bottom: 0),
+                        offset: Offset(20, 0),
+                        width: 200,
+                      ),
+                      iconStyleData: IconStyleData(
+                        icon: SvgIcon.arrowDown(
+                          width: 16,
+                          height: 16,
+                          color: AppColors.main,
+                        ),
+                        openMenuIcon: SvgIcon.arrowUp(
+                          width: 16,
+                          height: 16,
+                          color: AppColors.main,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
             SizedBoxValues.gapH18,
             _textField(formName: '예금주명', controller: accountHolder),
             SizedBoxValues.gapH18,

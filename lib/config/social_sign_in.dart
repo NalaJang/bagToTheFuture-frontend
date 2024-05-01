@@ -49,15 +49,12 @@ class SocialSignIn {
 
   Future<void> naverSignInProcess() async {
     final NaverLoginResult result = await FlutterNaverLogin.logIn();
-
-    if (result.status == NaverLoginStatus.loggedIn) {
-      print(result.accessToken);
-      print(result.account.name);
-      _postAccountInfo();
-
-      userProvider.signInState = SignInPlatform.naver;
-    } else {
-      debugPrint('네이버 로그인 에러');
+    if(result.status == NaverLoginStatus.loggedIn) {
+      NaverAccessToken result = await FlutterNaverLogin.currentAccessToken;
+      print("내토큰토큰${result.accessToken}");
+      //토큰 저장 api 로직
+    } else if(result.status == NaverLoginStatus.error) {
+      print('네이버 로그인 에러에러에러');
     }
   }
 

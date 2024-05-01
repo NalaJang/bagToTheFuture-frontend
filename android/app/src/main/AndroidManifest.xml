@@ -6,6 +6,8 @@
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
     <!-- Permissions options for the `access notification policy` group -->
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY"/>
@@ -14,22 +16,15 @@
         android:label="back_to_the_future"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
-        <!-- 카카오 로그인 커스텀 URL 스킴 설정 -->
-        <activity
-            android:name="com.kakao.sdk.flutter.AuthCodeCustomTabsActivity"
-            android:exported="true">
-            <intent-filter android:label="flutter_web_auth">
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <!-- "kakao${YOUR_NATIVE_APP_KEY}://oauth" 형식의 앱 실행 스킴 설정 -->
-                <!-- 카카오 로그인 Redirect URI -->
-                <data android:scheme="kakao${KAKAO_NATIVE_APP_KEY}" android:host="oauth"/>
-            </intent-filter>
-        </activity>
-
-
+        <meta-data
+            android:name="com.naver.sdk.clientId"
+            android:value="${NAVER_CLIENT_ID}"/>
+        <meta-data
+            android:name="com.naver.sdk.clientSecret"
+            android:value="${NAVER_CLIENT_SECRET}"/>
+        <meta-data
+            android:name="com.naver.sdk.clientName"
+            android:value="BackToTheFuture_Test"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -38,8 +33,7 @@
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true"
             android:windowSoftInputMode="adjustResize"
-            android:showWhenLocked="true"
-            android:turnScreenOn="true">
+            android:allowBackup="false">
             <!-- Specifies an Android theme to apply to this Activity as soon as
                  the Android process has started. This theme is visible to the user
                  while the Flutter UI initializes. After that, this theme continues
@@ -47,15 +41,7 @@
             <meta-data
                 android:name="io.flutter.embedding.android.NormalTheme"
                 android:resource="@style/NormalTheme" />
-            <meta-data
-                android:name="com.naver.sdk.clientId"
-                android:value="${NAVER_CLIENT_ID}"/>
-            <meta-data
-                android:name="com.naver.sdk.clientSecret"
-                android:value="${NAVER_CLIENT_SECRET}"/>
-            <meta-data
-                android:name="com.naver.sdk.clientName"
-                android:value="BackToTheFuture_Test"/>
+
             <meta-data
                 android:name="com.google.firebase.messaging.default_notification_channel_id"
                 android:value="high_importance_channel"
@@ -69,6 +55,20 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
 
 
+            </intent-filter>
+        </activity>
+        <!-- 카카오 로그인 커스텀 URL 스킴 설정 -->
+        <activity
+            android:name="com.kakao.sdk.flutter.AuthCodeCustomTabsActivity"
+            android:exported="true">
+            <intent-filter android:label="flutter_web_auth">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <!-- "kakao${YOUR_NATIVE_APP_KEY}://oauth" 형식의 앱 실행 스킴 설정 -->
+                <!-- 카카오 로그인 Redirect URI -->
+                <data android:scheme="kakao${KAKAO_NATIVE_APP_KEY}" android:host="oauth"/>
             </intent-filter>
         </activity>
         <!-- Don't delete the meta-data below.

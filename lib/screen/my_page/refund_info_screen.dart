@@ -59,15 +59,9 @@ class _RefundInfoScreenState extends State<RefundInfoScreen> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(4),
                           ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                item,
-                                style: FontStyles.Body2.copyWith(color: AppColors.black),
-                              ),
-                              const Divider(color: AppColors.gray4,),
-                            ],
+                          child: Text(
+                            item,
+                            style: FontStyles.Body2.copyWith(color: AppColors.black),
                           ),
                         ),
                       ))
@@ -83,9 +77,9 @@ class _RefundInfoScreenState extends State<RefundInfoScreen> {
                         padding: EdgeInsets.only(right: 12),
                       ),
                       dropdownStyleData: const DropdownStyleData(
-                        padding: EdgeInsets.only(left: 0, bottom: 0),
-                        offset: Offset(20, 0),
-                        width: 200,
+                        // padding: EdgeInsets.only(left: 0, bottom: 0),
+                        offset: Offset(0, 0),
+                        // width: 200,
                       ),
                       iconStyleData: IconStyleData(
                         icon: SvgIcon.arrowDown(

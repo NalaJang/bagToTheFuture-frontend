@@ -172,4 +172,34 @@ class SvgIcon {
     return fromAsset(
         'ic_purple_bag', width: width, height: height, color: color);
   }
+
+  static Widget home({double width = 24, double height = 24, Color? color}) {
+    return fromAsset(
+        'ic_home', width: width, height: height, color: color);
+  }
+
+  static Widget myFavorite({double width = 24, double height = 24, Color? color}) {
+    return fromAsset(
+        'ic_my_favorite', width: width, height: height, color: color);
+  }
+
+  static Widget myPage({double width = 24, double height = 24, Color? color}) {
+    return fromAsset(
+        'ic_my_page', width: width, height: height, color: color);
+  }
+
+  static Widget activatedHome({double width = 24, double height = 24, Color? color}) {
+    return fromAsset(
+        'ic_activated_home', width: width, height: height, color: color);
+  }
+
+  static Widget activatedMyFavorite({double width = 24, double height = 24, Color? color}) {
+    return fromAsset(
+        'ic_activated_my_favorite', width: width, height: height, color: color);
+  }
+
+  static Widget activatedMyPage({double width = 24, double height = 24, Color? color}) {
+    return fromAsset(
+        'ic_activated_my_page', width: width, height: height, color: color);
+  }
 }

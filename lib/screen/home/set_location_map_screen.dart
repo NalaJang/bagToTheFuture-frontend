@@ -158,7 +158,35 @@ class _SetLocationMapScreen extends State<SetLocationMapScreen> {
       if (addition0 != null && addition0.isNotEmpty) {
         doroAddress += ' $addition0';
       }
-      print('여기여기 $doroAddress');
+    }
+  }
+
+  Future<void> getGraph(String addressReceive) async {
+    doroAddress = "";
+    jibunAddress = "";
+    await dotenv.load(fileName: '.env');
+    String? apiKeyId = dotenv.env['NAVER_MAP_CLIENT_ID'];
+    String? apiKeySecret = dotenv.env['NAVER_MAP_CLIENT_SECRET'];
+    var response = await http.get(
+      Uri.parse('https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode')
+          .replace(queryParameters: {
+         'query': addressReceive,
+      }),
+        headers: {
+          'X-NCP-APIGW-API-KEY-ID': apiKeyId!,
+          'X-NCP-APIGW-API-KEY': apiKeySecret!
+        }
+    );
+    var jsonResponse = jsonDecode(response.body);
+    var address = jsonResponse['addresses'];
+    if(address.isNotEmpty) {
+      var firstAddress = address[0];
+      setState(() {
+        lat = double.parse(firstAddress['x']);
+        lng = double.parse(firstAddress['y']);
+      });
+      print('임어ㅣ$lat');
+      _updateLocate(lat, lng);
     }
   }
 
@@ -201,6 +229,9 @@ class _SetLocationMapScreen extends State<SetLocationMapScreen> {
               onMapReady: (controller) {
                 _mapController = controller;
                 _addMarker(lat, lng);
+                if(_dataModel?.address!= null) {
+                  _addMarker(lat, lng);
+                }
               },
               onMapTapped:(point, latLng) {
                 _updateLocate(latLng.latitude, latLng.longitude);
@@ -219,6 +250,7 @@ class _SetLocationMapScreen extends State<SetLocationMapScreen> {
                     })).then((value){
                       setState(() {
                         _dataModel = value;
+                        getGraph(_dataModel!.address);
                       });
                     });
                   },
@@ -259,7 +291,7 @@ class _SetLocationMapScreen extends State<SetLocationMapScreen> {
             if(_dataModel?.address != null && _dataModel?.jibunAddress != null)
               Positioned(
                   bottom: 0,
-                  child: AddressBottomSheet(_dataModel!.address, 
+                  child: AddressBottomSheet(_dataModel!.address,
                       _dataModel!.jibunAddress,
                       _controller, context,
                       () async => await viewModel.addItem(_dataModel!.address, _controller.text)

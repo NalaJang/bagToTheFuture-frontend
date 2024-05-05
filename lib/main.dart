@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:rest_api_ex/config/di.dart';
 import 'package:rest_api_ex/config/social_sign_in.dart';
 import 'package:rest_api_ex/screen/home/home_viewmodel.dart';
+import 'package:rest_api_ex/screen/view_model/edit_my_profile_view_model.dart';
 import 'package:rest_api_ex/screen/view_model/setting_view_model.dart';
 import 'package:rest_api_ex/screen/view_model/store_info_view_model.dart';
 import 'package:rest_api_ex/screen/my_bottom_navigation.dart';
@@ -60,6 +61,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
             create: (context) =>
                 SignInViewModel(socialSignIn: SocialSignIn(context))),
+        ChangeNotifierProvider(create: (_) => EditMyProfileViewModel()),
         ChangeNotifierProvider(create: (_) => SettingViewModel()),
       ],
       child: const MaterialApp(

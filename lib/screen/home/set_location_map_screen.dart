@@ -1,7 +1,10 @@
 
+import 'dart:convert';
+
 import 'package:daum_postcode_search/data_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:provider/provider.dart';
 import '../../design/color_styles.dart';
@@ -10,6 +13,7 @@ import '../../design/svg_icon.dart';
 import 'daum_postcode_screen.dart';
 import 'home_viewmodel.dart';
 import 'package:location/location.dart';
+import 'package:http/http.dart' as http;
 
 
 class SetLocationMapScreen extends StatefulWidget {
@@ -22,10 +26,13 @@ class SetLocationMapScreen extends StatefulWidget {
 class _SetLocationMapScreen extends State<SetLocationMapScreen> {
   double lat = 0;
   double lng = 0;
+  String jibunAddress = "";
+  String doroAddress = "";
   Location location = new Location();
   bool _serviceEnabled = true;
   late PermissionStatus _permissionGranted;
   NaverMapController? _mapController;
+  NMarker? _currentMarker;
   @override
   void initState() {
     super.initState();
@@ -52,7 +59,107 @@ class _SetLocationMapScreen extends State<SetLocationMapScreen> {
         lng = value.longitude!;
       })
     });
-    print("현재 내위치 ${lat} && ${lng}");
+  }
+
+  void _updateLocate(double latitude, double longitude) async {
+    setState(() {
+      lat = latitude;
+      lng = longitude;
+    });
+    if (_mapController != null) {
+      _mapController!.clearOverlays();
+      _addMarker(latitude, longitude);
+    }
+  }
+
+  void _addMarker(double latitude, double longitude) {
+    if (_currentMarker != null) {
+      _mapController?.clearOverlays();
+    }
+    _currentMarker = NMarker(
+        id: 'unique_marker_id',
+        position: NLatLng(latitude, longitude),
+        icon: NOverlayImage.fromAssetImage('assets/images/ic_location.png')
+    );
+    _mapController!.addOverlay(_currentMarker!);
+  }
+
+  Future<void> _getAddress(double lat, double lng) async {
+    await dotenv.load(fileName: '.env');
+  String? apiKeyId = dotenv.env['NAVER_MAP_CLIENT_ID'];
+  String? apiKeySecret = dotenv.env['NAVER_MAP_CLIENT_SECRET'];
+    var response = await http.get(
+      Uri.parse('https://naveropenapi.apigw.ntruss.com/map-reversegeocode/v2/gc?request=coordsToaddr&coords=$lng,$lat&sourcecrs=epsg:4326&orders=admcode,legalcode,addr,roadaddr&output=json'),
+      headers: {
+        'X-NCP-APIGW-API-KEY-ID': apiKeyId!,
+        'X-NCP-APIGW-API-KEY': apiKeySecret!
+  }
+    );
+    var jsonResponse = json.decode(response.body);
+    print(jsonResponse);
+    List<Map<String, dynamic>> addressList = [];
+    void parseAddressData(Map<String, dynamic> jsonResponse) {
+      if(jsonResponse['results'].length != null && jsonResponse['results'].length>0) {
+        final addressResults = jsonResponse['results'];
+        addressList.clear();
+        for(var result in addressResults) {
+          Map<String, dynamic> addressInfo = {};
+          if(result['region'] != null || result['land'] != null) {
+            final region = result['region'];
+            final land = result['land'];
+            String area1 = region['area1']['name'];
+            String area2 = region['area2']['name'];
+            String area3 = region['area3']['name'];
+            addressInfo['area1'] = area1;
+            addressInfo['area2'] = area2;
+            addressInfo['area3'] = area3;
+            if(land != null) {
+              String? landName = land['name'];
+              String? landNumber1 = land['number1'];
+              String? landNumber2 = land['number2'];
+              String? addition0 = land['addition0']['value'];
+              if (landName != null) {
+                addressInfo['name'] = landName;
+              }
+              if (landNumber1 != null) {
+                addressInfo['number1'] = landNumber1;
+              }
+              if (landNumber2 != null) {
+                addressInfo['number2'] = landNumber2;
+              }
+              if (addition0 != null) {
+                addressInfo['addition0'] = addition0;
+              }
+            }
+
+          }
+          addressList.add(addressInfo);
+        }
+      }
+    }
+    parseAddressData(jsonResponse);
+    if(addressList.isNotEmpty) {
+      jibunAddress = '${addressList[0]['area1']} ${addressList[0]['area2']} ${addressList[0]['area3']}';
+      doroAddress = '${addressList[0]['area1']} ${addressList[0]['area2']}';
+      // 추가 상세 주소 정보가 있는 경우 추가
+      String? landName = addressList[addressList.length - 1]['name'];
+      String? landNumber1 = addressList[addressList.length - 1]['number1'];
+      String? landNumber2 = addressList[addressList.length - 1]['number2'];
+      String? addition0 = addressList[addressList.length - 1]['addition0'];
+      if (landName != null && landName.isNotEmpty) {
+        doroAddress += ' $landName';
+      }
+      if (landNumber1 != null && landNumber1.isNotEmpty) {
+        doroAddress += ' $landNumber1';
+      }
+      if (landNumber2 != null && landNumber2.isNotEmpty) {
+        doroAddress += '-$landNumber2';
+      }
+      if (addition0 != null && addition0.isNotEmpty) {
+        doroAddress += ' $addition0';
+      }
+      print('여기여기 $doroAddress');
+    }
   }
 
   DataModel? _dataModel;
@@ -92,12 +199,12 @@ class _SetLocationMapScreen extends State<SetLocationMapScreen> {
                 activeLayerGroups: [NLayerGroup.building, NLayerGroup.transit],
               ),
               onMapReady: (controller) {
-                print('네이버맵 로딩');
-                final marker = NMarker(id: 'test', position: NLatLng(lat, lng));
-                controller.addOverlay(marker);
+                _mapController = controller;
+                _addMarker(lat, lng);
               },
               onMapTapped:(point, latLng) {
-                print('네이버맵 로딩: ${latLng.latitude} &&&  ${latLng.latitude} ');
+                _updateLocate(latLng.latitude, latLng.longitude);
+                _getAddress(latLng.latitude, latLng.longitude);
               }
             ),
             Positioned(
@@ -157,7 +264,17 @@ class _SetLocationMapScreen extends State<SetLocationMapScreen> {
                       _controller, context,
                       () async => await viewModel.addItem(_dataModel!.address, _controller.text)
                   )
-              )
+              ),
+            if(jibunAddress != "" && doroAddress != "")
+              Positioned(
+                  bottom: 0,
+                  child: AddressBottomSheet(
+                      doroAddress,
+                      jibunAddress,
+                      _controller, context,
+                          () async => await viewModel.addItem(doroAddress, _controller.text)
+                  )
+              ),
           ],
         )
     );

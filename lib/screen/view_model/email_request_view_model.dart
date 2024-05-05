@@ -10,11 +10,7 @@ class EmailRequestViewModel with ChangeNotifier {
 
   bool get showSpinner => _showSpinner;
 
-  void emailSubmit(
-    String appTitle,
-    String email,
-    Function(String) callback,
-  ) async {
+  void emailSubmit(String email, Function(String) callback) async {
     _showSpinner = true;
     notifyListeners();
 

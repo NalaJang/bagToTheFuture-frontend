@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:rest_api_ex/design/color_styles.dart';
+import 'package:rest_api_ex/design/font_styles.dart';
 import 'package:rest_api_ex/design/svg_icon.dart';
 import 'package:rest_api_ex/screen/favorite_list/favorite_list_screen.dart';
 import 'package:rest_api_ex/screen/home/home_screen.dart';
@@ -50,6 +52,8 @@ class _MyBottomNavigationState extends State<MyBottomNavigation> {
           label: '마이페이지',
         ),
       ],
+      unselectedLabelStyle: FontStyles.Caption5.copyWith(color: AppColors.black),
+      selectedLabelStyle: FontStyles.Caption5.copyWith(color: AppColors.black),
     );
   }
 }

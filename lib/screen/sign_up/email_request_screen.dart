@@ -4,13 +4,11 @@ import 'package:provider/provider.dart';
 import 'package:rest_api_ex/config/common/sized_box_values.dart';
 import 'package:rest_api_ex/config/constants.dart';
 import 'package:rest_api_ex/config/custom_app_bar.dart';
-import 'package:rest_api_ex/config/navigate_to.dart';
 import 'package:rest_api_ex/config/validation_check.dart';
 import 'package:rest_api_ex/config/user_info_text_form_field.dart';
 import 'package:rest_api_ex/data/network/error_handler.dart';
 import 'package:rest_api_ex/design/color_styles.dart';
 import 'package:rest_api_ex/design/font_styles.dart';
-import 'package:rest_api_ex/screen/sign_up/email_auth_check_screen.dart';
 import 'package:rest_api_ex/screen/view_model/email_request_view_model.dart';
 
 class EmailRequestScreen extends StatefulWidget {
@@ -143,7 +141,7 @@ class _EmailRequestScreenState extends State<EmailRequestScreen> {
           });
         } catch (e) {
           final errorMessage = ErrorHandler.handle(e).failure;
-          print('screen errorMessage: $errorMessage}');
+          debugPrint('screen errorMessage: $errorMessage');
         }
       },
       child: Text(

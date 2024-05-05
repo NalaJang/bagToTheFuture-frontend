@@ -10,28 +10,6 @@ class EmailRequestViewModel with ChangeNotifier {
 
   bool get showSpinner => _showSpinner;
 
-  void emailResend(String email) async {
-    _showSpinner = true;
-    notifyListeners();
-
-    try {
-      await restClient.emailAuth(email);
-
-      // ScaffoldMessenger.of(context).showSnackBar(
-      //   SnackBar(
-      //     content: Text('이메일이 전송되었습니다.'),
-      //   ),
-      // );
-    } catch (error) {
-      final errorMessage = ErrorHandler.handle(error).failure;
-      debugPrint(errorMessage);
-    }
-
-    _showSpinner = false;
-
-    notifyListeners();
-  }
-
   void emailSubmit(
     String appTitle,
     String email,

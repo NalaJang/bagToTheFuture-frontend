@@ -14,7 +14,7 @@ class EmailRequestViewModel with ChangeNotifier {
     _showSpinner = true;
     notifyListeners();
 
-    restClient.emailAuth(email).then((_) {
+    await restClient.emailAuth(email).then((value) {
       callback('이메일이 전송되었습니다.');
     }).catchError((error) {
       final errorMessage = ErrorHandler.handle(error).failure;

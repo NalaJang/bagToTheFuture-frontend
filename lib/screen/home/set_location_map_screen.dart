@@ -1,3 +1,4 @@
+
 import 'package:daum_postcode_search/data_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,8 @@ import '../../design/font_styles.dart';
 import '../../design/svg_icon.dart';
 import 'daum_postcode_screen.dart';
 import 'home_viewmodel.dart';
+import 'package:location/location.dart';
+
 
 class SetLocationMapScreen extends StatefulWidget {
   const SetLocationMapScreen({super.key});
@@ -17,7 +20,41 @@ class SetLocationMapScreen extends StatefulWidget {
 }
 
 class _SetLocationMapScreen extends State<SetLocationMapScreen> {
-  //TextEditingController textController = TextEditingController();
+  double lat = 0;
+  double lng = 0;
+  Location location = new Location();
+  bool _serviceEnabled = true;
+  late PermissionStatus _permissionGranted;
+  NaverMapController? _mapController;
+  @override
+  void initState() {
+    super.initState();
+    _myLocate();
+  }
+  Future<void>_myLocate() async {
+    _serviceEnabled = await location.serviceEnabled();
+    if(!_serviceEnabled) {
+      _serviceEnabled = await location.requestService();
+      if(!_serviceEnabled) {
+        return;
+      }
+    }
+    _permissionGranted = await location.hasPermission();
+    if(_permissionGranted == PermissionStatus.denied) {
+      _permissionGranted != await location.requestPermission();
+      if(_permissionGranted != PermissionStatus.granted) {
+        return;
+      }
+    }
+    await location.getLocation().then((value) => {
+      setState(() {
+        lat = value.latitude!;
+        lng = value.longitude!;
+      })
+    });
+    print("현재 내위치 ${lat} && ${lng}");
+  }
+
   DataModel? _dataModel;
   final TextEditingController _controller = TextEditingController();
 
@@ -41,14 +78,27 @@ class _SetLocationMapScreen extends State<SetLocationMapScreen> {
         ),
         body: Stack (
           children: [
-            NaverMap(
-              options: const NaverMapViewOptions(
-                indoorEnable: true,
-                locationButtonEnable: true
+            lat == 0 && lng == 0 ? Center(
+              child: CircularProgressIndicator())
+            :NaverMap(
+              options: NaverMapViewOptions(
+                initialCameraPosition: NCameraPosition(
+                  target: NLatLng(lat,lng),
+                  zoom: 15,
+                  bearing: 0,
+                  tilt: 0,
+                ),
+                mapType: NMapType.basic,
+                activeLayerGroups: [NLayerGroup.building, NLayerGroup.transit],
               ),
               onMapReady: (controller) {
                 print('네이버맵 로딩');
+                final marker = NMarker(id: 'test', position: NLatLng(lat, lng));
+                controller.addOverlay(marker);
               },
+              onMapTapped:(point, latLng) {
+                print('네이버맵 로딩: ${latLng.latitude} &&&  ${latLng.latitude} ');
+              }
             ),
             Positioned(
                 top: 22,
@@ -113,6 +163,8 @@ class _SetLocationMapScreen extends State<SetLocationMapScreen> {
     );
   }
 }
+
+
 
 Widget AddressBottomSheet(String address, String detail, TextEditingController controller, BuildContext context, Future<void> Function() onAction) {
   return Container(

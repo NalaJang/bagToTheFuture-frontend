@@ -56,6 +56,7 @@ class HomeScreen extends StatefulWidget {
 
     @override
     Widget build(BuildContext context) {
+      final viewModel = Provider.of<HomeViewModel>(context, listen: true);
       return Scaffold(
           appBar: AppBar(
               backgroundColor: AppColors.white,
@@ -78,7 +79,7 @@ class HomeScreen extends StatefulWidget {
                     ),
                     //선정한 데이터 기반으로 바뀌어지도록 하기
                     Text(
-                      '우리집',
+                      viewModel.address,
                       style: FontStyles.Title4.copyWith(color: AppColors.black),
                     ),
                     IconButton(

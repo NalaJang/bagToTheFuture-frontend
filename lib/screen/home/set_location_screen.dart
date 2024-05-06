@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rest_api_ex/screen/home/daum_postcode_screen.dart';
+import 'package:rest_api_ex/screen/home/home_screen.dart';
 import 'package:rest_api_ex/screen/home/home_viewmodel.dart';
 import 'package:rest_api_ex/screen/home/set_location_map_screen.dart';
 
@@ -67,7 +68,17 @@ class _SetLocationScreenState extends State<SetLocationScreen> {
                         child: LocationList(
                             items.title,
                             items.description,
-                                () => viewModel.removeItem(index)
+                                () => viewModel.removeItem(index),
+                            () {
+                              viewModel.setAddress(items.description);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => HomeScreen(),
+                                  )
+                              );
+
+                            }
                         ),
                       );
                     },
@@ -107,51 +118,55 @@ Widget AddLocationBtn(String text, final void Function()? onTap) {
 Widget LocationList(
     String title,
     String detail,
-    final void Function()? removeAction
+    final void Function()? removeAction,
+    final void Function()? setAddress,
     ) {
-  return Container(
-    child: Column(
-      children: [
-        Padding(
-          padding: EdgeInsets.only(left: 5),
-          child: Row(
-            children: [
-              IconButton(
-                icon: SvgIcon.locationPin(width: 24, height: 24, color: AppColors.main),
-                onPressed: (){},
-              ),
-              SizedBox(width: 10,),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+  return GestureDetector(
+    onTap: setAddress,
+    child: Container(
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(left: 5),
+              child: Row(
                 children: [
-                  Text(
-                    title,
-                    style: FontStyles.Body1.copyWith(color: AppColors.black),
+                  IconButton(
+                    icon: SvgIcon.locationPin(width: 24, height: 24, color: AppColors.main),
+                    onPressed: (){},
                   ),
-                  //SizedBox(height: 6,),
-                  Text(
-                    detail,
-                    style: FontStyles.Caption2.copyWith(color: AppColors.gray6),
+                  SizedBox(width: 10,),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
+                        style: FontStyles.Body1.copyWith(color: AppColors.black),
+                      ),
+                      //SizedBox(height: 6,),
+                      Text(
+                        detail,
+                        style: FontStyles.Caption2.copyWith(color: AppColors.gray6),
+                      ),
+                    ],
                   ),
+                  Spacer(),
+                  IconButton(
+                      onPressed: removeAction,
+                      icon: SvgIcon.delete(width: 11, height: 11, color: AppColors.gray4))
                 ],
               ),
-              Spacer(),
-              IconButton(
-                  onPressed: removeAction,
-                  icon: SvgIcon.delete(width: 11, height: 11, color: AppColors.gray4))
-            ],
-          ),
+            ),
+            SizedBox(height: 16,),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 18),
+              child: Container(
+                width: double.infinity,
+                height: 1,
+                color: AppColors.gray2,
+              ),
+            )
+          ],
         ),
-        SizedBox(height: 16,),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 18),
-          child: Container(
-            width: double.infinity,
-            height: 1,
-            color: AppColors.gray2,
-          ),
-        )
-      ],
-    ),
+      ),
   );
 }

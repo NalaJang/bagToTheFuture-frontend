@@ -37,6 +37,9 @@ class _SetLocationMapScreen extends State<SetLocationMapScreen> {
   void initState() {
     super.initState();
     _myLocate();
+    // if (_dataModel?.address != null) {
+    //   getGraph(_dataModel!.address);
+    // }
   }
   Future<void>_myLocate() async {
     _serviceEnabled = await location.serviceEnabled();
@@ -161,7 +164,9 @@ class _SetLocationMapScreen extends State<SetLocationMapScreen> {
     }
   }
 
-  Future<void> getGraph(String addressReceive) async {
+  void getGraph(String addressReceive) async {
+    lat=0;
+    lng=0;
     doroAddress = "";
     jibunAddress = "";
     await dotenv.load(fileName: '.env');
@@ -181,13 +186,20 @@ class _SetLocationMapScreen extends State<SetLocationMapScreen> {
     var address = jsonResponse['addresses'];
     if(address.isNotEmpty) {
       var firstAddress = address[0];
+      double a = double.parse(firstAddress['x']);
+      double b = double.parse(firstAddress['y']);
       setState(() {
-        lat = double.parse(firstAddress['x']);
-        lng = double.parse(firstAddress['y']);
+        lat = a;
+        lng = b;
+        _updateLocate(lat, lng);
+        _moveCamera(NLatLng(lat, lng));
       });
-      print('임어ㅣ$lat');
-      _updateLocate(lat, lng);
     }
+  }
+
+  void _moveCamera(NLatLng latLng) {
+    NCameraUpdate cameraUpdate = NCameraUpdate.scrollAndZoomTo(target: latLng,zoom: 15);
+    _mapController?.updateCamera(cameraUpdate);
   }
 
   DataModel? _dataModel;
@@ -217,6 +229,7 @@ class _SetLocationMapScreen extends State<SetLocationMapScreen> {
               child: CircularProgressIndicator())
             :NaverMap(
               options: NaverMapViewOptions(
+                locationButtonEnable: true,
                 initialCameraPosition: NCameraPosition(
                   target: NLatLng(lat,lng),
                   zoom: 15,
@@ -229,9 +242,6 @@ class _SetLocationMapScreen extends State<SetLocationMapScreen> {
               onMapReady: (controller) {
                 _mapController = controller;
                 _addMarker(lat, lng);
-                if(_dataModel?.address!= null) {
-                  _addMarker(lat, lng);
-                }
               },
               onMapTapped:(point, latLng) {
                 _updateLocate(latLng.latitude, latLng.longitude);
@@ -250,8 +260,8 @@ class _SetLocationMapScreen extends State<SetLocationMapScreen> {
                     })).then((value){
                       setState(() {
                         _dataModel = value;
-                        getGraph(_dataModel!.address);
                       });
+                      getGraph(_dataModel!.address);
                     });
                   },
                   child: Container(

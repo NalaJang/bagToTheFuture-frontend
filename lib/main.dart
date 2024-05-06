@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -16,32 +18,37 @@ import 'firebase_options.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  print('백그라운드 메시지 처리.. ${message.notification!.body}');
+  if(Platform.isAndroid) {
+    print('백그라운드 메시지 처리.. ${message.notification!.body}');
+  }
 }
 
 void initializeNotification() async {
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-  await flutterLocalNotificationsPlugin
-      .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
-      ?.createNotificationChannel(const AndroidNotificationChannel(
-      'high_importance_channel', 'high_importance_notification',
-      importance: Importance.max));
+  if(Platform.isAndroid) {
+    final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+    await flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
+        ?.createNotificationChannel(const AndroidNotificationChannel(
+        'high_importance_channel', 'high_importance_notification',
+        importance: Importance.max));
 
-  await flutterLocalNotificationsPlugin.initialize(const InitializationSettings(
-    android:AndroidInitializationSettings("@mipmap/ic_launcher"),
-  ));
-  await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
-    alert: true,
-    badge: true,
-    sound: true,
-  );
+    await flutterLocalNotificationsPlugin.initialize(const InitializationSettings(
+      android:AndroidInitializationSettings("@mipmap/ic_launcher"),
+    ));
+    await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
+  }
 }
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
-  await NaverMapSdk.instance.initialize(clientId: 'rwvum8nblb');
+  String? clientId = dotenv.env['NAVER_CLIENT_ID'];
+  await NaverMapSdk.instance.initialize(clientId: clientId);
   await initModule();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,

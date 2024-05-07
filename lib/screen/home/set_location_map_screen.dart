@@ -37,9 +37,6 @@ class _SetLocationMapScreen extends State<SetLocationMapScreen> {
   void initState() {
     super.initState();
     _myLocate();
-    // if (_dataModel?.address != null) {
-    //   getGraph(_dataModel!.address);
-    // }
   }
   Future<void>_myLocate() async {
     _serviceEnabled = await location.serviceEnabled();
@@ -165,8 +162,6 @@ class _SetLocationMapScreen extends State<SetLocationMapScreen> {
   }
 
   void getGraph(String addressReceive) async {
-    lat=0;
-    lng=0;
     doroAddress = "";
     jibunAddress = "";
     await dotenv.load(fileName: '.env');
@@ -186,14 +181,14 @@ class _SetLocationMapScreen extends State<SetLocationMapScreen> {
     var address = jsonResponse['addresses'];
     if(address.isNotEmpty) {
       var firstAddress = address[0];
-      double a = double.parse(firstAddress['x']);
-      double b = double.parse(firstAddress['y']);
+      double a = double.parse(firstAddress['y']);
+      double b = double.parse(firstAddress['x']);
       setState(() {
         lat = a;
         lng = b;
-        _updateLocate(lat, lng);
-        _moveCamera(NLatLng(lat, lng));
       });
+      _addMarker(lat, lng);
+      _moveCamera(NLatLng(lat, lng));
     }
   }
 
@@ -241,7 +236,9 @@ class _SetLocationMapScreen extends State<SetLocationMapScreen> {
               ),
               onMapReady: (controller) {
                 _mapController = controller;
-                _addMarker(lat, lng);
+                if(lat != 0 && lng != 0) {
+                  _addMarker(lat, lng);
+                }
               },
               onMapTapped:(point, latLng) {
                 _updateLocate(latLng.latitude, latLng.longitude);
@@ -258,10 +255,12 @@ class _SetLocationMapScreen extends State<SetLocationMapScreen> {
                         .push(MaterialPageRoute(builder: (context) {
                       return DaumPostcodeScreen();
                     })).then((value){
+                      print('dlkjlks$lat &&& $lng');
                       setState(() {
                         _dataModel = value;
                       });
                       getGraph(_dataModel!.address);
+                      print('dlkjlks$lat &&& $lng');
                     });
                   },
                   child: Container(

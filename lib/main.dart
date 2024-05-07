@@ -47,7 +47,7 @@ void initializeNotification() async {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
-  String? clientId = dotenv.env['NAVER_CLIENT_ID'];
+  String? clientId = dotenv.env['NAVER_MAP_CLIENT_ID'];
   await NaverMapSdk.instance.initialize(clientId: clientId);
   await initModule();
   await Firebase.initializeApp(

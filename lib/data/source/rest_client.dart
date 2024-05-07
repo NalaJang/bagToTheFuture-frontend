@@ -41,4 +41,16 @@ abstract class RestClient {
     @Query('email') String email,
     @Query('certificationNumber') String certificationNumber,
   );
+  
+  @POST('/stores/{storeId}/likes/{memberId}')
+  Future<void> addFavoriteStore(
+      @Path('storeId') String storeId,
+      @Path('memberId') String userId,
+  );
+
+  @DELETE('/stores/{storeId}/likes/{memberId}')
+  Future<void> deleteFavoriteStore(
+      @Path('storeId') String storeId,
+      @Path('memberId') String userId,
+  );
 }

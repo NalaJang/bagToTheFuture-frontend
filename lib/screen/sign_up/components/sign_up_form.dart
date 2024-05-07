@@ -1,12 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:rest_api_ex/config/constants.dart';
 import 'package:rest_api_ex/config/validation_check.dart';
 import 'package:rest_api_ex/config/user_info_text_form_field.dart';
 import 'package:rest_api_ex/design/color_styles.dart';
 import 'package:rest_api_ex/design/font_styles.dart';
-import 'package:rest_api_ex/design/svg_icon.dart';
 
 class SignUpForm extends StatefulWidget {
   const SignUpForm({
@@ -37,40 +34,12 @@ class SignUpForm extends StatefulWidget {
 }
 
 class _SignUpFormState extends State<SignUpForm> {
-  // String? _selectedBank;
-  List<String> _selectedBanks = ['우리은행', '하나은행', '신한은행', '카카오'];
-
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         // 이메일
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              '이메일',
-              style: FontStyles.Body2.copyWith(color: AppColors.black),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 10.0, bottom: 21.0),
-              child: TextFormField(
-                decoration: InputDecoration(
-                  labelText: widget.userEmail,
-                  labelStyle: FontStyles.Body2,
-                  contentPadding: const EdgeInsets.symmetric(
-                    vertical: 10,
-                    horizontal: 10,
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4.0),
-                    borderSide: const BorderSide(color: AppColors.gray4),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
+        _emailTextFormField(),
 
         // 비밀번호
         _buildTextFormField(
@@ -109,34 +78,35 @@ class _SignUpFormState extends State<SignUpForm> {
             decorationLabelText: Constants.nickNameInputPrompt,
           ),
         ),
+      ],
+    );
+  }
 
-        // 생년월일
-        _buildTextFormField(
-          label: Constants.birth,
-          isNecessary: false,
-          userInfoTextFormField: UserInfoTextFormField(
-            controller: widget.userBirthController,
-            validator: (value) => null,
-            decorationLabelText: Constants.birthInputPrompt,
+  Widget _emailTextFormField() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(top: 37),
+          child: Text(
+            '이메일',
+            style: FontStyles.Body2.copyWith(color: AppColors.black),
           ),
         ),
-
-        // 환불정보
-        Row(
-          children: [
-            Text(
-              '환불정보',
-              style: FontStyles.Body2.copyWith(color: AppColors.black),
+        Padding(
+          padding: const EdgeInsets.only(top: 10.0, bottom: 21.0),
+          child: TextFormField(
+            decoration: InputDecoration(
+              labelText: widget.userEmail,
+              labelStyle: FontStyles.Body2,
+              contentPadding: const EdgeInsets.all(10),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(4.0),
+                borderSide: const BorderSide(color: AppColors.gray4),
+              ),
             ),
-            const Text(
-              Constants.asterisk,
-              style: TextStyle(color: AppColors.red),
-            ),
-          ],
+          ),
         ),
-
-        _buildBankInfo(),
-        _buildAccountTextField(),
       ],
     );
   }
@@ -167,76 +137,6 @@ class _SignUpFormState extends State<SignUpForm> {
           child: userInfoTextFormField,
         )
       ],
-    );
-  }
-
-  Widget _buildBankInfo() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 10, bottom: 16),
-      child: Row(
-        children: [
-          _buildBankDropdown(),
-          _buildAccountHolderTextField(),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildBankDropdown() {
-    return Padding(
-      padding: const EdgeInsets.only(right: 15),
-      child: DropdownMenu(
-        hintText: '은행명',
-        width: MediaQuery.of(context).size.width * 0.4,
-        dropdownMenuEntries: _selectedBanks
-            .map((e) => DropdownMenuEntry<String>(value: e, label: e))
-            .toList(),
-        menuStyle: const MenuStyle(
-          alignment: Alignment.bottomLeft,
-          backgroundColor: MaterialStatePropertyAll<Color>(AppColors.white),
-        ),
-        trailingIcon: SvgIcon.downArrow(),
-        selectedTrailingIcon: SvgIcon.downArrow(),
-      ),
-    );
-  }
-
-  Widget _buildAccountHolderTextField() {
-    return Expanded(
-      child: TextFormField(
-        controller: widget.accountHolderController,
-        validator: validateConfirmAccountHolder,
-        decoration: InputDecoration(
-          labelText: Constants.accountHolderInputPrompt,
-          labelStyle: FontStyles.Body2.copyWith(color: AppColors.gray4),
-          contentPadding: const EdgeInsets.symmetric(
-            vertical: 12,
-            horizontal: 10,
-          ),
-          floatingLabelBehavior: FloatingLabelBehavior.never,
-          enabledBorder: const OutlineInputBorder(
-            borderSide: BorderSide(
-              color: AppColors.main,
-            ),
-          ),
-          focusedBorder: const OutlineInputBorder(
-            borderSide: BorderSide(
-              color: AppColors.main,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildAccountTextField() {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 41),
-      child: UserInfoTextFormField(
-        controller: widget.accountController,
-        validator: validateConfirmAccount,
-        decorationLabelText: Constants.accountInputPrompt,
-      ),
     );
   }
 }

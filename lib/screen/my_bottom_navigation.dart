@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:rest_api_ex/design/color_styles.dart';
+import 'package:rest_api_ex/design/font_styles.dart';
+import 'package:rest_api_ex/design/svg_icon.dart';
+import 'package:rest_api_ex/screen/favorite_list/favorite_list_screen.dart';
 import 'package:rest_api_ex/screen/home/home_screen.dart';
 import 'package:rest_api_ex/screen/my_page/my_page_screen.dart';
-import 'package:rest_api_ex/screen/sign_in/sign_in_screen.dart';
-import 'package:rest_api_ex/screen/wish_list/wish_list_screen.dart';
+
 
 
 class MyBottomNavigation extends StatefulWidget {
@@ -17,7 +20,7 @@ class _MyBottomNavigationState extends State<MyBottomNavigation> {
   int currentPage = 0;
   static const pages = [
     HomeScreen(),
-    WishListScreen(),
+    FavoriteListScreen(),
     MyPageScreen(),
   ];
 

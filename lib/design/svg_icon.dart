@@ -49,7 +49,7 @@ class SvgIcon {
   }
 
   static Widget logo({double width = 23, double height = 23, Color? color}) {
-    return fromAsset('logo', width: width, height: height, color: color);
+    return fromAsset('ic_logo', width: width, height: height, color: color);
   }
 
   static Widget downArrow(
@@ -67,58 +67,142 @@ class SvgIcon {
   }
 
   static Widget order({double width = 23, double height = 23, Color? color}) {
-    return fromAsset('order', width: width, height: height, color: color);
+    return fromAsset('ic_order', width: width, height: height, color: color);
   }
 
   static Widget orderLogo(
       {double width = 23, double height = 23, Color? color}) {
-    return fromAsset('order_logo', width: width, height: height, color: color);
+    return fromAsset('ic_order_logo',
+        width: width, height: height, color: color);
   }
 
   static Widget comment({double width = 23, double height = 23, Color? color}) {
-    return fromAsset('comment', width: width, height: height, color: color);
+    return fromAsset('ic_comment', width: width, height: height, color: color);
   }
 
   static Widget setting({double width = 23, double height = 23, Color? color}) {
-    return fromAsset('setting', width: width, height: height, color: color);
+    return fromAsset('ic_setting', width: width, height: height, color: color);
   }
 
   static Widget question(
       {double width = 23, double height = 23, Color? color}) {
-    return fromAsset('question', width: width, height: height, color: color);
+    return fromAsset('ic_question', width: width, height: height, color: color);
   }
 
   static Widget info({double width = 23, double height = 23, Color? color}) {
-    return fromAsset('info', width: width, height: height, color: color);
+    return fromAsset('ic_info', width: width, height: height, color: color);
   }
 
-  static Widget search({required double width, required double height, required Color color}) {
+  static Widget reviewLeftStar(
+      {double width = 23, double height = 23, Color? color}) {
+    return fromAsset('ic_review_left_star',
+        width: width, height: height, color: color);
+  }
+
+  static Widget reviewRightStar(
+      {double width = 23, double height = 23, Color? color}) {
+    return fromAsset('ic_review_right_star',
+        width: width, height: height, color: color);
+  }
+
+  static Widget camera({double width = 23, double height = 23, Color? color}) {
+    return fromAsset('ic_camera', width: width, height: height, color: color);
+  }
+
+  static Widget closeButton(
+      {double width = 23, double height = 23, Color? color}) {
+    return fromAsset('ic_close_button',
+        width: width, height: height, color: color);
+  }
+
+  static Widget search(
+      {required double width, required double height, required Color color}) {
     return fromAsset('ic_search', width: width, height: height, color: color);
   }
-  static Widget locationPin({required double width, required double height, required Color color}) {
+
+  static Widget locationPin(
+      {required double width, required double height, required Color color}) {
     return fromAsset('ic_location', width: width, height: height, color: color);
   }
-  static Widget delete({required double width, required double height, required Color color}) {
+
+  static Widget delete(
+      {required double width, required double height, required Color color}) {
     return fromAsset('ic_delete', width: width, height: height, color: color);
   }
-  static Widget tagHome({required double width, required double height, required Color color}) {
+
+  static Widget tagHome(
+      {required double width, required double height, required Color color}) {
     return fromAsset('ic_taghome', width: width, height: height, color: color);
   }
-  static Widget tagStar({required double width, required double height, required Color color}) {
+
+  static Widget tagStar(
+      {required double width, required double height, required Color color}) {
     return fromAsset('ic_star', width: width, height: height, color: color);
   }
-  static Widget arrowDown_1({required double width, required double height, required Color color}) {
-    return fromAsset('ic_arrowDown', width: width, height: height, color: color);
+
+  static Widget arrowDown_1(
+      {required double width, required double height, required Color color}) {
+    return fromAsset('ic_arrowDown',
+        width: width, height: height, color: color);
   }
- static Widget enabledToggle(
+
+  static Widget enabledToggle(
       {double width = 51, double height = 31, Color? color}) {
     return fromAsset('ic_enabled_toggle',
         width: width, height: height, color: color);
+
+
   }
+
   static Widget disabledToggle(
       {double width = 51, double height = 31, Color? color}) {
     return fromAsset('ic_disabled_toggle',
         width: width, height: height, color: color);
+  }
+
+  static Widget gallery({double width = 51, double height = 31, Color? color}) {
+    return fromAsset('ic_gallery', width: width, height: height, color: color);
+  }
+
+  static Widget backButton(
+      {double width = 51, double height = 31, Color? color}) {
+    return fromAsset('ic_back_button',
+        width: width, height: height, color: color);
+  }
+
+  static Widget purpleBag({double width = 10, double height = 10, Color? color}) {
+    return fromAsset(
+        'ic_purple_bag', width: width, height: height, color: color);
+  }
+
+  static Widget home({double width = 24, double height = 24, Color? color}) {
+    return fromAsset(
+        'ic_home', width: width, height: height, color: color);
+  }
+
+  static Widget myFavorite({double width = 24, double height = 24, Color? color}) {
+    return fromAsset(
+        'ic_my_favorite', width: width, height: height, color: color);
+  }
+
+  static Widget myPage({double width = 24, double height = 24, Color? color}) {
+    return fromAsset(
+        'ic_my_page', width: width, height: height, color: color);
+  }
+
+  static Widget activatedHome({double width = 24, double height = 24, Color? color}) {
+    return fromAsset(
+        'ic_activated_home', width: width, height: height, color: color);
+  }
+
+  static Widget activatedMyFavorite({double width = 24, double height = 24, Color? color}) {
+    return fromAsset(
+        'ic_activated_my_favorite', width: width, height: height, color: color);
+  }
+
+  static Widget activatedMyPage({double width = 24, double height = 24, Color? color}) {
+    return fromAsset(
+        'ic_activated_my_page', width: width, height: height, color: color);
   }
   static Widget bagIcon({required double width, required double height, required Color color}) {
     return fromAsset('ic_bag', width: width, height: height, color: color);

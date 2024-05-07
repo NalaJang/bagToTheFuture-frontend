@@ -114,13 +114,13 @@ class SvgIcon {
       {double width = 51, double height = 31, Color? color}) {
     return fromAsset('ic_enabled_toggle',
         width: width, height: height, color: color);
-
-
   }
-
   static Widget disabledToggle(
       {double width = 51, double height = 31, Color? color}) {
     return fromAsset('ic_disabled_toggle',
         width: width, height: height, color: color);
+  }
+  static Widget bagIcon({required double width, required double height, required Color color}) {
+    return fromAsset('ic_bag', width: width, height: height, color: color);
   }
 }

@@ -10,6 +10,7 @@ import 'package:rest_api_ex/screen/home/set_location_map_screen.dart';
 import '../../../design/color_styles.dart';
 import '../../../design/font_styles.dart';
 import '../../../design/svg_icon.dart';
+import '../my_bottom_navigation.dart';
 
 class SetLocationScreen extends StatefulWidget {
   const SetLocationScreen({Key? key}) : super(key:key);
@@ -70,9 +71,11 @@ class _SetLocationScreenState extends State<SetLocationScreen> {
                                 () => viewModel.removeItem(index),
                             () {
                               viewModel.setAddress(items.description);
-                              Navigator.pushReplacementNamed(
+                              Navigator.push(
                                   context,
-                                HomeScreen() as String,
+                                  MaterialPageRoute(
+                                    builder: (context) => MyBottomNavigation(),
+                                  )
                               );
 
                             }

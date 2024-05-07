@@ -60,6 +60,7 @@ class HomeScreen extends StatefulWidget {
       return Scaffold(
           appBar: AppBar(
               backgroundColor: AppColors.white,
+              automaticallyImplyLeading: false,
               titleSpacing: 0.0,
               title: GestureDetector(
                 onTap: () async {

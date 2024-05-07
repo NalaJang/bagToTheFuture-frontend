@@ -19,7 +19,6 @@ class SetLocationScreen extends StatefulWidget {
 }
 
 class _SetLocationScreenState extends State<SetLocationScreen> {
-  DataModel? _dataModel;
   @override
   Widget build(BuildContext context) {
     final viewModel = Provider.of<HomeViewModel>(context, listen: true);
@@ -71,11 +70,9 @@ class _SetLocationScreenState extends State<SetLocationScreen> {
                                 () => viewModel.removeItem(index),
                             () {
                               viewModel.setAddress(items.description);
-                              Navigator.push(
+                              Navigator.pushReplacementNamed(
                                   context,
-                                  MaterialPageRoute(
-                                    builder: (context) => HomeScreen(),
-                                  )
+                                HomeScreen() as String,
                               );
 
                             }

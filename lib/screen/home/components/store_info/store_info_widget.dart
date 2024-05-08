@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:rest_api_ex/config/common/sized_box_values.dart';
+import 'package:rest_api_ex/config/navigate_to.dart';
 import 'package:rest_api_ex/design/color_styles.dart';
 import 'package:rest_api_ex/design/font_styles.dart';
-
-import '../../../../config/common/sized_box_values.dart';
+import 'package:rest_api_ex/design/svg_icon.dart';
+import 'package:rest_api_ex/screen/home/store_review_list.dart';
 
 class StoreInfoWidget extends StatelessWidget {
   const StoreInfoWidget({super.key});
@@ -13,7 +16,7 @@ class StoreInfoWidget extends StatelessWidget {
     return Column(
       children: [
         // 가게 정보
-        storeInfo(),
+        storeInfo(context),
 
         const SizedBox(height: 5),
 
@@ -36,7 +39,7 @@ class StoreInfoWidget extends StatelessWidget {
   }
 
   // 가게 정보
-  Widget storeInfo() {
+  Widget storeInfo(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(15.0),
       child: Column(
@@ -46,19 +49,27 @@ class StoreInfoWidget extends StatelessWidget {
             '참바른빵',
             style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
           ),
-
-          const SizedBox(height: 5),
           // 리뷰
-          const Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                CupertinoIcons.star_fill,
-                size: 20,
-                color: AppColors.yellow,
+          GestureDetector(
+            onTap: () => navigateTo(context, const StoreReviewList()),
+            child: Container(
+              decoration: const BoxDecoration(color: Colors.transparent),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SvgIcon.tagStar(
+                      width: 14, height: 14, color: AppColors.yellow),
+                  const SizedBox(width: 5),
+                  const Text('4.8(21) 리뷰 16개'),
+                  const Icon(
+                    size: 20,
+                    Icons.chevron_right,
+                    color: AppColors.gray6,
+                  ),
+                ],
               ),
-              Text('4.8(21) 리뷰 16개 >'),
-            ],
+            ),
           ),
           const SizedBox(height: 5),
 

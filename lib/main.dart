@@ -10,9 +10,9 @@ import 'package:rest_api_ex/screen/view_model/edit_my_profile_view_model.dart';
 import 'package:rest_api_ex/screen/view_model/reset_pw_view_model.dart';
 import 'package:rest_api_ex/screen/view_model/email_auth_view_model.dart';
 import 'package:rest_api_ex/screen/view_model/email_request_view_model.dart';
+import 'package:rest_api_ex/screen/splash/first_splash_screen.dart';
 import 'package:rest_api_ex/screen/view_model/setting_view_model.dart';
 import 'package:rest_api_ex/screen/view_model/store_info_view_model.dart';
-import 'package:rest_api_ex/screen/my_bottom_navigation.dart';
 import 'package:rest_api_ex/screen/view_model/sign_in_view_model.dart';
 import 'package:rest_api_ex/screen/sign_in/user_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -72,7 +72,7 @@ class MyApp extends StatelessWidget {
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: MyBottomNavigation(),
+        home: FirstSplashScreen(),
       ),
     );
   }

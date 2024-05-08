@@ -52,6 +52,10 @@ class SvgIcon {
     return fromAsset('ic_logo', width: width, height: height, color: color);
   }
 
+  static Widget backToTheFutureTextLogo({double width = 142, double height = 114, Color? color}) {
+    return fromAsset('ic_bttf_text_logo', width: width, height: height, color: color);
+  }
+
   static Widget downArrow(
       {double width = 16, double height = 16, Color? color}) {
     return fromAsset('ic_down_arrow_1',

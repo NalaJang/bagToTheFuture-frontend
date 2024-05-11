@@ -95,9 +95,12 @@ class _CustomerServiceScreenState extends State<CustomerServiceScreen> {
                     ),
                   ),
                 ),
-                Text(
-                  qnaList[index].question,
-                  style: FontStyles.Body7.copyWith(color: AppColors.black),
+                Expanded(
+                  child: Text(
+                    qnaList[index].question,
+                    style: FontStyles.Body7.copyWith(color: AppColors.black, overflow: TextOverflow.clip),
+                    maxLines: 2,
+                  ),
                 ),
               ],
             ),

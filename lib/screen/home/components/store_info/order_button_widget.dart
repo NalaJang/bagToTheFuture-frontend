@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rest_api_ex/design/color_styles.dart';
+import 'package:rest_api_ex/design/font_styles.dart';
+import 'package:rest_api_ex/screen/home/order_screen.dart';
 import 'package:rest_api_ex/screen/view_model/store_info_view_model.dart';
 import 'package:rest_api_ex/utils/number_util.dart';
-
-import '../../order_screen.dart';
 
 class OrderButtonWidget extends StatelessWidget {
   const OrderButtonWidget({super.key});
@@ -15,7 +16,7 @@ class OrderButtonWidget extends StatelessWidget {
 
     return Container(
       decoration: const BoxDecoration(
-          color: Colors.white,
+          color: AppColors.white,
           border: Border(
               top: BorderSide(
             color: Color(0xffe8e8e8),
@@ -31,8 +32,8 @@ class OrderButtonWidget extends StatelessWidget {
         padding: const EdgeInsets.all(30.0),
         child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white,
-                backgroundColor: Colors.green,
+                foregroundColor: AppColors.white,
+                backgroundColor: AppColors.main,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10))),
 
@@ -48,8 +49,11 @@ class OrderButtonWidget extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(15.0),
               child: totalPrice == null
-                  ? const Text('예약하기')
-                  : Text('$totalPrice원 예약하기'),
+                  ? const Text('예약하기', style: FontStyles.Body1)
+                  : Text(
+                      '$totalPrice원 예약하기',
+                      style: FontStyles.Body1,
+                    ),
             )),
       ),
     );

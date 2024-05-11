@@ -13,7 +13,9 @@ class SizedBoxValues {
 
   static const gapH4 = SizedBox(height: 4);
   static const gapH5 = SizedBox(height: 5);
+  static const gapH7 = SizedBox(height: 7);
   static const gapH10 = SizedBox(height: 10);
   static const gapH15 = SizedBox(height: 15);
+  static const gapH18 = SizedBox(height: 18);
   static const gapH20 = SizedBox(height: 20);
 }

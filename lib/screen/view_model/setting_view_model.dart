@@ -31,8 +31,6 @@ class SettingViewModel with ChangeNotifier {
       _isEnabledOrderAlarm = true;
       _orderAlarmStatus = SvgIcon.enabledToggle();
     } else {
-      final response = await Permission.notification.request();
-      debugPrint('response: $response');
       _isEnabledOrderAlarm = false;
       _orderAlarmStatus = SvgIcon.disabledToggle();
     }

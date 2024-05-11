@@ -52,6 +52,12 @@ class SvgIcon {
     return fromAsset('ic_logo', width: width, height: height, color: color);
   }
 
+  static Widget backToTheFutureTextLogo(
+      {double width = 142, double height = 114, Color? color}) {
+    return fromAsset('ic_bttf_text_logo',
+        width: width, height: height, color: color);
+  }
+
   static Widget downArrow(
       {double width = 16, double height = 16, Color? color}) {
     return fromAsset('ic_down_arrow_1',
@@ -182,5 +188,37 @@ class SvgIcon {
   static Widget edit(
       {required double width, required double height, required Color color}) {
     return fromAsset('ic_edit', width: width, height: height, color: color);
+  }
+
+  static Widget home({double width = 24, double height = 24, Color? color}) {
+    return fromAsset('ic_home', width: width, height: height, color: color);
+  }
+
+  static Widget myFavorite(
+      {double width = 24, double height = 24, Color? color}) {
+    return fromAsset('ic_my_favorite',
+        width: width, height: height, color: color);
+  }
+
+  static Widget myPage({double width = 24, double height = 24, Color? color}) {
+    return fromAsset('ic_my_page', width: width, height: height, color: color);
+  }
+
+  static Widget activatedHome(
+      {double width = 24, double height = 24, Color? color}) {
+    return fromAsset('ic_activated_home',
+        width: width, height: height, color: color);
+  }
+
+  static Widget activatedMyFavorite(
+      {double width = 24, double height = 24, Color? color}) {
+    return fromAsset('ic_activated_my_favorite',
+        width: width, height: height, color: color);
+  }
+
+  static Widget activatedMyPage(
+      {double width = 24, double height = 24, Color? color}) {
+    return fromAsset('ic_activated_my_page',
+        width: width, height: height, color: color);
   }
 }

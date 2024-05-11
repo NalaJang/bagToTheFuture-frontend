@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rest_api_ex/config/common/sized_box_values.dart';
 import 'package:rest_api_ex/config/custom_snack_bar.dart';
+import 'package:rest_api_ex/config/navigate_to.dart';
+import 'package:rest_api_ex/design/color_styles.dart';
+import 'package:rest_api_ex/design/font_styles.dart';
 import 'package:rest_api_ex/design/svg_icon.dart';
+import 'package:rest_api_ex/screen/my_bottom_navigation.dart';
 import 'package:rest_api_ex/screen/view_model/sign_in_view_model.dart';
 
 import '../../config/social_sign_in.dart';
@@ -18,7 +21,7 @@ class SignInScreen extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // 로고와 인사말
             signInTitle(),
@@ -31,6 +34,9 @@ class SignInScreen extends StatelessWidget {
 
             // 이메일 로그인 버튼
             emailSignInButton(context),
+
+            // 회원가입 없이 둘러보기
+            _goToHomeScreen(context),
           ],
         ),
       ),
@@ -41,14 +47,16 @@ class SignInScreen extends StatelessWidget {
   Widget signInTitle() {
     return Column(
       children: [
-        SvgIcon.logo(width: 50, height: 50),
-        SizedBoxValues.gapH20,
-        const Text(
-          '마감 세일 상품을 \n서프라이즈 백으로 만나보세요',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 20.0,
-            fontWeight: FontWeight.bold,
+        SvgIcon.logo(width: 82, height: 102),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(0, 30, 0, 39),
+          child: Text(
+            '마감 세일 상품을 \n서프라이즈 백으로 만나보세요',
+            textAlign: TextAlign.center,
+            style: FontStyles.Title2.copyWith(
+              color: AppColors.black,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ],
@@ -97,6 +105,19 @@ class SignInScreen extends StatelessWidget {
         );
       },
       child: const Text('이메일 로그인'),
+    );
+  }
+
+  Widget _goToHomeScreen(BuildContext context) {
+    return TextButton(
+      onPressed: () => navigateTo(context, const MyBottomNavigation()),
+      child: Text(
+        '회원가입 없이 둘러보기',
+        style: FontStyles.Caption2.copyWith(
+          color: AppColors.gray4,
+          decoration: TextDecoration.underline,
+        ),
+      ),
     );
   }
 }

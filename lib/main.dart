@@ -6,9 +6,13 @@ import 'package:provider/provider.dart';
 import 'package:rest_api_ex/config/di.dart';
 import 'package:rest_api_ex/config/social_sign_in.dart';
 import 'package:rest_api_ex/screen/home/home_viewmodel.dart';
+import 'package:rest_api_ex/screen/view_model/edit_my_profile_view_model.dart';
+import 'package:rest_api_ex/screen/view_model/reset_pw_view_model.dart';
+import 'package:rest_api_ex/screen/view_model/email_auth_view_model.dart';
+import 'package:rest_api_ex/screen/view_model/email_request_view_model.dart';
+import 'package:rest_api_ex/screen/splash/first_splash_screen.dart';
 import 'package:rest_api_ex/screen/view_model/setting_view_model.dart';
 import 'package:rest_api_ex/screen/view_model/store_info_view_model.dart';
-import 'package:rest_api_ex/screen/my_bottom_navigation.dart';
 import 'package:rest_api_ex/screen/view_model/sign_in_view_model.dart';
 import 'package:rest_api_ex/screen/sign_in/user_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -57,14 +61,18 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => StoreInfoViewModel()),
         ChangeNotifierProvider(create: (_) => UserProvider()),
         ChangeNotifierProvider<HomeViewModel>(create: (_) => HomeViewModel()),
+        ChangeNotifierProvider<EmailRequestViewModel>(create: (_) => EmailRequestViewModel()),
+        ChangeNotifierProvider<EmailAuthViewModel>(create: (_) => EmailAuthViewModel()),
         ChangeNotifierProvider(
             create: (context) =>
                 SignInViewModel(socialSignIn: SocialSignIn(context))),
+        ChangeNotifierProvider(create: (_) => ResetPwViewModel()),
+        ChangeNotifierProvider(create: (_) => EditMyProfileViewModel()),
         ChangeNotifierProvider(create: (_) => SettingViewModel()),
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: MyBottomNavigation(),
+        home: FirstSplashScreen(),
       ),
     );
   }

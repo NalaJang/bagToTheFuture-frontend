@@ -1,11 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:rest_api_ex/config/common/sized_box_values.dart';
 import 'package:rest_api_ex/config/navigate_to.dart';
 import 'package:rest_api_ex/design/color_styles.dart';
 import 'package:rest_api_ex/design/font_styles.dart';
 import 'package:rest_api_ex/design/svg_icon.dart';
+import 'package:rest_api_ex/screen/my_page/edit_my_profile_screen.dart';
 import 'package:rest_api_ex/screen/my_page/order_list_screen.dart';
 import 'package:rest_api_ex/screen/my_page/my_review_list_screen.dart';
 import 'package:rest_api_ex/screen/my_page/setting_screen.dart';
@@ -67,9 +66,18 @@ class UserWidget extends StatelessWidget {
         SizedBoxValues.gapH10,
 
         // 이름
-        const Text(
-          '김창영 님',
-          style: FontStyles.Title3,
+        GestureDetector(
+          onTap: () => navigateTo(context, const EditMyProfileScreen()),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                '김창영 님',
+                style: FontStyles.Title3,
+              ),
+              SvgIcon.arrowRight(width: 16, height: 16, color: AppColors.gray4)
+            ],
+          ),
         ),
       ],
     );

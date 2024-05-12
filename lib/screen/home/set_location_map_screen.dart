@@ -325,6 +325,9 @@ class _SetLocationMapScreen extends State<SetLocationMapScreen> {
 
 
 Widget AddressBottomSheet(String address, String detail, TextEditingController controller, BuildContext context, Future<void> Function() onAction) {
+  controller.addListener(() {
+    (context as Element).markNeedsBuild();
+  });
   return Container(
     width: MediaQuery.of(context).size.width,
     decoration: BoxDecoration(
@@ -383,14 +386,10 @@ Widget AddressBottomSheet(String address, String detail, TextEditingController c
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 17, vertical: 23),
           child: TextButton(
-            onPressed: () async {
-              if(controller.text.isNotEmpty) {
-                await onAction();
-                Navigator.pop(context);
-              } else {
-
-              }
-            },
+            onPressed: controller.text.isNotEmpty ? () async {
+              await onAction();
+              Navigator.pop(context);
+            } : null,
             style: TextButton.styleFrom(
               backgroundColor: controller.text.isEmpty ? AppColors.gray4 : AppColors.main,
               shape: RoundedRectangleBorder(

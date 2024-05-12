@@ -1,6 +1,7 @@
 import UIKit
 import Flutter
 import NaverThirdPartyLogin
+import CoreLocation
 
 @UIApplicationMain
 @objc class AppDelegate: FlutterAppDelegate {
@@ -23,7 +24,7 @@ import NaverThirdPartyLogin
     if CLLocationManager.locationServicesEnabled() {
         switch CLLocationManager.authorizationStatus() {
             case .denied, .notDetermined, .restricted:
-                self.manager.requestAlwaysAuthorization()
+                locationManager.requestAlwaysAuthorization()
                 break
             default:
                 break

@@ -19,9 +19,9 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 
-	<key>NSLocationWhenInUseageDescription</key>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>This app needs access to location when open.</string>
-	<key>NSLocationAlwaysUsageDescription</key>
+	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>This app needs access to location when in the background.</string>
 
 	<key>CFBundleShortVersionString</key>
@@ -109,5 +109,11 @@
 	<string>BackToTheFuture_Test</string>
 	<key>naverServiceAppUrlScheme</key>
 	<string>backToTheFuture</string>
+	<key>NMFClientId</key>
+	<string>rwvum8nblb</string>
+	<key>io.flutter.embedded_views_preview</key>
+	<true/>
+	<key>NSAllowsArbitraryLoads</key>
+	<true/>
 </dict>
 </plist>

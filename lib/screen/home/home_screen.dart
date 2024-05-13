@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,7 @@ class HomeScreen extends StatefulWidget {
 
   class _HomeScreenState extends State<HomeScreen> {
     var messageString = "";
+
     void getMyDeviceToken() async {
       final token = await FirebaseMessaging.instance.getToken();
       print('내 디바이스 토큰: $token');
@@ -30,7 +32,9 @@ class HomeScreen extends StatefulWidget {
 
     @override
     void initState() {
-      getMyDeviceToken();
+      if(Platform.isAndroid) {
+        getMyDeviceToken();
+      }
       FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
         RemoteNotification? notification = message.notification;
         if(notification != null) {
@@ -56,9 +60,11 @@ class HomeScreen extends StatefulWidget {
 
     @override
     Widget build(BuildContext context) {
+      final viewModel = Provider.of<HomeViewModel>(context, listen: true);
       return Scaffold(
           appBar: AppBar(
               backgroundColor: AppColors.white,
+              automaticallyImplyLeading: false,
               titleSpacing: 0.0,
               title: GestureDetector(
                 onTap: () async {
@@ -78,7 +84,7 @@ class HomeScreen extends StatefulWidget {
                     ),
                     //선정한 데이터 기반으로 바뀌어지도록 하기
                     Text(
-                      '우리집',
+                      viewModel.address,
                       style: FontStyles.Title4.copyWith(color: AppColors.black),
                     ),
                     IconButton(

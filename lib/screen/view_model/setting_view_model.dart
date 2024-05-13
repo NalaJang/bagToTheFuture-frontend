@@ -7,6 +7,7 @@ import 'package:rest_api_ex/design/svg_icon.dart';
 
 import 'package:rest_api_ex/screen/sign_in/sign_in_screen.dart';
 import 'package:rest_api_ex/screen/my_bottom_navigation.dart';
+import 'package:rest_api_ex/screen/sign_up/sign_up_screen.dart';
 import 'package:rest_api_ex/screen/view_model/sign_in_view_model.dart';
 
 
@@ -64,7 +65,7 @@ class SettingViewModel with ChangeNotifier {
   }
 
   void logout(BuildContext context) async {
-    navigatePushAndRemoveUtilTo(context, const MyBottomNavigation());
+    navigatePushAndRemoveUtilTo(context, const SignUpScreen(userEmail: ""));
 
     final viewModel = Provider.of<SignInViewModel>(context, listen: false);
 

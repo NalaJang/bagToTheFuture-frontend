@@ -7,6 +7,8 @@ class HomeViewModel with ChangeNotifier {
 
   List<MyLocationModel> get items => _item;
 
+  late String address="주소를 지정해 주세요";
+
   Future<void> addItem(String title, String description) async{
     _item.add(MyLocationModel(title: title, description: description));
     print('완료');
@@ -18,5 +20,10 @@ class HomeViewModel with ChangeNotifier {
       _item.removeAt(index);
       notifyListeners();
     }
+  }
+
+  Future<void> setAddress(String newAddress) async {
+    this.address = newAddress;
+    notifyListeners();
   }
 }

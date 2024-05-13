@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,7 @@ class HomeScreen extends StatefulWidget {
 
   class _HomeScreenState extends State<HomeScreen> {
     var messageString = "";
+
     void getMyDeviceToken() async {
       final token = await FirebaseMessaging.instance.getToken();
       print('내 디바이스 토큰: $token');
@@ -30,7 +32,9 @@ class HomeScreen extends StatefulWidget {
 
     @override
     void initState() {
-      getMyDeviceToken();
+      if(Platform.isAndroid) {
+        getMyDeviceToken();
+      }
       FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
         RemoteNotification? notification = message.notification;
         if(notification != null) {

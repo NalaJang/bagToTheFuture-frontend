@@ -26,23 +26,25 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 }
 
 void initializeNotification() async {
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   if(Platform.isAndroid) {
-    final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-    await flutterLocalNotificationsPlugin
-        .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
-        ?.createNotificationChannel(const AndroidNotificationChannel(
-        'high_importance_channel', 'high_importance_notification',
-        importance: Importance.max));
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+    if(Platform.isAndroid) {
+      final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+      await flutterLocalNotificationsPlugin
+          .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
+          ?.createNotificationChannel(const AndroidNotificationChannel(
+          'high_importance_channel', 'high_importance_notification',
+          importance: Importance.max));
 
-    await flutterLocalNotificationsPlugin.initialize(const InitializationSettings(
-      android:AndroidInitializationSettings("@mipmap/ic_launcher"),
-    ));
-    await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
-      alert: true,
-      badge: true,
-      sound: true,
-    );
+      await flutterLocalNotificationsPlugin.initialize(const InitializationSettings(
+        android:AndroidInitializationSettings("@mipmap/ic_launcher"),
+      ));
+      await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+        alert: true,
+        badge: true,
+        sound: true,
+      );
+    }
   }
 }
 
@@ -52,9 +54,11 @@ void main() async {
   String? clientId = dotenv.env['NAVER_MAP_CLIENT_ID'];
   await NaverMapSdk.instance.initialize(clientId: clientId);
   await initModule();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  if(Platform.isAndroid) {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+  }
   runApp(const MyApp());
 }
 
